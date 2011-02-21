@@ -9,22 +9,22 @@ class ShopModule extends CWebModule
 	public $installDemoData = true;
 
 	// Name of the category Table
-	public $categoryTable = 'ShopCategory';
+	public $categoryTable = 'shop_category';
 
 	// Name of the products Table
-	public $productsTable = 'ShopProducts';
+	public $productsTable = 'shop_products';
 
 	// Name of the shopping Cart Table
-	public $shoppingCartTable = 'ShopShoppingCart';
+	public $shoppingCartTable = 'shop_shoppingcart';
 
 	// Name of the order Table
-	public $orderTable = 'ShopOrder';
+	public $orderTable = 'shop_order';
 
 	// Name of the customer Table
-	public $customerTable = 'ShopCustomer';
+	public $customerTable = 'shop_customer';
 
 	// Name of the image Table
-	public $imageTable = 'ShopImage';
+	public $imageTable = 'shop_image';
 
 	// Where the uploaded product images are stored:
 	public $productImagesFolder = 'productimages'; // Approot/...

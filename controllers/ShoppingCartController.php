@@ -1,10 +1,7 @@
 <?php
 
-class ShoppingCartController extends CController
+class ShoppingCartController extends Controller
 {
-	public $breadcrumbs;
-	private $_model;
-
 	public function actionView()
 	{
 		$this->render('view',array(

@@ -1,8 +1,10 @@
 <?php
 
-class ShopController extends CController
+class ShopController extends Controller
 {
 	public $breadcrumbs;
+	public $menu;
+	public $_model;
 
 	public function actionInstall() 
 	{

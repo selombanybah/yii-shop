@@ -1,12 +1,7 @@
 <?php
 
-class CategoryController extends CController
+class CategoryController extends Controller
 {
-	public $breadcrumbs;
-	public $menu;
-
-	private $_model;
-
 	public function beforeAction($action)
 	{
 		if(isset(Yii::app()->controller->module->layout))

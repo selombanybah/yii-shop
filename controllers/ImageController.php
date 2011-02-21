@@ -1,10 +1,7 @@
 <?php
 
-class ImageController extends CController
+class ImageController extends Controller
 {
-	public $breadcrumbs;
-	private $_model;
-
 	public function actionView()
 	{
 		$this->render('view',array(
