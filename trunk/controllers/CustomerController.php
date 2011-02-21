@@ -2,8 +2,6 @@
 
 class CustomerController extends Controller
 {
-	private $_model;
-	public $breadcrumbs;
 	public $layout = 'column2';
 
 	public function actionView()

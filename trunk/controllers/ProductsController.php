@@ -1,11 +1,7 @@
 <?php
 
-class ProductsController extends CController
+class ProductsController extends Controller
 {
-	public $breadcrumbs;
-
-	private $_model;
-
 	public function actionView()
 	{
 		$this->render('view',array(
