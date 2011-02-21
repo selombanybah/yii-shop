@@ -1,0 +1,33 @@
+Thank you for choosing the Yii Webshop Module
+
+The following Configuration Options can be configured:
+
+	// Is the Shop in debug Mode?
+	public $debug = false;
+
+  // Whether the installer should install some demo data
+	public $installDemoData = true;
+
+	// Name of the category Table
+	public $categoryTable = 'YiiShopCategory';
+
+	// Name of the products Table
+	public $productsTable = 'YiiShopProducts';
+
+	// Name of the shopping Cart Table
+	public $shoppingCartTable = 'YiiShopShoppingCart';
+
+	// Name of the order Table
+	public $orderTable = 'YiiShopOrder';
+
+	// Name of the customer Table
+	public $customerTable = 'YiiShopCustomer';
+
+	// Name of the image Table
+	public $imageTable = 'YiiShopImage';
+
+	// Where the uploaded product images are stored:
+	public $productImagesFolder = '/Productimages'; // Approot/...
+
+
+Specify them under your protected/config/main.php in the 'modules' section.
