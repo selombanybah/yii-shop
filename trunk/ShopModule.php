@@ -8,23 +8,16 @@ class ShopModule extends CWebModule
   // Whether the installer should install some demo data
 	public $installDemoData = true;
 
-	// Name of the category Table
+	// Names of the tables
 	public $categoryTable = 'shop_category';
-
-	// Name of the products Table
 	public $productsTable = 'shop_products';
-
-	// Name of the shopping Cart Table
-	public $shoppingCartTable = 'shop_shoppingcart';
-
-	// Name of the order Table
 	public $orderTable = 'shop_order';
-
-	// Name of the customer Table
 	public $customerTable = 'shop_customer';
-
-	// Name of the image Table
 	public $imageTable = 'shop_image';
+	public $productSpecificationTable = 'shop_product_specification';
+	public $productVariationTable = 'shop_product_variation';
+
+	public $loginUrl = array('/site/login');
 
 	// Where the uploaded product images are stored:
 	public $productImagesFolder = 'productimages'; // Approot/...

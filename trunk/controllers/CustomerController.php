@@ -2,7 +2,6 @@
 
 class CustomerController extends Controller
 {
-	public $layout = 'column2';
 
 	public function actionView()
 	{
@@ -15,13 +14,14 @@ class CustomerController extends Controller
 	{
 		$model=new Customer;
 
-		$this->performAjaxValidation($model);
-
 		if(isset($_POST['Customer']))
 		{
-			$model->attributes=$_POST['Customer'];
+			$model->attributes = $_POST['Customer'];
+
 			if($model->save())
-				$this->redirect(array('/order/success','id'=>$model->customer_id));
+				$this->redirect(
+						array(
+							'//shop/order/create', 'customer'=>$model->customer_id));
 		}
 
 		$this->render('create',array(

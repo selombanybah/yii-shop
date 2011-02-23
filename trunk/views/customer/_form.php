@@ -8,10 +8,23 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-		<?php echo $form->hiddenField($model, 'userid', array('value'=> Yii::app()->User->id)); ?>
+		<?php echo $form->hiddenField($model, 'user_id', array('value'=> Yii::app()->user->id)); ?>
 
 	<div class="row">
-		<?php echo $form->hiddenField($model, 'userid', array('value' => '1')); ?>
+		<?php echo $form->labelEx($model,'firstname'); ?>
+		<?php echo $form->textField($model,'firstname',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->error($model,'firstname'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'lastname'); ?>
+		<?php echo $form->textField($model,'lastname',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->error($model,'lastname'); ?>
+	</div>
+
+
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'address'); ?>
 		<?php echo $form->textField($model,'address',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($model,'address'); ?>

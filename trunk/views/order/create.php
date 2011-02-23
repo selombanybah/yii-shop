@@ -6,43 +6,24 @@ $this->breadcrumbs=array(
 
 ?>
 
-<h1>I want to buy this Items </h1>
+<?php 
+$this->renderPartial('application.modules.shop.views.shoppingCart.view'); 
 
-<div class="form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'order-form',
-	'enableAjaxValidation'=>true,
-)); ?>
-
-<?php
-
-$Carts = ShoppingCart::getCartsofOwner();
+if(!Yii::app()->user->isGuest) 
+	$this->renderPartial('application.modules.shop.views.customer.view', array(
+				'model' => Customer::model()->find('user_id = :uid', array(
+						':uid' => Yii::app()->user->id))));
+elseif(isset($customer))
+	$this->renderPartial('application.modules.shop.views.customer.view', array(
+				'model' => $customer));
 
 
-echo '<table>';
-foreach($Carts as $Cart) {
-	$price = (float) $Cart->Product->price;
-	printf('<tr><td> %s %s %s (%s * %s = %s) </td></tr>',
-		$Cart->amount,
-		Yii::t('ShopModule.shop', 'of'),
-		$Cart->Product->title,
-		$price,	
-		$Cart->amount,
-		$Cart->amount * $price	);
-}
 
-echo '</table>';
-?>
+	?>
 
-<?php echo $form->hiddenField($model,'customer_id', array('value' => $customer_id)); ?>
-<?php echo $form->hiddenField($model,'cartowner', array('value' => Yii::app()->User->getState('cartowner'))); ?>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton(Yii::t('ShopModule.shop', 'Confirm Order')); ?>
-		<?php echo CHtml::Button(Yii::t('ShopModule.shop', 'Cancel')); ?>
+		<?php echo CHtml::Button(Shop::t('Confirm Order')); ?>
+		<?php echo CHtml::Button(Shop::t('Cancel')); ?>
 	</div>
 
-<?php $this->endWidget(); ?>
-
-</div><!-- form -->

@@ -1,13 +1,15 @@
 <?php 
 $folder = Yii::app()->controller->module->productImagesFolder;
-echo CHtml::Image($folder . '/' . $model->filename,
+
+echo CHtml::image(Yii::app()->baseUrl. '/' . $folder . '/' . $model->filename,
 		$model->title,
 		array(
-			'width' => 200,
-			'height' => 150)
+			'title' => $model->title,
+			'style' => 'margin: 10px;',
+			'width' => 150)
 		); ?>
 <?php 
 
-if(!Yii::app()->user->isGuest) 
+if(Yii::app()->user->isAdmin()) 
 	echo CHtml::link(Yii::t('ShopModule.shop', 'Delete Image'),
 			array('delete', 'id' => $model->id)); ?>

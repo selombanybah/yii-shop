@@ -54,12 +54,15 @@ your Yii Web Application </p>
 <td> <?php echo CHtml::textField('categoryTable', Yii::app()->controller->module->categoryTable); ?> </td> </tr>
 <tr> 
 <td> Table for Products </td>
-
 <td> <?php echo CHtml::textField('productsTable', Yii::app()->controller->module->productsTable); ?> </td> </tr>
 <tr> 
-<td> Table for the Shopping Carts </td>
-<td> <?php echo CHtml::textField('shoppingCartTable', Yii::app()->controller->module->shoppingCartTable); ?> </td> </tr>
 <tr> 
+<td> Table for Specifications </td>
+<td> <?php echo CHtml::textField('productSpecificationsTable', Yii::app()->controller->module->productSpecificationTable); ?> </td> </tr>
+<tr> 
+<tr> 
+<td> Table for Product Variations </td>
+<td> <?php echo CHtml::textField('productVariationTable', Yii::app()->controller->module->productVariationTable); ?> </td> </tr>
 <td> Table for the Orderings </td>
 <td> <?php echo CHtml::textField('orderTable', Yii::app()->controller->module->orderTable); ?> </td> </tr>
 <tr> 

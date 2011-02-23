@@ -6,11 +6,9 @@ $this->breadcrumbs=array(
 
 ?>
 
-<h2> <?php echo Yii::t('ShopModule.shop','Please enter your Address information'); ?> </h2>
+<h2> <?php echo Shop::t('Please enter your Address information'); ?> </h2>
 
-<h3> Click <?php echo CHtml::link('here', array('/site/login')) ?>, 
+<h3> Click <?php echo CHtml::link('here', Yii::app()->getModule('shop')->loginUrl); ?>, 
 if you are already registered </h3>
 
 <?php echo $this->renderPartial('/customer/_form', array('model'=>$model)); ?>
-
-<h4> Thank you for registering at my webshop </h4>

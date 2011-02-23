@@ -15,21 +15,40 @@ class InstallController extends Controller
 						// Assing table names
 						$categoryTable = $_POST['categoryTable'];
 						$productsTable = $_POST['productsTable'];
-						$shoppingCartTable = $_POST['shoppingCartTable'];
 						$orderTable = $_POST['orderTable'];
 						$customerTable = $_POST['customerTable'];
 						$imageTable = $_POST['imageTable'];
+						$specificationTable = $_POST['productSpecificationsTable'];
+						$variationTable = $_POST['productVariationTable'];
 
 						// Clean up existing Installation
-						$db->createCommand(sprintf('drop table if exists %s, %s, %s, %s, %s, %s',
-									$shoppingCartTable,
+						$db->createCommand(sprintf('drop table if exists %s, %s, %s, %s, `%s`, %s, %s',
 									$categoryTable, 
 									$productsTable, 
 									$orderTable,
 									$customerTable,
-									$imageTable
-									)
+									$imageTable,
+									$variationTable,
+									$specificationTable)
 								)->execute();
+
+						$sql = "CREATE TABLE IF NOT EXISTS `".$specificationTable."` (
+							`id` int(11) NOT NULL AUTO_INCREMENT,
+							`title` varchar(255) NOT NULL,
+							PRIMARY KEY (`id`)
+								) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+						$db->createCommand($sql)->execute();
+
+						$sql = "CREATE TABLE IF NOT EXISTS `".$variationTable."` (
+							`id` int(11) NOT NULL AUTO_INCREMENT,
+							`product_id` int(11) NOT NULL,
+							`specification_id` int(11) NOT NULL,
+							`title` varchar(255) NOT NULL,
+							`price_adjustion` float NOT NULL,
+							PRIMARY KEY (`id`)
+								) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+
+						$db->createCommand($sql)->execute();
 
 						// Create Category Table
 						$sql = "CREATE TABLE IF NOT EXISTS `".$categoryTable."` (
@@ -50,12 +69,8 @@ class InstallController extends Controller
 							`title` VARCHAR(45) NOT NULL ,
 							`description` TEXT NULL ,
 							`price` VARCHAR(45) NULL ,
-							`color` VARCHAR(45) NULL ,
-							`weight` VARCHAR(45) NULL ,
-							`material` VARCHAR(45) NULL ,
-							`size` VARCHAR(45) NULL ,
-							`unit` VARCHAR(45) NULL ,
 							`language` VARCHAR(45) NULL ,
+							`specifications` TEXT NULL ,
 							PRIMARY KEY (`product_id`) ,
 							INDEX `fk_products_category` (`category_id` ASC) ,
 							CONSTRAINT `fk_products_category`
@@ -72,41 +87,25 @@ class InstallController extends Controller
 						// Create Customer Table
 						$sql = "CREATE  TABLE IF NOT EXISTS   `".$customerTable."` (
 							`customer_id` INT NOT NULL AUTO_INCREMENT ,
-							`userid` INT NOT NULL ,
+							`user_id` INT NOT NULL ,
+							`firstname` varchar(255) NOT NULL,
+							`lastname` varchar(255) NOT NULL,
 							`address` VARCHAR(45) NOT NULL ,
 							`zipcode` VARCHAR(45) NOT NULL ,
 							`city` VARCHAR(45) NOT NULL ,
 							`country` VARCHAR(45) NOT NULL ,
 							`email` VARCHAR(45) NOT NULL ,
+							`delivery_address` varchar(255) NOT NULL,
+							`delivery_zipcode` varchar(255) NOT NULL,
+							`delivery_city` varchar(255) NOT NULL,
+							`billing_address` varchar(255) NOT NULL,
+							`billing_zipcode` varchar(255) NOT NULL,
+							`billing_city` varchar(255) NOT NULL,
 							PRIMARY KEY (`customer_id`) )
 								ENGINE = InnoDB;";
 
 						$db->createCommand($sql)->execute();
 
-
-						// Create Shopping Cart Table
-						$sql = "CREATE  TABLE IF NOT EXISTS `".$shoppingCartTable."`  (
-							`cart_id` INT NOT NULL AUTO_INCREMENT ,
-							`amount` FLOAT NULL ,
-							`product_id` INT NOT NULL ,
-							`customer_id` INT NULL ,
-							`cartowner` INT UNSIGNED NOT NULL ,
-							PRIMARY KEY (`cart_id`) ,
-							INDEX `fk_shopping_cart_products` (`product_id` ASC) ,
-							INDEX `fk_shopping_cart_customer` (`customer_id` ASC) ,
-							CONSTRAINT `fk_shopping_cart_products`
-								FOREIGN KEY (`product_id` )
-								REFERENCES `".$productsTable."` (`product_id` )
-								ON DELETE NO ACTION
-								ON UPDATE NO ACTION,
-							CONSTRAINT `fk_shopping_cart_customer`
-								FOREIGN KEY (`customer_id` )
-								REFERENCES `".$customerTable."` (`customer_id` )
-								ON DELETE NO ACTION
-								ON UPDATE NO ACTION)
-								ENGINE = InnoDB;";
-
-						$db->createCommand($sql)->execute();
 
 						// Create Order Table
 
@@ -180,11 +179,11 @@ class InstallController extends Controller
 
 							$db->createCommand($sql)->execute();
 
-							$sql = "INSERT INTO `".$customerTable."` (`customer_id`, `userid`, `address`, `zipcode`, `city`, `country`, `email`) VALUES (1, 1, 'Adress', '11111', 'Perth', 'Australia', 'demo@demo.de');";
+							$sql = "INSERT INTO `".$customerTable."` (`customer_id`, `user_id`, `address`, `zipcode`, `city`, `country`, `email`) VALUES (1, 1, 'Adress', '11111', 'Perth', 'Australia', 'demo@demo.de');";
 
 							$db->createCommand($sql)->execute();
 
-							$sql = "INSERT INTO `".$productsTable."` (`product_id`, `title`, `description`, `price`, `color`, `weight`, `material`, `size`, `unit`, `category_id`) VALUES (1, 'Demonstration of Article 1', 'Hello, World!', '19.99', 'White', '12 Kilo', 'Steel', '5cm x 5cm x 5cm', 'Piece', 1), (2, 'Another Demo Article', '!!', '29.99', 'Yellow', 'unliftable', 'Gold', '1 meter', 'pieces', 1), (3, 'Demo3', '', '', '', '', '', '', '', 2), (4, 'Demo4', '', '7, 55', 'Grau', '12 Gramm', 'Edelstahl', '5cm x 5cm x 5cm', 'Gramm', 4); ";
+							$sql = "INSERT INTO `".$productsTable."` (`product_id`, `title`, `description`, `price`, `category_id`) VALUES (1, 'Demonstration of Article 1', 'Hello, World!', '19.99', 1), (2, 'Another Demo Article', '!!', '29.99', 1), (3, 'Demo3', '', '', 2), (4, 'Demo4', '', '7, 55', 4); ";
 
 
 							$db->createCommand($sql)->execute();

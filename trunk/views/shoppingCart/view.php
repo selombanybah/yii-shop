@@ -1,3 +1,7 @@
+<?php if(!isset($products)) {
+$products = array();
+$products = json_decode(Yii::app()->user->getState('cart'), true);
+} ?>
 <h2> <?php echo Shop::t('Shopping cart'); ?> </h2>
 
 <?php
@@ -44,8 +48,12 @@ if($products) {
 } else echo Shop::t('Your shopping cart is empty'); ?>
 
 <hr />
-<?php echo CHtml::link(Shop::t('Buy additional Products'), array('//shop/products')); ?>
 
-<br />
-<?php echo CHtml::link(Shop::t('Buy this products'), array('//shop')); ?>
+<?php if(Yii::app()->controller->id != 'order') {
+ echo CHtml::link(Shop::t('Buy additional Products'), array(
+			'//shop/products')); ?>
+&nbsp;
+<?php echo CHtml::link(Shop::t('Buy this products'), array(
+			'//shop/order/create')); 
+}?>
 
