@@ -2,6 +2,8 @@
 
 class CategoryController extends Controller
 {
+	public $_model;
+
 	public function beforeAction($action)
 	{
 		if(isset(Yii::app()->controller->module->layout))

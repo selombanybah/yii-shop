@@ -2,6 +2,8 @@
 
 class ImageController extends Controller
 {
+	public $_model;
+
 	public function actionView()
 	{
 		$this->render('view',array(
@@ -70,7 +72,7 @@ class ImageController extends Controller
 	{
 		$product = Products::model()->findByPk($_GET['product_id']);
 
-		$images = $product->Images;
+		$images = $product->images;
 
 		$this->render('admin',array( 'images'=>$images, 'product' => $product));
 	}

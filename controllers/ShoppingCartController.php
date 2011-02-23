@@ -4,54 +4,38 @@ class ShoppingCartController extends Controller
 {
 	public function actionView()
 	{
+		session_start();
+		$cart = array();
+
+		$cart = json_decode(Yii::app()->user->getState('cart'), true);
+
 		$this->render('view',array(
-			'model'=>$this->loadModel(),
-		));
+						'products'=>$cart
+						));
 	}
 
 	public function actionCreate()
 	{
-		if(Yii::app()->User->getState('cartowner') == '')
-			Yii::app()->User->setState('cartowner', rand(1, 999999));
+		$cart = array();
 
-		$model=new ShoppingCart;
+		$cart = json_decode(Yii::app()->user->getState('cart'), true);
 
-		$model->attributes=$_POST['ShoppingCart'];
-		$model->cartowner = Yii::app()->User->getState('cartowner');
-
-		// Check if the product sn't already in the Cart:
-		// TODO: Raise an warning to the User
-		if(!ShoppingCart::model()->find('cartowner = :a and product_id = :b', 
-			array(':a' => $model->cartowner, ':b' => $model->product_id)))
-		if($model->save()) 
-			$this->redirect(array('category/view', 'id' => $model->Product->Category->category_id));
-
-
+		unset($_POST['yt0']);
+		$cart[] = $_POST;
+	
+		Yii::app()->user->setState('cart', json_encode($cart));
+		$this->redirect(array('//shop/products/index'));
 	}
 
-	public function actionUpdate()
+	public function actionDelete($id)
 	{
-		$model=$this->loadModel();
+		$id = (int) $id;
+		$cart = json_decode(Yii::app()->user->getState('cart'), true);
 
-		// $this->performAjaxValidation($model);
+		unset($cart[$id]);
+		Yii::app()->user->setState('cart', json_encode($cart));
 
-		if(isset($_POST['ShoppingCart']))
-		{
-			$model->attributes=$_POST['ShoppingCart'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->cart_id));
-		}
-
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
-
-	public function actionDelete()
-	{
-			$this->loadModel()->delete();
-
-			$this->redirect(array('shop/index'));
+			$this->redirect(array('//shop/shoppingCart/view'));
 	}
 
 	public function actionIndex()

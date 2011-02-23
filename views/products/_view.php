@@ -5,36 +5,12 @@
 	<br />
 
 <div style="float:left;margin-right:20px;">
-<?php foreach($data->Images as $image) {
+<?php foreach($data->images as $image) {
 	$this->renderPartial('/image/view', array( 'model' => $image)); 
 } ?>
 </div>
 
-
 <div style="float:left;margin-right:100px;">
-	<b><?php echo CHtml::encode($data->getAttributeLabel('weight')); ?>:</b>
-	<?php echo CHtml::encode($data->weight); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('material')); ?>:</b>
-	<?php echo CHtml::encode($data->material); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('color')); ?>:</b>
-	<?php echo CHtml::encode($data->color); ?>
-	<br />
-
-</div>
-<div>
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('size')); ?>:</b>
-	<?php echo CHtml::encode($data->size); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('unit')); ?>:</b>
-	<?php echo CHtml::encode($data->unit); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('price')); ?>:</b>
 	<?php echo CHtml::encode($data->price) . " €"; ?>
 	<br />

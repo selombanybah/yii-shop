@@ -1,26 +1,51 @@
+<h2> <?php echo Shop::t('Shopping cart'); ?> </h2>
+
 <?php
-$this->breadcrumbs=array(
-	'Shopping Carts'=>array('index'),
-	$model->cart_id,
+if($products) {
+	$price_total = 0;
+
+	echo '<table>';
+	printf('<tr><th>%s</th><th>%s</th><th>%s</th><th>%s</th><th>%s</th></tr>',
+			Shop::t('Amount'),
+			Shop::t('Product'),
+			Shop::t('Variation'),
+			Shop::t('Price Single'),
+			Shop::t('Price Total'),
+			Shop::t('Actions')
 );
+	foreach($products as $position => $product) {
+		if(@$model = Products::model()->findByPk($product['product_id'])) {
+			$price = $model->price;
 
-$this->menu=array(
-	array('label'=>Yii::t('ShopModule.shop', 'List') . ' ShoppingCart', 'url'=>array('index')),
-	array('label'=>Yii::t('ShopModule.shop', 'Create') . ' ShoppingCart', 'url'=>array('create')),
-	array('label'=>Yii::t('ShopModule.shop', 'Update') . ' ShoppingCart', 'url'=>array('update', 'id'=>$model->cart_id)),
-	array('label'=>Yii::t('ShopModule.shop', 'Delete') . ' ShoppingCart', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->cart_id),'confirm'=>Yii::t('ShopModule.shop', 'Are you sure to delete this item?'))),
-	array('label'=>Yii::t('ShopModule.shop', 'Manage') . ' ShoppingCart', 'url'=>array('admin')),
+			$variations = '';
+			if(isset($product['Variations'])) {
+				foreach($product['Variations'] as $specification => $variation) {
+					$specification = ProductSpecification::model()->findByPk($specification);
+					$variation = ProductVariation::model()->findByPk($variation);
+					$variations .= $specification->title . ': ' . $variation->title . '<br />';
+					$price += $variation->price_adjustion;
+				}
+			}
+
+			printf('<tr><td>%s</td><th>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>',
+					$product['amount'],
+					$model->title,
+					$variations,
+					$price,
+					$price * $product['amount'],
+					CHtml::link(Shop::t('Remove'), array('//shop/shoppingCart/delete', 'id' => $position), array('confirm' => Shop::t('Are you sure?')))
 );
-?>
+		$price_total += $price * $product['amount'];
+		}
+	}
+	echo '</table>';
 
-<h1>View ShoppingCart #<?php echo $model->cart_id; ?></h1>
+	echo Shop::t('Price total: {total}', array('{total}' => $price_total));
+} else echo Shop::t('Your shopping cart is empty'); ?>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'cart_id',
-		'amount',
-		'product_id',
-		'customer_id',
-	),
-)); ?>
+<hr />
+<?php echo CHtml::link(Shop::t('Buy additional Products'), array('//shop/products')); ?>
+
+<br />
+<?php echo CHtml::link(Shop::t('Buy this products'), array('//shop')); ?>
+
