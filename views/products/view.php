@@ -17,7 +17,6 @@ foreach($model->images as $image) {
 
 <h3> <?php echo $model->description; ?> </h3>
 
-
 <?php 
 $specs = $model->getSpecifications();
 if($specs) {

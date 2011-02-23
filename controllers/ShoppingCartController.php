@@ -4,7 +4,6 @@ class ShoppingCartController extends Controller
 {
 	public function actionView()
 	{
-		session_start();
 		$cart = array();
 
 		$cart = json_decode(Yii::app()->user->getState('cart'), true);

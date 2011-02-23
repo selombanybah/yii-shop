@@ -11,7 +11,7 @@ $variations = $model->getVariations();
 if($variations) {
 	foreach($variations as $variation) {
 		echo '<div style="float: left;margin: 10px;">';
-		echo CHtml::radioButtonList("Variations[{$variation[0]->specification_id}][]", 0, CHtml::listData($variation, 'id', 'title'));
+		echo CHtml::radioButtonList("Variations[{$variation[0]->specification_id}][]", $variation[0]->id, CHtml::listData($variation, 'id', 'title'));
 		echo '</div>';
 	}
 
