@@ -2,6 +2,8 @@
 
 class ProductsController extends Controller
 {
+	public $_model;
+
 	public function actionView()
 	{
 		$this->render('view',array(
@@ -18,6 +20,8 @@ class ProductsController extends Controller
 		if(isset($_POST['Products']))
 		{
 			$model->attributes=$_POST['Products'];
+			$model->setSpecifications($_POST['Specifications']);
+
 			if($model->save())
 				$this->redirect(array('shop/admin'));
 		}
@@ -36,8 +40,11 @@ class ProductsController extends Controller
 		if(isset($_POST['Products']))
 		{
 			$model->attributes=$_POST['Products'];
+			$model->setSpecifications($_POST['Specifications']);
+			$model->setVariations($_POST['Variations']);
+
 			if($model->save())
-				$this->redirect(array('shop/admin'));
+				$this->redirect(array('products/admin'));
 		}
 
 		$this->render('update',array(

@@ -21,7 +21,7 @@ class Category extends CActiveRecord
 
 	public function tableName()
 	{
-		return Yii::app()->controller->module->categoryTable;
+		return Yii::app()->getModule('shop')->categoryTable;
 	}
 
 	public function rules()

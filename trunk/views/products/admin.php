@@ -9,7 +9,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'columns'=>array(
 		'title',
 		'price',
-		'unit',
 		array(
 			'class'=>'CButtonColumn', 
 			'template' => '{view}{update}{delete}{images}',
@@ -32,6 +31,5 @@ $this->widget('zii.widgets.grid.CGridView', array(
 ); 
 
 
-echo CHtml::link(Yii::t('ShopModule.shop', 'Create a new Product'),
-		array('products/create'));
+echo CHtml::link(Shop::t('Create a new Product'), array('products/create'));
 ?>
