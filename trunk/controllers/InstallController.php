@@ -16,6 +16,7 @@ class InstallController extends Controller
 						$categoryTable = $_POST['categoryTable'];
 						$productsTable = $_POST['productsTable'];
 						$orderTable = $_POST['orderTable'];
+						$orderPositionTable = $_POST['orderPositionTable'];
 						$customerTable = $_POST['customerTable'];
 						$imageTable = $_POST['imageTable'];
 						$specificationTable = $_POST['productSpecificationsTable'];
@@ -123,6 +124,17 @@ class InstallController extends Controller
 								ON DELETE NO ACTION
 								ON UPDATE NO ACTION)
 								ENGINE = InnoDB; ";
+
+						$db->createCommand($sql)->execute();
+
+						$sql = " CREATE TABLE IF NOT EXISTS `shop_order_position` (
+							`id` int(11) NOT NULL AUTO_INCREMENT,
+							`order_id` int(11) NOT NULL,
+							`product_id` int(11) NOT NULL,
+							`amount` int(11) NOT NULL,
+							`specifications` text NOT NULL,
+							PRIMARY KEY (`id`)
+								) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ; ";
 
 						$db->createCommand($sql)->execute();
 
