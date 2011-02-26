@@ -17,8 +17,6 @@ elseif(isset($customer))
 	$this->renderPartial('application.modules.shop.views.customer.view', array(
 				'model' => $customer));
 
-
-
 	?>
 
 

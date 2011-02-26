@@ -18,6 +18,7 @@ class InstallController extends Controller
 						$orderTable = $_POST['orderTable'];
 						$orderPositionTable = $_POST['orderPositionTable'];
 						$customerTable = $_POST['customerTable'];
+						$addressTable = $_POST['addressTable'];
 						$imageTable = $_POST['imageTable'];
 						$specificationTable = $_POST['productSpecificationsTable'];
 						$variationTable = $_POST['productVariationTable'];
@@ -89,19 +90,10 @@ class InstallController extends Controller
 						$sql = "CREATE  TABLE IF NOT EXISTS   `".$customerTable."` (
 							`customer_id` INT NOT NULL AUTO_INCREMENT ,
 							`user_id` INT NOT NULL ,
+							`address_id` INT NOT NULL ,
 							`firstname` varchar(255) NOT NULL,
 							`lastname` varchar(255) NOT NULL,
-							`address` VARCHAR(45) NOT NULL ,
-							`zipcode` VARCHAR(45) NOT NULL ,
-							`city` VARCHAR(45) NOT NULL ,
-							`country` VARCHAR(45) NOT NULL ,
 							`email` VARCHAR(45) NOT NULL ,
-							`delivery_address` varchar(255) NOT NULL,
-							`delivery_zipcode` varchar(255) NOT NULL,
-							`delivery_city` varchar(255) NOT NULL,
-							`billing_address` varchar(255) NOT NULL,
-							`billing_zipcode` varchar(255) NOT NULL,
-							`billing_city` varchar(255) NOT NULL,
 							PRIMARY KEY (`customer_id`) )
 								ENGINE = InnoDB;";
 
@@ -110,7 +102,7 @@ class InstallController extends Controller
 
 						// Create Order Table
 
-						$sql = "CREATE  TABLE IF NOT EXISTS `".$orderTable."` (
+						$sql = "CREATE TABLE IF NOT EXISTS `".$orderTable."` (
 							`order_id` INT NOT NULL AUTO_INCREMENT ,
 							`customer_id` INT NOT NULL ,
 							`ordering_date` INT NOT NULL ,
@@ -127,7 +119,7 @@ class InstallController extends Controller
 
 						$db->createCommand($sql)->execute();
 
-						$sql = " CREATE TABLE IF NOT EXISTS `shop_order_position` (
+						$sql = "CREATE TABLE IF NOT EXISTS `".$orderPositionTable."` (
 							`id` int(11) NOT NULL AUTO_INCREMENT,
 							`order_id` int(11) NOT NULL,
 							`product_id` int(11) NOT NULL,
@@ -135,6 +127,17 @@ class InstallController extends Controller
 							`specifications` text NOT NULL,
 							PRIMARY KEY (`id`)
 								) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ; ";
+
+						$db->createCommand($sql)->execute();
+
+						$sql = "CREATE TABLE IF NOT EXISTS `".$addressTable."` (
+							`id` int(11) NOT NULL AUTO_INCREMENT,
+							`street` varchar(255) NOT NULL,
+							`zipcode` varchar(255) NOT NULL,
+							`city` varchar(255) NOT NULL,
+							`country` varchar(255) NOT NULL,
+							PRIMARY KEY (`id`)
+								) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 
 						$db->createCommand($sql)->execute();
 

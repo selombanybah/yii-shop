@@ -1,45 +1,33 @@
 <?php
 
 /**
- * This is the model class for table "shop_product_specification".
+ * This is the model class for table "shop_address".
  *
- * The followings are the available columns in table 'shop_product_specification':
+ * The followings are the available columns in table 'shop_address':
  * @property integer $id
- * @property string $title
+ * @property string $street
+ * @property string $zipcode
+ * @property string $city
+ * @property string $country
  */
-class ProductSpecification extends CActiveRecord
+class Address extends CActiveRecord
 {
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @return ProductSpecification the static model class
-	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
 
-	/**
-	 * @return string the associated database table name
-	 */
 	public function tableName()
 	{
-		return 'shop_product_specification';
+		return 'shop_address';
 	}
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
-			array('title', 'required'),
-			array('title', 'length', 'max'=>255),
-			array('is_user_input', 'numerical'),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, title', 'safe', 'on'=>'search'),
+			array('street, zipcode, city, country', 'required'),
+			array('street, zipcode, city, country', 'length', 'max'=>255),
+			array('id, street, zipcode, city, country', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,7 +39,6 @@ class ProductSpecification extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'variations' => array(self::HAS_MANY, 'ProductVariation', 'specification_id') 
 		);
 	}
 
@@ -62,7 +49,10 @@ class ProductSpecification extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Title',
+			'street' => 'Street',
+			'zipcode' => 'Zipcode',
+			'city' => 'City',
+			'country' => 'Country',
 		);
 	}
 
@@ -78,7 +68,10 @@ class ProductSpecification extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('title',$this->title,true);
+		$criteria->compare('street',$this->street,true);
+		$criteria->compare('zipcode',$this->zipcode,true);
+		$criteria->compare('city',$this->city,true);
+		$criteria->compare('country',$this->country,true);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria'=>$criteria,

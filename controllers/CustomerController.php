@@ -17,15 +17,36 @@ class CustomerController extends Controller
 		if(isset($_POST['Customer']))
 		{
 			$model->attributes = $_POST['Customer'];
+				if(isset($_POST['Address'])) {
+					$address = new Address;
+					$address->attributes = $_POST['Address'];
+					if($address->save())
+						$model->address_id = $address->id;
+				}
+				if(isset($_POST['DeliveryAddress'])) {
+					$deliveryAddress = new DeliveryAddress;
+					$deliveryAddress->attributes = $_POST['DeliveryAddress'];
+					if($deliveryAddress->save())
+						$model->delivery_address_id = $deliveryAddress->id;
+				}
+				if(isset($_POST['BillingAddress'])) {
+					$billingAddress = new BillingAddress;
+					$billingAddress->attributes = $_POST['BillingAddress'];
+					if($billingAddress->save())
+						$model->billing_address_id = $billingAddress->id;
+				}
 
-			if($model->save())
-				$this->redirect(
-						array(
-							'//shop/order/create', 'customer'=>$model->customer_id));
+				if($model->save())
+					$this->redirect(
+							array(
+								'//shop/order/create', 'customer'=>$model->customer_id));
 		}
 
 		$this->render('create',array(
-			'model'=>$model,
+			'customer'=>$model,
+			'address'=>isset($address) ? $address : new Address,
+			'deliveryAddress'=>isset($deliveryAddress) ? $deliveryAddress : new DeliveryAddress,
+			'billingAddress'=>isset($billingAddress) ? $billingAddress : new BillingAddress,
 		));
 	}
 

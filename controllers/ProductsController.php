@@ -76,7 +76,8 @@ class ProductsController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Products');
+		$dataProvider = new CActiveDataProvider('Products');
+
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

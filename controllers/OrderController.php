@@ -28,7 +28,10 @@ class OrderController extends Controller
 		if(Yii::app()->user->isGuest
 				|| !Customer::model()->find('user_id = :uid', array(
 						':uid' => Yii::app()->user->id))) {
-			$this->render('/customer/create', array('model' => new Customer));
+			$this->render('/customer/create', array(
+						'customer' => new Customer,
+						'address' => new Address,
+						));
 		} else {
 			$this->render('/order/create');
 		}

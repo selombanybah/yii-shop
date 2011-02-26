@@ -1,5 +1,6 @@
 <?php
 return array(
+	'The product has been added to the shopping cart' => 'Das Produkt wurde dem Einkaufswagen hinzugefügt',
 	'Home' => 'Heim',
 	'Save' => 'Speichern',
 	'Cancel' => 'Abbrechen', 

@@ -2,10 +2,10 @@
 $this->breadcrumbs=array(
 	Yii::t('shop', 'Products'),
 );
-
+Shop::renderFlash();
 ?>
 
-	<h1><?php echo Yii::t('shop', 'All Products'); ?></h1>
+<h2><?php echo Yii::t('shop', 'All Products'); ?></h2>
 
 <div class="span-8"> 
 <?php $this->beginWidget('zii.widgets.CPortlet', array(
