@@ -22,7 +22,7 @@ class ShopController extends Controller
 				$this->render('install');
 			}
 		} else {
-			throw new CException(Yii::t('shop', 'Webshop is not in Debug Mode'));	
+			throw new CException(Shop::t('Webshop is not in Debug Mode'));	
 		}
 	}
 
@@ -33,9 +33,6 @@ class ShopController extends Controller
 
 	public function actionIndex()
 	{
-		$this->render('index', array( 
-			'products' => Products::model()->findAll(),
-		  'Categories' => Category::model()->findAll()
-		));
+		$this->redirect(array('//shop/products/index'));
 	}
 }

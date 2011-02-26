@@ -44,12 +44,12 @@ class Customer extends CActiveRecord
 			'city' => Yii::t('ShopModule.shop', 'City'),
 			'country' => Yii::t('ShopModule.shop', 'Country'),
 			'email' => Yii::t('ShopModule.shop', 'Email'),
-			'delivery_address' => Yii::t('ShopModule.shop', 'delivery_address'),
-			'delivery_zipcode' => Yii::t('ShopModule.shop', 'delivery_zipcode'),
-			'delivery_city' => Yii::t('ShopModule.shop', 'delivery_city'),
-			'billing_address' => Yii::t('ShopModule.shop', 'billing_address'),
-			'billing_zipcode' => Yii::t('ShopModule.shop', 'billing_zipcode'),
-			'billing_city' => Yii::t('ShopModule.shop', 'billing_city'),
+			'delivery_address' => Yii::t('ShopModule.shop', 'Delivery address'),
+			'delivery_zipcode' => Yii::t('ShopModule.shop', 'Delivery zipcode'),
+			'delivery_city' => Yii::t('ShopModule.shop', 'Delivery City'),
+			'billing_address' => Yii::t('ShopModule.shop', 'Billing address'),
+			'billing_zipcode' => Yii::t('ShopModule.shop', 'Billing zipcode'),
+			'billing_city' => Yii::t('ShopModule.shop', 'Billing city'),
 		);
 	}
 

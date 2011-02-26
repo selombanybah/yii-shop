@@ -5,10 +5,18 @@ class OrderController extends Controller
 	public function actionView()
 	{
 		$this->render('view',array(
-			'model'=>$this->loadModel(),
-		));
+					'model'=>$this->loadModel(),
+					));
 	}
 
+	/** Creation of a new Order 
+	* Before we create a new order, we need to gather Customer information.
+	* If the user is logged in, we check if we already have customer information.
+	* If so, we go directly to the Order confirmation page with the data passed
+	* over. Otherwise we need the user to enter his data, and depending on
+	* whether he is logged in into the system it is saved with his user 
+	* account or once just for this order.	
+	*/
 	public function actionCreate($customer = null)
 	{
 		if($customer) {
@@ -38,8 +46,8 @@ class OrderController extends Controller
 			$model->attributes=$_GET['Order'];
 
 		$this->render('admin',array(
-			'model'=>$model,
-		));
+					'model'=>$model,
+					));
 	}
 
 	public function loadModel()
