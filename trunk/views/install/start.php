@@ -1,6 +1,8 @@
 <h1> <?php echo Yii::t('ShopModule.shop', 'Yii Webshop Installation'); ?> </h1>
 
-<?php echo CHtml::beginForm(array('install')); ?>
+<?php
+$module = Yii::app()->getModule('shop');
+echo CHtml::beginForm(array('install')); ?>
 
 <div class="span-12">
 
@@ -51,34 +53,43 @@ your Yii Web Application </p>
 <table>
 <tr> 
 <td> Table for Product Categories </td>
-<td> <?php echo CHtml::textField('categoryTable', Yii::app()->controller->module->categoryTable); ?> </td> </tr>
+<td> <?php echo CHtml::textField('categoryTable', $module->categoryTable); ?> </td> </tr>
 <tr> 
 <td> Table for Products </td>
-<td> <?php echo CHtml::textField('productsTable', Yii::app()->controller->module->productsTable); ?> </td> </tr>
+<td> <?php echo CHtml::textField('productsTable', $module->productsTable); ?> </td> </tr>
 <tr> 
 <tr> 
 <td> Table for Specifications </td>
-<td> <?php echo CHtml::textField('productSpecificationsTable', Yii::app()->controller->module->productSpecificationTable); ?> </td> </tr>
+<td> <?php echo CHtml::textField('productSpecificationsTable', $module->productSpecificationTable); ?> </td> </tr>
 <tr> 
 <tr> 
 <td> Table for Product Variations </td>
-<td> <?php echo CHtml::textField('productVariationTable', Yii::app()->controller->module->productVariationTable); ?> </td> </tr>
+<td> <?php echo CHtml::textField('productVariationTable', $module->productVariationTable); ?> </td> </tr>
+<tr>
 <td> Table for the Orderings </td>
-<td> <?php echo CHtml::textField('orderTable', Yii::app()->controller->module->orderTable); ?> </td> </tr>
+<td> <?php echo CHtml::textField('orderTable', $module->orderTable); ?> </td> </tr>
+<tr>
+<td> Table for the Order Positions</td>
+<td> <?php echo CHtml::textField('orderPositionTable', $module->orderPositionTable); ?> </td> </tr>
 <tr> 
 <td> Table for the Customers </td>
-<td> <?php echo CHtml::textField('customerTable', Yii::app()->controller->module->customerTable); ?> </td> </tr>
+<td> <?php echo CHtml::textField('customerTable', $module->customerTable); ?> </td> </tr>
+<tr> 
+<tr> 
+<td> Table for Addresses </td>
+<td> <?php echo CHtml::textField('addressTable', $module->customerTable); ?> </td> </tr>
 <tr> 
 <td> Table for the Product Images</td>
-<td> <?php echo CHtml::textField('imageTable', Yii::app()->controller->module->imageTable); ?> </td> </tr>
+<td> <?php echo CHtml::textField('imageTable', $module->imageTable); ?> </td> </tr>
 </table>
 
-<p> Your Product images will be stored unter Approot<?php echo Yii::app()->controller->module->productImagesFolder; ?> </p>
+<p> Your Product images will be stored unter Approot
+<?php echo $module->productImagesFolder; ?> </p>
 </div>
 
 
 <div style="clear:both;"> </div>
 
-<?php echo CHtml::submitButton(Yii::t('ShopModule.shop', 'Install Webshop')); ?>
+<?php echo CHtml::submitButton(Shop::t('Install Webshop')); ?>
 <?php echo CHtml::endForm(); ?>
 

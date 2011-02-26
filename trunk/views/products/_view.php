@@ -18,7 +18,6 @@
 
 </div>
 
-
 <hr />
 <?php $this->renderPartial('/products/addToCart', array('model' => $data)); ?>
 </div>

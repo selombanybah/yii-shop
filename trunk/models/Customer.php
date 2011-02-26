@@ -9,18 +9,16 @@ class Customer extends CActiveRecord
 
 	public function tableName()
 	{
-		return Yii::app()->controller->module->customerTable;
+		return Yii::app()->getModule('shop')->customerTable;
 	}
 
 	public function rules()
 	{
 		return array(
-			array('firstname, lastname, email, address, zipcode, city, country', 'required'),
-			array('customer_id, user_id', 'numerical', 'integerOnly'=>true),
-			array('address, zipcode, city, country, email', 'length', 'max'=>45),
-			array('delivery_address, delivery_zipcode, delivery_city, billing_address, billing_zipcode, billing_city', 'length', 'max' => 255),
+			array('firstname, lastname, email', 'required'),
+			array('address_id, customer_id, user_id', 'numerical', 'integerOnly'=>true),
 			array('email', 'CEmailValidator'),
-			array('customer_id, user_id, address, zipcode, city, country, email', 'safe', 'on'=>'search'),
+			array('customer_id, user_id, firstname, lastname, email', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -29,6 +27,9 @@ class Customer extends CActiveRecord
 		return array(
 			'Orders' => array(self::HAS_MANY, 'Order', 'customer_id'),
 			'ShoppingCarts' => array(self::HAS_MANY, 'ShoppingCart', 'customer_id'),
+			'address' => array(self::BELONGS_TO, 'Address', 'address_id'),
+			'billingAddress' => array(self::BELONGS_TO, 'Address', 'billing_address_id'),
+			'deliveryAddress' => array(self::BELONGS_TO, 'Address', 'delivery_address_id'),
 		);
 	}
 

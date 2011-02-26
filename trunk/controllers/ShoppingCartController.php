@@ -15,6 +15,11 @@ class ShoppingCartController extends Controller
 
 	public function actionCreate()
 	{
+		if(!is_numeric($_POST['amount']) || $_POST['amount'] <= 0) {
+			Shop::setFlash(Shop::t('Illegal amount given'));
+			$this->redirect(array('//shop/products/index'));
+		}
+
 		$cart = array();
 
 		$cart = json_decode(Yii::app()->user->getState('cart'), true);
@@ -23,6 +28,7 @@ class ShoppingCartController extends Controller
 		$cart[] = $_POST;
 	
 		Yii::app()->user->setState('cart', json_encode($cart));
+		Shop::setFlash(Shop::t('The product has been added to the shopping cart'));
 		$this->redirect(array('//shop/products/index'));
 	}
 
