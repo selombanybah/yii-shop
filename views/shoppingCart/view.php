@@ -1,4 +1,6 @@
-<?php if(!isset($products)) {
+<?php
+ Shop::register('shop.css');
+ if(!isset($products)) {
 $products = array();
 $products = json_decode(Yii::app()->user->getState('cart'), true);
 } ?>
@@ -8,7 +10,7 @@ $products = json_decode(Yii::app()->user->getState('cart'), true);
 if($products) {
 	$price_total = 0;
 
-	echo '<table>';
+	echo '<table class="shopping_cart">';
 	printf('<tr><th>%s</th><th>%s</th><th>%s</th><th>%s</th><th>%s</th></tr>',
 			Shop::t('Amount'),
 			Shop::t('Product'),
@@ -17,6 +19,7 @@ if($products) {
 			Shop::t('Price Total'),
 			Shop::t('Actions')
 );
+
 	foreach($products as $position => $product) {
 		if(@$model = Products::model()->findByPk($product['product_id'])) {
 			$price = $model->price;
@@ -25,9 +28,13 @@ if($products) {
 			if(isset($product['Variations'])) {
 				foreach($product['Variations'] as $specification => $variation) {
 					$specification = ProductSpecification::model()->findByPk($specification);
-					$variation = ProductVariation::model()->findByPk($variation);
-					$variations .= $specification->title . ': ' . $variation->title . '<br />';
-					$price += $variation->price_adjustion;
+					if($specification->is_user_input)
+						$variation = $variation[0];
+					else
+						$variation = ProductVariation::model()->findByPk($variation);
+
+					$variations .= $specification . ': ' . $variation . '<br />';
+					@$price += $variation->price_adjustion;
 				}
 			}
 

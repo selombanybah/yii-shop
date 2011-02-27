@@ -24,6 +24,11 @@ class OrderController extends Controller
 						'customer' => Customer::model()->findByPk($customer)));
 			Yii::app()->end();
 		}
+		if($customer_id = Yii::app()->user->getState('customer_id')) {
+			$this->render('/order/create', array(
+						'customer' => Customer::model()->findByPk($customer_id)));
+			Yii::app()->end();
+		}
 
 		if(Yii::app()->user->isGuest
 				|| !Customer::model()->find('user_id = :uid', array(
@@ -35,6 +40,12 @@ class OrderController extends Controller
 		} else {
 			$this->render('/order/create');
 		}
+	}
+
+	public function actionConfirm($customer) {
+		$order = new Order();
+		
+		
 	}
 
 	public function actionSuccess()

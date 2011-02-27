@@ -21,7 +21,9 @@ elseif(isset($customer))
 
 
 	<div class="row buttons">
-		<?php echo CHtml::Button(Shop::t('Confirm Order')); ?>
-		<?php echo CHtml::Button(Shop::t('Cancel')); ?>
+	<?php echo CHtml::link('Edit customer Information', array(
+				'//shop/customer/update')); ?>
+	<?php echo CHtml::link(Shop::t('Confirm Order'), array(
+				'//shop/order/confirm')); ?>
 	</div>
 

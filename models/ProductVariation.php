@@ -21,6 +21,10 @@ class ProductVariation extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public function __toString() {
+		return $this->title;
+	}
+
 	/**
 	 * @return string the associated database table name
 	 */

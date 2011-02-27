@@ -70,7 +70,14 @@
 
 		<?php echo $form->textField($deliveryAddress,'city',array('size'=>32,'maxlength'=>45)); ?>
 		<?php echo $form->error($deliveryAddress,'city'); ?>
-	</div>
+
+		<div class="row">
+		<?php echo $form->labelEx($deliveryAddress,'country'); ?>
+		<?php echo $form->textField($deliveryAddress,'country',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->error($deliveryAddress,'country'); ?>
+		</div>
+
+		</div>
 
 	</fieldset>
 
@@ -95,6 +102,12 @@
 
 		<?php echo $form->textField($billingAddress,'city',array('size'=>32,'maxlength'=>45)); ?>
 		<?php echo $form->error($billingAddress,'city'); ?>
+	</div>
+
+	<div class="row">
+	<?php echo $form->labelEx($billingAddress,'country'); ?>
+	<?php echo $form->textField($billingAddress,'country',array('size'=>45,'maxlength'=>45)); ?>
+	<?php echo $form->error($billingAddress,'country'); ?>
 	</div>
 
 	</fieldset>

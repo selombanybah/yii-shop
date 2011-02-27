@@ -1,6 +1,20 @@
 <?php
 
 class Shop {
+	public static function register($file)
+	{
+		$url = Yii::app()->getAssetManager()->publish(
+				Yii::getPathOfAlias('application.modules.shop.assets.css'));
+
+		$path = $url . '/' . $file;
+		if(strpos($file, 'js') !== false)
+			return Yii::app()->clientScript->registerScriptFile($path);
+		else if(strpos($file, 'css') !== false)
+			return Yii::app()->clientScript->registerCssFile($path);
+
+		return $path;
+	}
+
 	public static function t($string, $params = array())
 	{
 		Yii::import('application.modules.shop.ShopModule');

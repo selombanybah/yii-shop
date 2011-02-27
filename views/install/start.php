@@ -77,7 +77,7 @@ your Yii Web Application </p>
 <tr> 
 <tr> 
 <td> Table for Addresses </td>
-<td> <?php echo CHtml::textField('addressTable', $module->customerTable); ?> </td> </tr>
+<td> <?php echo CHtml::textField('addressTable', $module->addressTable); ?> </td> </tr>
 <tr> 
 <td> Table for the Product Images</td>
 <td> <?php echo CHtml::textField('imageTable', $module->imageTable); ?> </td> </tr>

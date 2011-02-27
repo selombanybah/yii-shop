@@ -17,6 +17,14 @@ class Address extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public static function isEmpty($vars) {
+		return 
+			$vars['street'] == '' 
+			&& $vars['zipcode'] == '' 
+			&& $vars['city'] == '' 
+			&& $vars['country'] == ''; 
+	}
+
 	public function tableName()
 	{
 		return 'shop_address';

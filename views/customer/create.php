@@ -16,6 +16,14 @@ $this->breadcrumbs=array(
 if($address === null)
 	$address = new Address;
 
+if(!isset($deliveryAddress) || $deliveryAddress === null)
+	$deliveryAddress = new DeliveryAddress;
+
+if(!isset($billingAddress) || $billingAddress === null)
+	$billingAddress = new BillingAddress;
+
+
+
  echo $this->renderPartial('/customer/_form', array(
 				'customer'=>$customer,
 				'address' =>$address,
