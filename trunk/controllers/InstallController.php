@@ -9,7 +9,6 @@ class InstallController extends Controller
 			if(Yii::app()->request->isPostRequest) 
 			{
 				if($db = Yii::app()->db) {
-					try {
 						$transaction = $db->beginTransaction();
 
 						// Assing table names
@@ -24,6 +23,9 @@ class InstallController extends Controller
 						$variationTable = $_POST['productVariationTable'];
 
 						// Clean up existing Installation
+						$sql = "SET FOREIGN_KEY_CHECKS=0;";
+						$db->createCommand($sql)->execute();
+
 						$db->createCommand(sprintf('drop table if exists %s, %s, %s, %s, `%s`, %s, %s',
 									$categoryTable, 
 									$productsTable, 
@@ -194,14 +196,14 @@ class InstallController extends Controller
 
 							$db->createCommand($sql)->execute();
 
-							$sql = "INSERT INTO `".$customerTable."` (`customer_id`, `user_id`, `address`, `zipcode`, `city`, `country`, `email`) VALUES (1, 1, 'Adress', '11111', 'Perth', 'Australia', 'demo@demo.de');";
-
-							$db->createCommand($sql)->execute();
 
 							$sql = "INSERT INTO `".$productsTable."` (`product_id`, `title`, `description`, `price`, `category_id`) VALUES (1, 'Demonstration of Article 1', 'Hello, World!', '19.99', 1), (2, 'Another Demo Article', '!!', '29.99', 1), (3, 'Demo3', '', '', 2), (4, 'Demo4', '', '7, 55', 4); ";
 
 
 							$db->createCommand($sql)->execute();
+						$sql = "SET FOREIGN_KEY_CHECKS=1;";
+						$db->createCommand($sql)->execute();
+
 						}
 
 						// Do it
@@ -209,10 +211,6 @@ class InstallController extends Controller
 
 						// Victory
 						$this->render('success');
-					} catch (CDbException $exception) {
-						$transaction->rollback();
-						throw new CException(Yii::t('ShopModule.shop', 'Error while installing Webshop'));	
-					}
 				} else {
 					throw new CException(Yii::t('ShopModule.shop', 'Database Connection is not working'));	
 				}
