@@ -1,4 +1,6 @@
 <?php function renderVariation($variation, $i) { 
+	if(!ProductSpecification::model()->findByPk(1))
+		return false;
 	if(!$variation) {
 		$variation = new ProductVariation;
 		$variation->specification_id = 1;
