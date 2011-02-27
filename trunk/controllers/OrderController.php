@@ -34,6 +34,7 @@ class OrderController extends Controller
 				|| !Customer::model()->find('user_id = :uid', array(
 						':uid' => Yii::app()->user->id))) {
 			$this->render('/customer/create', array(
+						'action' => array('//shop/customer/create'),
 						'customer' => new Customer,
 						'address' => new Address,
 						));

@@ -1,12 +1,19 @@
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'customer-form',
-	'action' => array('customer/create'),
-	'enableAjaxValidation'=>true,
-)); ?>
+<?php
+	if(isset($action) && $action !== null) 
+	$form=$this->beginWidget('CActiveForm', array(
+				'id'=>'customer-form',
+				'action' => $action,
+				'enableAjaxValidation'=>true,
+				)); 
+else
+$form=$this->beginWidget('CActiveForm', array(
+			'id'=>'customer-form',
+			'enableAjaxValidation'=>true,
+			)); ?>
 
-	<?php echo $form->errorSummary(array($customer, $address)); ?>
+<?php echo $form->errorSummary(array($customer, $address)); ?>
 
 		<?php echo $form->hiddenField($customer, 'user_id', array('value'=> Yii::app()->user->id)); ?>
 
@@ -80,6 +87,8 @@
 		</div>
 
 	</fieldset>
+
+	<div style="clear: both;"> </div>
 
 	<?php 
 	echo CHtml::checkBox('toggle_billing',
