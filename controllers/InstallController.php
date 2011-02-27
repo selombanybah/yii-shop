@@ -92,8 +92,10 @@ class InstallController extends Controller
 						// Create Customer Table
 						$sql = "CREATE  TABLE IF NOT EXISTS   `".$customerTable."` (
 							`customer_id` INT NOT NULL AUTO_INCREMENT ,
-							`user_id` INT NOT NULL ,
+							`user_id` INT NULL ,
 							`address_id` INT NOT NULL ,
+							`delivery_address_id` INT NOT NULL ,
+							`billing_address_id` INT NOT NULL ,
 							`firstname` varchar(255) NOT NULL,
 							`lastname` varchar(255) NOT NULL,
 							`email` VARCHAR(45) NOT NULL ,
