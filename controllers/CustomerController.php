@@ -2,6 +2,8 @@
 
 class CustomerController extends Controller
 {
+	public $_model;
+
 	public function actionView()
 	{
 		$this->render('view',array(
@@ -53,7 +55,7 @@ class CustomerController extends Controller
 		));
 	}
 
-	public function actionUpdate()
+	public function actionUpdate($order = null)
 	{
 		if(Yii::app()->user->isGuest) {
 			$id = Yii::app()->user->getState('customer_id');
@@ -62,10 +64,6 @@ class CustomerController extends Controller
 		else
 			$model = Customer::model()->find('user_id = :uid', array(
 				':uid' => Yii::app()->user->id));
-
-		$address = $model->address;
-		$deliveryAddress = $model->deliveryAddress;	
-		$billingAddress = $model->billingAddress;	
 
 		if(isset($_POST['Customer']))
 		{
@@ -90,10 +88,19 @@ class CustomerController extends Controller
 				if($billingAddress->save())
 					$model->billing_address_id = $billingAddress->id;
 			}
+			if($model->save()) {
+				if($order !== null)
+					$this->redirect(
+							array(
+								'//shop/order/create', 'customer'=>$model->customer_id));
+				else
+					$this->redirect(array('view','id'=>$model->customer_id));
+			}
+		} 
 
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->customer_id));
-		}
+		$address = $model->address;
+		$deliveryAddress = $model->deliveryAddress;	
+		$billingAddress = $model->billingAddress;	
 
 		$this->render('update',array(
 			'customer'=>$model,

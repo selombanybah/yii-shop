@@ -25,6 +25,7 @@ if(!isset($billingAddress) || $billingAddress === null)
 
 
  echo $this->renderPartial('/customer/_form', array(
+				'action' => isset($action) ? $action : null,
 				'customer'=>$customer,
 				'address' =>$address,
 				'deliveryAddress' => $deliveryAddress,

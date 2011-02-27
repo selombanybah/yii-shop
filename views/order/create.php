@@ -22,7 +22,7 @@ elseif(isset($customer))
 
 	<div class="row buttons">
 	<?php echo CHtml::link('Edit customer Information', array(
-				'//shop/customer/update')); ?>
+				'//shop/customer/update', 'order' => true)); ?>
 	<?php echo CHtml::link(Shop::t('Confirm Order'), array(
 				'//shop/order/confirm')); ?>
 	</div>
