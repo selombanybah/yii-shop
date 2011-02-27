@@ -21,6 +21,11 @@ class Order extends CActiveRecord
 		);
 	}
 
+	public function beforeValidate() {
+		$this->timestamp = time();
+		return parent::beforeValidate();
+	}
+
 	public function relations()
 	{
 		return array(

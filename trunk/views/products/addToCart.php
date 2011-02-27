@@ -7,11 +7,19 @@ echo CHtml::textField('amount', 1, array('size' => 3));
 
 echo '<br />';
 
-$variations = $model->getVariations();
-if($variations) {
+if($variations = $model->getVariations()) {
 	foreach($variations as $variation) {
+		$field = "Variations[{$variation[0]->specification_id}][]";
 		echo '<div style="float: left;margin: 10px;">';
-		echo CHtml::radioButtonList("Variations[{$variation[0]->specification_id}][]", $variation[0]->id, CHtml::listData($variation, 'id', 'title'));
+		echo CHtml::label($variation[0]->title, $field) . '<br />';
+		if($variation[0]->specification->is_user_input) {
+			echo CHtml::textField($field);
+		}
+		else {
+			echo CHtml::radioButtonList($field,
+					$variation[0]->id,
+					CHtml::listData($variation, 'id', 'title'));
+		}
 		echo '</div>';
 	}
 

@@ -18,35 +18,33 @@ if($model->address) {
 		'street',
 		'zipcode',
 		'city',
+		'country',
 	),
 )); 
 
 }
-
-if($model->deliveryAddress) {
-	echo '<h2>'.Shop::t('Delivery address').'</h2>';
+echo '<h2>'.Shop::t('Delivery address').'</h2>';
  $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model->deliveryAddress,
+	'data'=>$model->deliveryAddress ? $model->deliveryAddress : $model->address,
 	'attributes'=>array(
 		'street',
 		'zipcode',
 		'city',
+		'country',
 	),
 )); 
 
-}
-if($model->billingAddress) {
 	echo '<h2>'.Shop::t('Billing address').'</h2>';
  $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model->billingAddress,
+	'data'=>$model->billingAddress ? $model->billingAddress : $model->address,
 	'attributes'=>array(
 		'street',
 		'zipcode',
 		'city',
+		'country',
 	),
 )); 
 
-}
 
 
 
