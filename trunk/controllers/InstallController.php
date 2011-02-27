@@ -39,6 +39,7 @@ class InstallController extends Controller
 						$sql = "CREATE TABLE IF NOT EXISTS `".$specificationTable."` (
 							`id` int(11) NOT NULL AUTO_INCREMENT,
 							`title` varchar(255) NOT NULL,
+							`is_user_input` tinyint(1),
 							PRIMARY KEY (`id`)
 								) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 						$db->createCommand($sql)->execute();
