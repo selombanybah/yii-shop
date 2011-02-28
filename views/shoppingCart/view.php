@@ -5,6 +5,7 @@ $products = Shop::getCartContent();
 } ?>
 <h2> <?php echo Shop::t('Shopping cart'); ?> </h2>
 
+
 <?php
 if($products) {
 	$price_total = 0;
