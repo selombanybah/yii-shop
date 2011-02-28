@@ -20,6 +20,19 @@ class ShopModule extends CWebModule
 	public $productVariationTable = 'shop_product_variation';
 	public $currencySymbol = '$';
 
+	public $termsView = '/order/terms';
+	public $successAction = array('//shop/order/success');
+	public $failureAction = array('//shop/order/failure');
+
+	// some example payment methods. Most probably you want to override them in
+	// the application configuration. See the docs/ folder for examples
+	public $paymentMethods = array(
+			1 => 'cash',
+			2 => 'advance Payment',
+			3 => 'cash on delivery',
+			4 => 'invoice',
+			5 => 'paypal');
+
 	public $loginUrl = array('/site/login');
 
 	// Where the uploaded product images are stored:

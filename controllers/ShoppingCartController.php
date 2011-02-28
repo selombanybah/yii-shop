@@ -18,14 +18,17 @@ class ShoppingCartController extends Controller
 			$this->redirect(array('//shop/products/index'));
 		}
 
-		$cart = array();
+		$cart = Shop::getCartContent();
 
-		$cart = json_decode(Yii::app()->user->getState('cart'), true);
+		// remove potential clutter
+		if(isset($_POST['yt0']))
+			unset($_POST['yt0']);
+		if(isset($_POST['yt1']))
+			unset($_POST['yt1']);
 
-		unset($_POST['yt0']);
 		$cart[] = $_POST;
 	
-		Yii::app()->user->setState('cart', json_encode($cart));
+		Shop::setCartcontent($cart);
 		Shop::setFlash(Shop::t('The product has been added to the shopping cart'));
 		$this->redirect(array('//shop/products/index'));
 	}

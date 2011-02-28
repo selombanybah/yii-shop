@@ -15,7 +15,7 @@ class Order extends CActiveRecord
 	public function rules()
 	{
 		return array(
-			array('customer_id, ordering_date', 'required'),
+			array('customer_id, ordering_date, delivery_address_id, billing_address_id, payment_method', 'required'),
 			array('customer_id, ordering_done, ordering_confirmed', 'numerical', 'integerOnly'=>true),
 			array('order_id, customer_id, ordering_date, ordering_done, ordering_confirmed', 'safe', 'on'=>'search'),
 		);
@@ -26,6 +26,9 @@ class Order extends CActiveRecord
 		return array(
 			'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
 			'products' => array(self::HAS_MANY, 'OrderPosition', 'order_id'),
+			'billingAddress' => array(self::BELONGS_TO, 'BillingAddress', 'billing_address_id'),
+			'deliveryAddress' => array(self::BELONGS_TO, 'DeliveryAddress', 'delivery_address_id'),
+
 		);
 	}
 

@@ -110,9 +110,12 @@ class InstallController extends Controller
 						$sql = "CREATE TABLE IF NOT EXISTS `".$orderTable."` (
 							`order_id` INT NOT NULL AUTO_INCREMENT ,
 							`customer_id` INT NOT NULL ,
+							`delivery_address_id` INT NOT NULL ,
+							`billing_address_id` INT NOT NULL ,
 							`ordering_date` INT NOT NULL ,
 							`ordering_done` TINYINT(1) NULL ,
 							`ordering_confirmed` TINYINT(1) NULL ,
+							`payment_method` INT NOT NULL ,
 							PRIMARY KEY (`order_id`) ,
 							INDEX `fk_order_customer` (`customer_id` ASC) ,
 							CONSTRAINT `fk_order_customer1`

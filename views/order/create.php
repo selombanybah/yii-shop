@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
 	'Order'=>array('index'),
-	Yii::t('ShopModule.shop', 'New Order'),
+	Shop::t('New Order'),
 );
 
 ?>
@@ -17,6 +17,14 @@ if(!isset($customer))
 $this->renderPartial('application.modules.shop.views.customer.view', array(
 				'model' => $customer));
 
+echo '<br />';
+echo '<br />';
+$this->renderPartial('application.modules.shop.views.order.payment_type');
+echo '<br />';
+echo '<br />';
+$this->renderPartial(Shop::module()->termsView);
+echo '<br />';
+echo '<br />';
 
 	?>
 
