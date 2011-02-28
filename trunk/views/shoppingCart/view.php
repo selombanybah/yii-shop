@@ -1,8 +1,7 @@
 <?php
  Shop::register('shop.css');
  if(!isset($products)) {
-$products = array();
-$products = json_decode(Yii::app()->user->getState('cart'), true);
+$products = Shop::getCartContent();
 } ?>
 <h2> <?php echo Shop::t('Shopping cart'); ?> </h2>
 
@@ -52,8 +51,7 @@ if($products) {
 	echo '</table>';
 
 	echo Shop::t('Price total: {total}', array('{total}' => $price_total));
-} else echo Shop::t('Your shopping cart is empty'); ?>
-
+?>
 <hr />
 
 <?php if(Yii::app()->controller->id != 'order') {
@@ -62,5 +60,7 @@ if($products) {
 &nbsp;
 <?php echo CHtml::link(Shop::t('Buy this products'), array(
 			'//shop/order/create')); 
-}?>
+}
+
+} else echo Shop::t('Your shopping cart is empty'); ?>
 

@@ -46,24 +46,45 @@ class OrderController extends Controller
 	}
 
 	public function actionConfirm() {
-		$order = new Order();
-		$customer = Shop::getCustomer();
-		$cart = Shop::getCartContent();
+		if(isset($_POST['accept_terms']) && $_POST['accept_terms'] == 1) {
+			$order = new Order();
+			$customer = Shop::getCustomer();
+			$cart = Shop::getCartContent();
 
-		$order->customer_id = $customer->customer_id;
-		
+			$order->customer_id = $customer->customer_id;
 
-		$order->ordering_date = time();
-		if($order->save()) {
-			foreach($cart as $position => $product) {
-				$position = new OrderPosition;
-				$position->order_id = $order->order_id;
-				$position->product_id = $product['product_id'];
-				$position->amount = $product['amount'];
-				$position->specifications = @json_encode($product['Variations']);
-				$position->save();
-			}
-			$this->redirect(array('//shop/order/success'));
+			$address = new Address();
+			if($customer->deliveryAddress)
+				$address->attributes = $customer->deliveryAddress->attributes;
+			else
+				$address->attributes = $customer->address->attributes;
+			$address->save();
+			$order->delivery_address_id = $address->id;
+
+			$address = new Address();
+			if($customer->billingAddress)
+				$address->attributes = $customer->billingAddress->attributes;
+			else
+				$address->attributes = $customer->address->attributes;
+			$address->save();
+			$order->billing_address_id = $address->id;
+
+			$order->ordering_date = time();
+			$order->payment_method = 1;
+
+			if($order->save()) {
+				foreach($cart as $position => $product) {
+					$position = new OrderPosition;
+					$position->order_id = $order->order_id;
+					$position->product_id = $product['product_id'];
+					$position->amount = $product['amount'];
+					$position->specifications = @json_encode($product['Variations']);
+					$position->save();
+					Yii::app()->user->setState('cart', array());
+				}
+				$this->redirect(Shop::module()->successAction);
+			} else 
+				$this->redirect(Shop::module()->failureAction);
 		}
 	}
 
@@ -71,6 +92,12 @@ class OrderController extends Controller
 	{
 		$this->render('/order/success');
 	}
+
+	public function actionFailure()
+	{
+		$this->render('/order/failure');
+	}
+
 
 	public function actionAdmin()
 	{

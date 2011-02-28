@@ -1,9 +1,21 @@
 <?php
 
 	class Shop {
-		public static function getCartContent() {
-			return json_decode(Yii::app()->user->getState('cart'), true);
+		public static function getPaymentMethod() {
+			return Yii::app()->user->getState('payment_method');
 		}
+
+		public static function getCartContent() {
+			if(is_string(Yii::app()->user->getState('cart')))
+				return json_decode(Yii::app()->user->getState('cart'), true);
+			else
+				return Yii::app()->user->getState('cart');
+		}
+		public static function setCartContent($cart) {
+			return Yii::app()->user->setState('cart', json_encode($cart));
+		}
+
+
 		public static function register($file)
 		{
 			$url = Yii::app()->getAssetManager()->publish(

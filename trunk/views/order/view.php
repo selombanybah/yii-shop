@@ -1,8 +1,8 @@
 <?php
 $this->breadcrumbs=array(
-	Shop::t('Orders')=>array('index'),
-	$model->order_id,
-);
+		Shop::t('Orders')=>array('index'),
+		$model->order_id,
+		);
 
 ?>
 
@@ -11,19 +11,41 @@ $this->breadcrumbs=array(
 <h3> <?php echo Shop::t('Ordering Info'); ?> </h3>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'order_id',
-		'customer_id',
-		'customer.address.street',
-		'customer.address.zipcode',
-		'customer.address.city',
-		'customer.address.country',
-		'ordering_date',
-		'ordering_done',
-		'ordering_confirmed',
-	),
-)); ?>
+			'data'=>$model,
+			'attributes'=>array(
+				'order_id',
+				'customer_id',
+				'ordering_date',
+				'ordering_done',
+				'ordering_confirmed',
+				),
+			)); ?>
+
+
+<h3> <?php echo Shop::t('Delivery address'); ?> </h3>
+<?php $this->widget('zii.widgets.CDetailView', array(
+			'data'=>$model->deliveryAddress,
+			'attributes'=>array(
+				'street',
+				'zipcode',
+				'city',
+				'country'
+				),
+			)); ?>
+
+<h3> <?php echo Shop::t('Billing address'); ?> </h3>
+<?php $this->widget('zii.widgets.CDetailView', array(
+			'data'=>$model->billingAddress,
+			'attributes'=>array(
+				'street',
+				'zipcode',
+				'city',
+				'country'
+				),
+			)); ?>
+
+
+
 
 <h3> <?php echo Shop::t('Ordered Products'); ?> </h3>
 
