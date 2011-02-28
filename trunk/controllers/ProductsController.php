@@ -20,7 +20,8 @@ class ProductsController extends Controller
 		if(isset($_POST['Products']))
 		{
 			$model->attributes=$_POST['Products'];
-			$model->setSpecifications($_POST['Specifications']);
+			if(isset($_POST['Specifications']))
+				$model->setSpecifications($_POST['Specifications']);
 
 			if($model->save())
 				$this->redirect(array('shop/admin'));
@@ -40,8 +41,10 @@ class ProductsController extends Controller
 		if(isset($_POST['Products']))
 		{
 			$model->attributes=$_POST['Products'];
-			$model->setSpecifications($_POST['Specifications']);
-			$model->setVariations($_POST['Variations']);
+			if(isset($_POST['Specifications']))
+				$model->setSpecifications($_POST['Specifications']);
+			if(isset($_POST['Variations']))
+				$model->setVariations($_POST['Variations']);
 
 			if($model->save())
 				$this->redirect(array('products/admin'));
