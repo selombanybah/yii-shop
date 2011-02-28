@@ -1,8 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Customers'=>array('index'),
-	$customer->customer_id=>array('view','id'=>$customer->customer_id),
-	Yii::t('ShopModule.shop', 'Update'),
+Shop::t('Update Customer Information')
 );
 
 ?>

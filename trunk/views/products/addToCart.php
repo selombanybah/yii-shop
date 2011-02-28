@@ -11,14 +11,14 @@ if($variations = $model->getVariations()) {
 	foreach($variations as $variation) {
 		$field = "Variations[{$variation[0]->specification_id}][]";
 		echo '<div style="float: left;margin: 10px;">';
-		echo CHtml::label($variation[0]->title, $field) . '<br />';
+		echo CHtml::label($variation[0]->specification->title, $field) . '<br />';
 		if($variation[0]->specification->is_user_input) {
 			echo CHtml::textField($field);
 		}
 		else {
 			echo CHtml::radioButtonList($field,
 					$variation[0]->id,
-					CHtml::listData($variation, 'id', 'title'));
+					ProductVariation::listData($variation));
 		}
 		echo '</div>';
 	}

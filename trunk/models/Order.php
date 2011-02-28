@@ -21,16 +21,11 @@ class Order extends CActiveRecord
 		);
 	}
 
-	public function beforeValidate() {
-		$this->timestamp = time();
-		return parent::beforeValidate();
-	}
-
 	public function relations()
 	{
 		return array(
-			'Customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
-			'Products' => array(self::MANY_MANY, 'Products', 'YiiShopProductOrder(order_id, product_id)'),
+			'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
+			'products' => array(self::HAS_MANY, 'OrderPosition', 'order_id'),
 		);
 	}
 

@@ -35,9 +35,38 @@ class OrderPosition extends CActiveRecord
 	{
 		return array(
 			'order' => array(self::BELONGS_TO, 'Order', 'order_id'),
-			'product' => array(self::BELONGS_TO, 'Product', 'product_id'),
+			'product' => array(self::BELONGS_TO, 'Products', 'product_id'),
 		);
 	}
+
+	public function getSpecifications() {
+		$specs = json_decode($this->specifications, true);
+		$specifications = array();
+		if($specs)
+			foreach($specs as $key => $specification) {
+				$specifications[$key] = $specification;
+			}
+
+		return $specifications;
+	}
+
+	public function renderSpecifications() {
+		$string = '<table>';
+		foreach($this->getSpecifications() as $key =>$specification) {
+				$model = ProductSpecification::model()->findByPk($key);
+				if($model->is_user_input)
+					$value = $specification[0];
+				else
+					$value = ProductVariation::model()->findByPk($specification[0])->title;
+			$string .= sprintf('<tr><td>%s</td><td>%s</td></tr>',
+				$model->title,
+				$value	
+				);
+		}
+		$string .= '</table>';
+		return $string;
+	}
+
 
 	/**
 	 * @return array customized attribute labels (name=>label)

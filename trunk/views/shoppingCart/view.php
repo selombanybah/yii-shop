@@ -22,7 +22,7 @@ if($products) {
 
 	foreach($products as $position => $product) {
 		if(@$model = Products::model()->findByPk($product['product_id'])) {
-			$price = $model->price;
+			$price = $model->price . ' '.Shop::module()->currencySymbol;
 
 			$variations = '';
 			if(isset($product['Variations'])) {

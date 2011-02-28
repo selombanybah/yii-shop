@@ -1,16 +1,16 @@
 <div class="form">
 
 <?php
-	if(isset($action) && $action !== null) 
+if(isset($action) && $action !== null) 
 	$form=$this->beginWidget('CActiveForm', array(
 				'id'=>'customer-form',
 				'action' => $action,
-				'enableAjaxValidation'=>true,
+				'enableAjaxValidation'=>false,
 				)); 
 else
 $form=$this->beginWidget('CActiveForm', array(
 			'id'=>'customer-form',
-			'enableAjaxValidation'=>true,
+			'enableAjaxValidation'=>false,
 			)); ?>
 
 <?php echo $form->errorSummary(array($customer, $address)); ?>
@@ -94,7 +94,7 @@ $form=$this->beginWidget('CActiveForm', array(
 	echo CHtml::checkBox('toggle_billing',
 			$customer->billingAddress !== NULL, array(
 				'style' => 'float: left')); 
-	echo CHtml::label(Shop::t('Alternative billing address'), 'toggle_billing');
+	echo CHtml::label(Shop::t('alternative billing address'), 'toggle_billing');
 	?>
 	<fieldset id="billing_information" style="display: none;" >
 	<legend> <?php echo Shop::t('Billing information'); ?> </legend>

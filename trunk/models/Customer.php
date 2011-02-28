@@ -28,8 +28,8 @@ class Customer extends CActiveRecord
 			'Orders' => array(self::HAS_MANY, 'Order', 'customer_id'),
 			'ShoppingCarts' => array(self::HAS_MANY, 'ShoppingCart', 'customer_id'),
 			'address' => array(self::BELONGS_TO, 'Address', 'address_id'),
-			'billingAddress' => array(self::BELONGS_TO, 'Address', 'billing_address_id'),
-			'deliveryAddress' => array(self::BELONGS_TO, 'Address', 'delivery_address_id'),
+			'billingAddress' => array(self::BELONGS_TO, 'BillingAddress', 'billing_address_id'),
+			'deliveryAddress' => array(self::BELONGS_TO, 'DeliveryAddress', 'delivery_address_id'),
 		);
 	}
 
