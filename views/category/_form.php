@@ -8,16 +8,17 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'parent'); ?>
-		<?php $this->widget('application.modules.shop.components.Relation', 
+		<?php echo $form->labelEx($model,'parent_id'); ?>
+		<?php 
+$this->widget('application.modules.shop.components.Relation', 
 			array(
-			'model' => 'Category',
-			'relation' => 'getparent',
+			'model' => $model,
+			'relation' => 'parent',
 			'fields' => 'title',
-			'hideAddButton' => true,
-			'allowEmpty' => 'true')
-		); ?>
-		<?php echo $form->error($model,'parent'); ?>
+			'showAddButton' => false,
+			'allowEmpty' => Shop::t('Root level'),
+		)); ?>
+		<?php echo $form->error($model,'parent_id'); ?>
 	</div>
 
 	<div class="row">

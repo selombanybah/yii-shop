@@ -58,7 +58,7 @@ class InstallController extends Controller
 						// Create Category Table
 						$sql = "CREATE TABLE IF NOT EXISTS `".$categoryTable."` (
 							`category_id` INT NOT NULL AUTO_INCREMENT ,
-							`parent` INT NULL ,
+							`parent_id` INT NULL ,
 							`title` VARCHAR(45) NOT NULL ,
 							`description` TEXT NULL ,
 							`language` VARCHAR(45) NULL ,
@@ -193,7 +193,7 @@ class InstallController extends Controller
 
 						if($this->module->installDemoData) 
 						{
-							$sql = "INSERT INTO `".$categoryTable."` (`category_id`, `parent`, `title`) VALUES
+							$sql = "INSERT INTO `".$categoryTable."` (`category_id`, `parent_id`, `title`) VALUES
 								(1, 0, 'Primary Articles'),
 								(2, 0, 'Secondary Articles'),
 								(3, 1, 'Red Primary Articles'),

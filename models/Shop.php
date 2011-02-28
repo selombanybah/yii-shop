@@ -44,7 +44,7 @@
 				if($parent instanceof shopModule)	
 					return $parent;
 		}
-		throw new CException(Yum::t('Shop Module cannot be found'));		
+		throw new CException(Shop:t('Shop Module cannot be found'));		
 	}
 
 
@@ -65,7 +65,7 @@
 		/* set a flash message to display after the request is done */
 		public static function setFlash($message) 
 		{
-			Yii::app()->user->setFlash('yiishop',Yum::t($message));
+			Yii::app()->user->setFlash('yiishop',Shop::t($message));
 		}
 
 		public static function hasFlash() 

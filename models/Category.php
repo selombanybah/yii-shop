@@ -10,7 +10,7 @@ class Category extends CActiveRecord
 	public static function getChilds($id) {
 		$data = array();
 
-		foreach(Category::model()->findAll('parent = ' . $id) as $model) {
+		foreach(Category::model()->findAll('parent_id = ' . $id) as $model) {
 			$row['text'] = CHtml::link($model->title, array('category/view', 'id' => $model->category_id));
 			$row['children'] = Category::getChilds($model->category_id);
 			$data[] = $row;
@@ -27,10 +27,10 @@ class Category extends CActiveRecord
 	public function rules()
 	{
 		return array(
-			array('category_id, parent', 'numerical', 'integerOnly'=>true),
+			array('category_id, parent_id', 'numerical', 'integerOnly'=>true),
 			array('title, description, language', 'length', 'max'=>45),
 			array('title', 'required'),
-			array('category_id, parent, title, description, language', 'safe', 'on'=>'search'),
+			array('category_id, parent_id, title, description, language', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -48,8 +48,8 @@ class Category extends CActiveRecord
 	{
 		return array(
 			'Products' => array(self::HAS_MANY, 'Products', 'category_id'),
-			'getparent' => array(self::BELONGS_TO, 'Category', 'parent'),
-			'childs' => array(self::HAS_MANY, 'Category', 'parent'),
+			'parent' => array(self::BELONGS_TO, 'Category', 'parent_id'),
+			'childs' => array(self::HAS_MANY, 'Category', 'parent_id'),
 		);
 	}
 
@@ -57,7 +57,7 @@ class Category extends CActiveRecord
 	{
 		return array(
 			'category_id' => '#',
-			'parent' => Yii::t('ShopModule.shop', 'Parent'),
+			'parent_id' => Yii::t('ShopModule.shop', 'Parent'),
 			'title' => Yii::t('ShopModule.shop', 'Category'),
 		);
 	}
@@ -71,7 +71,7 @@ class Category extends CActiveRecord
 
 		$criteria->compare('category_id',$this->category_id);
 
-		$criteria->compare('parent',$this->parent);
+		$criteria->compare('parent_id',$this->parent_id);
 
 		$criteria->compare('title',$this->title,true);
 
