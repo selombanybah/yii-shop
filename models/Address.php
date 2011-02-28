@@ -57,10 +57,10 @@ class Address extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'street' => 'Street',
-			'zipcode' => 'Zipcode',
-			'city' => 'City',
-			'country' => 'Country',
+			'street' => Shop::t('Street'),
+			'zipcode' =>Shop::t('Zipcode'),
+			'city' => Shop::t('City'),
+			'country' => Shop::t('Country'),
 		);
 	}
 

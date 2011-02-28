@@ -18,6 +18,7 @@ class ShopModule extends CWebModule
 	public $imageTable = 'shop_image';
 	public $productSpecificationTable = 'shop_product_specification';
 	public $productVariationTable = 'shop_product_variation';
+	public $currencySymbol = '$';
 
 	public $loginUrl = array('/site/login');
 

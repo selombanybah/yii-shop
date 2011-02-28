@@ -21,6 +21,17 @@ class ProductVariation extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public static function listData($variations) {
+		$var = array();
+		foreach($variations as $id => $variation) 
+			$var[$variation->id] = sprintf('%s (%s %s)',
+					$variation->title,
+					$variation->price_adjustion,
+					Shop::module()->currencySymbol); 
+
+		return $var;
+	}
+
 	public function __toString() {
 		return $this->title;
 	}

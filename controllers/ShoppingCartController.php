@@ -4,9 +4,7 @@ class ShoppingCartController extends Controller
 {
 	public function actionView()
 	{
-		$cart = array();
-
-		$cart = json_decode(Yii::app()->user->getState('cart'), true);
+		$cart = Shop::getCartContent();
 
 		$this->render('view',array(
 						'products'=>$cart

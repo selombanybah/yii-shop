@@ -2,6 +2,8 @@
 
 class OrderController extends Controller
 {
+	public $_model;
+
 	public function actionView()
 	{
 		$this->render('view',array(
@@ -43,10 +45,26 @@ class OrderController extends Controller
 		}
 	}
 
-	public function actionConfirm($customer) {
+	public function actionConfirm() {
 		$order = new Order();
+		$customer = Shop::getCustomer();
+		$cart = Shop::getCartContent();
+
+		$order->customer_id = $customer->customer_id;
 		
-		
+
+		$order->ordering_date = time();
+		if($order->save()) {
+			foreach($cart as $position => $product) {
+				$position = new OrderPosition;
+				$position->order_id = $order->order_id;
+				$position->product_id = $product['product_id'];
+				$position->amount = $product['amount'];
+				$position->specifications = @json_encode($product['Variations']);
+				$position->save();
+			}
+			$this->redirect(array('//shop/order/success'));
+		}
 	}
 
 	public function actionSuccess()
