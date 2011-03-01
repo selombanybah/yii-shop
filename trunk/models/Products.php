@@ -9,7 +9,7 @@ class Products extends CActiveRecord
 
 	public function tableName()
 	{
-		return Yii::app()->controller->module->productsTable;
+		return Shop::module()->productsTable;
 	}
 
 	public function rules()
@@ -97,6 +97,17 @@ class Products extends CActiveRecord
 			'price' => Yii::t('ShopModule.shop', 'Price'),
 			'category_id' => Yii::t('ShopModule.shop', 'Category'),
 		);
+	}
+
+	public function getPrice($variations = null) {
+		$price = $this->price;
+
+		if($variations)
+			foreach($variations as $key => $variation) {
+				$price += @ProductVariation::model()->findByPk($key)->price_adjustion;
+			}
+
+		return (float) $price;
 	}
 
 	public function search()

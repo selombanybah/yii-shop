@@ -40,7 +40,7 @@
 			'model' => $model,
 			'relation' => 'category',
 			'fields' => 'title',
-			'hideAddButton' => true)); ?>
+			'showAddButton' => false)); ?>
 <?php echo $form->error($model,'category_id'); ?>
 </div>
 

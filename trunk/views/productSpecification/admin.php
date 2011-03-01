@@ -5,8 +5,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List ProductSpecification', 'url'=>array('index')),
-	array('label'=>'Create ProductSpecification', 'url'=>array('create')),
+	array('label'=>Shop::t('Specifications'), 'url'=>array('index')),
+	array('label'=>Shop::t('New Specification'), 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
