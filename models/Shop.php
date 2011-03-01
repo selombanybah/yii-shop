@@ -43,8 +43,7 @@
 			while (($parent=$this->getParentModule())!==null)
 				if($parent instanceof shopModule)	
 					return $parent;
-		}
-		throw new CException(Shop:t('Shop Module cannot be found'));		
+		} 
 	}
 
 

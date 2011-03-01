@@ -22,6 +22,7 @@ echo '<br />';
 $this->renderPartial('application.modules.shop.views.order.payment_type');
 echo '<br />';
 echo '<br />';
+echo CHtml::beginForm(array('//shop/order/confirm'));
 $this->renderPartial(Shop::module()->termsView);
 echo '<br />';
 echo '<br />';
@@ -31,7 +32,9 @@ echo '<br />';
 	<div class="row buttons">
 	<?php echo CHtml::link(Shop::t('Edit customer Information'), array(
 				'//shop/customer/update', 'order' => true)); ?>
-	<?php echo CHtml::link(Shop::t('Confirm Order'), array(
+	<?php echo CHtml::submitButton(Shop::t('Confirm Order'), array(
 				'//shop/order/confirm')); ?>
+
+<?php echo CHtml::endForm(); ?>
 	</div>
 
