@@ -1,5 +1,7 @@
 <?php
 return array(
+	'Payment Method' => 'Zahlungsmethode',
+	'Payment method' => 'Zahlungsmethode',
 	'Price total:' => 'Gesamtpreis:',
 	'Update Customer Information' => 'Kundendaten bearbeiten',
 	'Delivery information' => 'Lieferdaten',

@@ -69,6 +69,8 @@ class Products extends CActiveRecord
 
 		foreach($variations as $key => $value) {
 			if(isset($value['title']) && $value['title'] != '')
+				if(isset($value['sign']) && $value['sign'] == '-')
+					$value['price_adjustion'] -= 2 * $value['price_adjustion'];
 				$db->createCommand()->insert('shop_product_variation', array(
 							'product_id' => $this->product_id,
 							'specification_id' => $value['specification_id'],
