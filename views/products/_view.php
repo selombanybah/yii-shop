@@ -11,10 +11,9 @@
 </div>
 
 <div style="float:left;margin-right:100px;">
-	<b><?php echo CHtml::encode($data->getAttributeLabel('price')); ?>:</b>
-	<?php echo CHtml::encode($data->price) . " €"; ?>
+	<b><?php echo $data->getAttributeLabel('price'); ?>:</b>
+	<?php printf('%s %s', $data->getPrice(), Shop::module()->currencySymbol); ?>
 	<br />
-
 
 </div>
 

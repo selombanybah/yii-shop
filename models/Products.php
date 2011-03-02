@@ -100,14 +100,17 @@ class Products extends CActiveRecord
 	}
 
 	public function getPrice($variations = null) {
-		$price = $this->price;
+		$price = sprintf('%.2f', $this->price);
 
 		if($variations)
 			foreach($variations as $key => $variation) {
 				$price += @ProductVariation::model()->findByPk($key)->price_adjustion;
 			}
 
-		return (float) $price;
+		if(Yii::app()->language == 'de')
+			$price = str_replace('.', ',', $price);
+
+		return (string) $price;
 	}
 
 	public function search()

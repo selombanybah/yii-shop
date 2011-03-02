@@ -4,7 +4,7 @@ Yii::import('zii.widgets.CPortlet');
 
 class ShoppingCartWidget extends CPortlet {
 	public function	init() {
-		$this->title = Shop::t('Shopping cart');
+		$this->title = CHtml::link(Shop::t('Shopping cart'), array('//shop/shoppingCart/view'));
 		return parent::init();
 	}
 

@@ -1,4 +1,5 @@
-<?php function renderVariation($variation, $i) { 
+<?php 
+function renderVariation($variation, $i) { 
 	if(!ProductSpecification::model()->findByPk(1))
 		return false;
 	if(!$variation) {
@@ -6,21 +7,23 @@
 		$variation->specification_id = 1;
 	}
 
-	$str = '<div class="row" style="float: left; margin: 5px; padding: 5px; border: 1px solid;">';
-	$str .= CHtml::label($variation->specification->title, ""); 
-	$str .= CHtml::textField("Variations[{$i}][title]", $variation->title); 
-
-	$str .= CHtml::label(Shop::t("Specification"), ""); 
+	$str = '<tr> <td>';
 	$str .= CHtml::dropDownList("Variations[{$i}][specification_id]", $variation->specification_id, CHtml::listData(
 				ProductSpecification::model()->findall(), "id", "title"));  
 
-	$str .= CHtml::label(Shop::t('Price adjustion'), ""); 
-	$str .= CHtml::textField("Variations[{$i}][price_adjustion]", $variation->price_adjustion);  
-	$str .= "</div>";
+	$str .= '</td> <td>';
+	$str .= CHtml::textField("Variations[{$i}][title]", $variation->title); 
+	$str .= '</td> <td>';
+	$str .= CHtml::dropDownList('sign',
+			$variation->price_adjustion >= 0 ? '+' : '-', array(
+				'+' => '+',
+				'-' => '-'));
+	$str .= '</td> <td>';
+	$str .= CHtml::textField("Variations[{$i}][price_adjustion]", abs($variation->price_adjustion));  
 
-	$str = str_replace('\n', '', $str);
-	$str = str_replace('\r', '', $str);
-	return $str;
+	$str .= '</td> </tr>';
+
+return $str;
 } ?>
 <div class="form">
 
@@ -78,20 +81,38 @@
 		<?php } ?>
 
 		</fieldset>
+<?php if(!$model->isNewRecord) { ?>
 		<fieldset>
 		<legend> <?php echo Shop::t('Article Variations'); ?> </legend>
 		<div id="variations">
+
+<table>
 		<?php 
+		printf('<tr><th>%s</th><th>%s</th><th colspan = 2>%s</th></tr>',
+				Shop::t('Specification'), 
+				Shop::t('Value'), 
+				Shop::t('Price adjustion'));
+
+
 		$i = 0;
 		foreach($model->variations as $variation) { 
 			echo renderVariation($variation, $i); 
 			$i++;
-		} ?>
-			</div>
-		
-			<?php echo renderVariation(null, $i); ?>
+		}
+
+			echo renderVariation(null, $i); 
+ ?>
+	</table>	
+	<?php echo CHtml::button(Shop::t('Save specifications'), array(
+				'submit' => array(
+					'//shop/products/update',
+					'return' => 'product',
+					'id' => $model->product_id))); ?>
+
 
 				</fieldset>
+
+<?php } ?>
 
 
 				<div class="row buttons">

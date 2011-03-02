@@ -26,7 +26,6 @@ if($variations = $model->getVariations()) {
 echo '<div style="clear: both;"></div>';
 
 }
-//echo CHtml::image($this->module->getIconsPath().'/addToCart.jpg');
 echo CHtml::submitButton(Shop::t('Add to shopping Cart')); 
 
 echo CHtml::endForm();
