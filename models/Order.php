@@ -35,11 +35,11 @@ class Order extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'order_id' => Yii::t('shop', 'Order'),
-			'customer_id' => Yii::t('shop', 'Customer'),
-			'ordering_date' => Yii::t('shop', 'Ordering Date'),
-			'ordering_done' => Yii::t('shop', 'Ordering Done'),
-			'ordering_confirmed' => Yii::t('shop', 'Ordering Confirmed'),
+			'order_id' => Shop::t('Order'),
+			'customer_id' => Shop::t('Customer'),
+			'ordering_date' => Shop::t('Ordering Date'),
+			'ordering_done' => Shop::t('Ordering Done'),
+			'ordering_confirmed' => Shop::t('Ordering Confirmed'),
 		);
 	}
 
