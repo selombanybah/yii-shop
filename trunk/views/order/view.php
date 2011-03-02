@@ -15,7 +15,10 @@ $this->breadcrumbs=array(
 			'attributes'=>array(
 				'order_id',
 				'customer_id',
-				'ordering_date',
+					array(
+						'label' => Shop::t('Ordering Date'),
+						'value' => date('d. m. Y G:i',$model->ordering_date)
+					),
 				'ordering_done',
 				'ordering_confirmed',
 				),
