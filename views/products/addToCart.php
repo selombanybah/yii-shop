@@ -8,9 +8,11 @@ echo CHtml::textField('amount', 1, array('size' => 3));
 echo '<br />';
 
 if($variations = $model->getVariations()) {
+	$i = 0;
 	foreach($variations as $variation) {
+		$i++;
 		$field = "Variations[{$variation[0]->specification_id}][]";
-		echo '<div style="float: left;margin: 10px;">';
+		echo '<div class="product_variation product_variation_'.$i.'" style="float: left;margin: 10px;">';
 		echo CHtml::label($variation[0]->specification->title, $field) . '<br />';
 		if($variation[0]->specification->is_user_input) {
 			echo CHtml::textField($field);

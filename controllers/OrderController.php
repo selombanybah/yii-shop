@@ -46,7 +46,6 @@ class OrderController extends Controller
 	}
 
 	public function actionConfirm() {
-var_dump($_POST);
 		if(isset($_POST['accept_terms']) && $_POST['accept_terms'] == 1) {
 			$order = new Order();
 			$customer = Shop::getCustomer();

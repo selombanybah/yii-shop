@@ -17,6 +17,7 @@
 
 </div>
 
-<hr />
+<div style="clear: both;"></div>
+
 <?php $this->renderPartial('/products/addToCart', array('model' => $data)); ?>
 </div>

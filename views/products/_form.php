@@ -14,7 +14,7 @@ function renderVariation($variation, $i) {
 	$str .= '</td> <td>';
 	$str .= CHtml::textField("Variations[{$i}][title]", $variation->title); 
 	$str .= '</td> <td>';
-	$str .= CHtml::dropDownList('sign',
+	$str .= CHtml::dropDownList("Variations[{$i}][sign]",
 			$variation->price_adjustion >= 0 ? '+' : '-', array(
 				'+' => '+',
 				'-' => '-'));
