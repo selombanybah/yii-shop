@@ -32,7 +32,7 @@ class ProductsController extends Controller
 		));
 	}
 
-	public function actionUpdate()
+	public function actionUpdate($id, $return = null)
 	{
 		$model=$this->loadModel();
 
@@ -47,7 +47,10 @@ class ProductsController extends Controller
 				$model->setVariations($_POST['Variations']);
 
 			if($model->save())
-				$this->redirect(array('products/admin'));
+				if($return == 'product')
+					$this->redirect(array('products/update', 'id' => $model->product_id));
+				else
+					$this->redirect(array('products/admin'));
 		}
 
 		$this->render('update',array(

@@ -86,6 +86,9 @@ var_dump($_POST);
 				$this->redirect(Shop::module()->successAction);
 			} else 
 				$this->redirect(Shop::module()->failureAction);
+		} else {
+			Shop::setFlash(Shop::t('Please accept our Terms and Conditions to continue'));
+			$this->redirect(array('//shop/order/create'));
 		}
 	}
 

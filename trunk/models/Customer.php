@@ -2,6 +2,8 @@
 
 class Customer extends CActiveRecord
 {
+	public $terms_accepted = null;
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);

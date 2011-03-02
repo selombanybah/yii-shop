@@ -30,7 +30,8 @@ if($specs) {
 } 
 ?>
 
-<?php $this->renderPartial('/products/addToCart', array('model' => $model)); ?>
+<?php $this->renderPartial('/products/addToCart', array(
+			'model' => $model)); ?>
 
 <div class="clear"> </div>
 
