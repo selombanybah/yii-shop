@@ -16,6 +16,9 @@ class ShopModule extends CWebModule
 	public $customerTable = 'shop_customer';
 	public $addressTable = 'shop_address';
 	public $imageTable = 'shop_image';
+	public $shippingMethodTable = 'shop_shipping_method';
+	public $paymentMethodTable = 'shop_payment_method';
+	public $taxTable = 'shop_tax';
 	public $productSpecificationTable = 'shop_product_specification';
 	public $productVariationTable = 'shop_product_variation';
 	public $currencySymbol = '$';
@@ -23,15 +26,6 @@ class ShopModule extends CWebModule
 	public $termsView = '/order/terms';
 	public $successAction = array('//shop/order/success');
 	public $failureAction = array('//shop/order/failure');
-
-	// some example payment methods. Most probably you want to override them in
-	// the application configuration. See the docs/ folder for examples
-	public $paymentMethods = array(
-			1 => 'cash',
-			2 => 'advance Payment',
-			3 => 'cash on delivery',
-			4 => 'invoice',
-			5 => 'paypal');
 
 	public $loginUrl = array('/site/login');
 

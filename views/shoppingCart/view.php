@@ -81,11 +81,13 @@ if($products) {
 ?>
 <hr />
 
-<?php if(Yii::app()->controller->id != 'order') {
- echo CHtml::link(Shop::t('Buy additional Products'), array(
-			'//shop/products')); ?>
-&nbsp;
-<?php echo CHtml::link(Shop::t('Buy this products'), array(
+<?php
+echo Shop::t('All prices are gross') . '<br />';
+echo Shop::t('All prices excluding shipping costs') . '<br />';
+ if(Yii::app()->controller->id != 'order') {
+echo CHtml::link(Shop::t('Buy additional Products'), array(
+			'//shop/products')) . '<br />'; 
+echo CHtml::link(Shop::t('Buy this products'), array(
 			'//shop/order/create')); 
 }
 

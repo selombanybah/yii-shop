@@ -21,6 +21,9 @@ class InstallController extends Controller
 						$imageTable = $_POST['imageTable'];
 						$specificationTable = $_POST['productSpecificationsTable'];
 						$variationTable = $_POST['productVariationTable'];
+						$taxTable = $_POST['taxTable'];
+						$shippingMethodTable = $_POST['shippingMethodTable'];
+						$paymentMethodTable = $_POST['paymentMethodTable'];
 
 						// Clean up existing Installation
 						$sql = "SET FOREIGN_KEY_CHECKS=0;";
@@ -54,6 +57,59 @@ class InstallController extends Controller
 								) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
 
 						$db->createCommand($sql)->execute();
+
+						$sql = "CREATE TABLE IF NOT EXISTS `".$taxTable."` (
+							`id` int(11) NOT NULL AUTO_INCREMENT,
+							`title` varchar(255) NOT NULL,
+							`percent` int(11) NOT NULL,
+							PRIMARY KEY (`id`)
+								) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;";
+
+						$db->createCommand($sql)->execute();
+$sql = "INSERT INTO `shop_tax` (`id`, `title`, `percent`) VALUES
+(1, '19%', 19),
+(2, '7%', 7);";
+
+						$db->createCommand($sql)->execute();
+
+						$sql = "CREATE TABLE IF NOT EXISTS `".$shippingMethodTable."` (
+							`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+							`title` varchar(255) NOT NULL,
+							`description` text NULL,
+							`tax_id` int(11) NOT NULL,
+							`price` double NOT NULL,
+							PRIMARY KEY (`id`)
+								) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ; ";
+
+						$db->createCommand($sql)->execute();
+						$sql = "INSERT INTO `shop_shipping_method` (`id`, `title`, `description`, `tax_id`, `price`) VALUES
+							(1, 'Delivery by postal Service', 'We deliver by Postal Service. 2.99 units of money are charged for that', 1, 2.99);";
+
+						$db->createCommand($sql)->execute();
+
+						$sql = "CREATE TABLE IF NOT EXISTS `".$paymentMethodTable."` (
+							`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+							`title` varchar(255) NOT NULL,
+							`description` text NULL,
+							`tax_id` int(11) NOT NULL,
+							`price` double NOT NULL,
+							PRIMARY KEY (`id`)
+								) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ; ";
+
+						$db->createCommand($sql)->execute();
+
+						$sql = "INSERT INTO `shop_payment_method` (`id`, `title`, `description`, `tax_id`, `price`) VALUES
+							(1, 'cash', 'You pay cash', 1, 0),
+							(2, 'advance Payment', 'You pay in advance, we deliver', 1, 0),
+							(3, 'cash on delivery', 'You pay when we deliver', 1, 0),
+							(4, 'invoice', 'We deliver and send a invoice', 1, 0),
+							(5, 'paypal', 'You pay by paypal', 1, 0);";
+
+						$db->createCommand($sql)->execute();
+
+
+
+
 
 						// Create Category Table
 						$sql = "CREATE TABLE IF NOT EXISTS `".$categoryTable."` (
