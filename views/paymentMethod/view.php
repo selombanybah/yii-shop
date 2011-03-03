@@ -1,9 +1,11 @@
 <?php
-$this->breadcrumbs=array(
-	Shop::t('Payment Methods')=>array('index'),
-	$model->title,
-);
+if(!isset($this->breadcrumbs))
+	$this->breadcrumbs=array(
+			Shop::t('Payment Methods')=>array('index'),
+			$model->title,
+			);
 
+if(!isset($this->menu))
 $this->menu=array(
 	array('label'=>'Create PaymentMethod', 'url'=>array('create')),
 	array('label'=>'Update PaymentMethod', 'url'=>array('update', 'id'=>$model->id)),
@@ -12,15 +14,13 @@ $this->menu=array(
 );
 ?>
 
-<h2><?php echo $model->title; ?></h2>
+<h2> <?php echo Shop::t('Payment method');?></h2>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
 		'title',
 		'description',
-		'tax_id',
 		'price',
 	),
 )); ?>

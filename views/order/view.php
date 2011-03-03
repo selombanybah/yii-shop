@@ -24,6 +24,18 @@ $this->breadcrumbs=array(
 				),
 			)); ?>
 
+<h3> <?php echo Shop::t('Customer Info'); ?> </h3>
+
+<?php $this->widget('zii.widgets.CDetailView', array(
+			'data'=>$model->customer,
+			'attributes'=>array(
+				'firstname',
+				'lastname',
+				'email',
+				),
+			)); ?>
+
+
 
 <h3> <?php echo Shop::t('Delivery address'); ?> </h3>
 <?php $this->widget('zii.widgets.CDetailView', array(
@@ -47,7 +59,12 @@ $this->breadcrumbs=array(
 				),
 			)); ?>
 
-
+<?php 
+$this->renderPartial('/paymentMethod/view', array(
+	'model' => $model->paymentMethod)); 
+$this->renderPartial('/shippingMethod/view', array(
+	'model' => $model->shippingMethod)); 
+?>
 
 
 <h3> <?php echo Shop::t('Ordered Products'); ?> </h3>

@@ -43,6 +43,12 @@ class Products extends CActiveRecord
 		return false;
 	}
 
+	public function getImage($image = 0) {
+		if(isset($this->images[$image]))
+			return Yii::app()->controller->renderPartial('/image/view', array(
+				'model' => $this->images[$image]), true); 
+	}
+
 	public function getSpecifications() {
 		$specs = json_decode($this->specifications, true);
 		return $specs === null ? array() : $specs;
@@ -102,17 +108,19 @@ class Products extends CActiveRecord
 	}
 
 	public function getPrice($variations = null) {
-		$price = sprintf('%.2f', $this->price);
-
+		$price = (float) $this->price;
 		if($variations)
 			foreach($variations as $key => $variation) {
-				$price += @ProductVariation::model()->findByPk($key)->price_adjustion;
+				$price += @ProductVariation::model()->findByPk($variation[0])->price_adjustion;
 			}
+
+
+		$price = sprintf('%.2f', $price);
 
 		if(Yii::app()->language == 'de')
 			$price = str_replace('.', ',', $price);
 
-		return (string) $price;
+		return $price;
 	}
 
 	public function search()

@@ -17,32 +17,39 @@ class OrderController extends Controller
 	* If so, we go directly to the Order confirmation page with the data passed
 	* over. Otherwise we need the user to enter his data, and depending on
 	* whether he is logged in into the system it is saved with his user 
-	* account or once just for this order.	
-	*/
-	public function actionCreate($customer = null)
-	{
-		if($customer) {
-			$this->render('/order/create', array(
-						'customer' => Customer::model()->findByPk($customer)));
-			Yii::app()->end();
-		}
-		if($customer_id = Yii::app()->user->getState('customer_id')) {
-			$this->render('/order/create', array(
-						'customer' => Customer::model()->findByPk($customer_id)));
-			Yii::app()->end();
-		}
+	 * account or once just for this order.	
+	 */
+	public function actionCreate(
+			$customer = null,
+			$payment_method = null,
+			$shipping_method = null) {
 
-		if(Yii::app()->user->isGuest
-				|| !Customer::model()->find('user_id = :uid', array(
-						':uid' => Yii::app()->user->id))) {
+		if(isset($_POST['PaymentMethod'])) 
+			Yii::app()->user->setState('payment_method', $_POST['PaymentMethod']);
+		if(isset($_POST['ShippingMethod'])) 
+			Yii::app()->user->setState('shipping_method', $_POST['ShippingMethod']);
+
+		if(!$customer)
+			$customer = Yii::app()->user->getState('customer_id');
+		if(!$payment_method)
+			$payment_method = Yii::app()->user->getState('payment_method');
+		if(!$shipping_method)
+			$shipping_method = Yii::app()->user->getState('shipping_method');
+
+		if(!$customer)
 			$this->render('/customer/create', array(
-						'action' => array('//shop/customer/create'),
-						'customer' => new Customer,
-						'address' => new Address,
+						'action' => array('//shop/customer/create')));
+		if(!$payment_method)
+			$this->render('/paymentMethod/choose');
+		if(!$shipping_method)
+			$this->render('/shippingMethod/choose');
+
+		if($customer && $payment_method && $shipping_method)  
+			$this->render('/order/create', array(
+						'customer' => Customer::model()->findByPk($customer),
+						'shippingMethod' => ShippingMethod::model()->findByPk($shipping_method),
+						'paymentMethod' => PaymentMethod::model()->findByPk($payment_method),
 						));
-		} else {
-			$this->render('/order/create');
-		}
 	}
 
 	public function actionConfirm() {
@@ -70,7 +77,8 @@ class OrderController extends Controller
 			$order->billing_address_id = $address->id;
 
 			$order->ordering_date = time();
-			$order->payment_method = 1;
+			$order->payment_method = Yii::app()->user->getState('payment_method');
+			$order->shipping_method = Yii::app()->user->getState('shipping_method');
 
 			if($order->save()) {
 				foreach($cart as $position => $product) {
@@ -81,12 +89,16 @@ class OrderController extends Controller
 					$position->specifications = @json_encode($product['Variations']);
 					$position->save();
 					Yii::app()->user->setState('cart', array());
+					Yii::app()->user->setState('shipping_method', null);
+					Yii::app()->user->setState('payment_method', null);
 				}
 				$this->redirect(Shop::module()->successAction);
 			} else 
 				$this->redirect(Shop::module()->failureAction);
 		} else {
-			Shop::setFlash(Shop::t('Please accept our Terms and Conditions to continue'));
+			Shop::setFlash(
+					Shop::t(
+						'Please accept our Terms and Conditions to continue'));
 			$this->redirect(array('//shop/order/create'));
 		}
 	}

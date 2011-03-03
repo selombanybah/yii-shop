@@ -7,14 +7,18 @@ class PaymentMethodController extends Controller
 	public function filters()
 	{
 		return array(
-			'accessControl', // perform access control for CRUD operations
+			'accessControl',
 		);
 	}
 
 	public function accessRules()
 	{
 		return array(
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+			array('allow',
+				'actions'=>array('choose'),
+				'users'=>array('*'),
+			),
+			array('allow', 
 				'actions'=>array('admin','delete','create','update','index','view'),
 				'users'=>array('admin'),
 			),
@@ -22,6 +26,10 @@ class PaymentMethodController extends Controller
 				'users'=>array('*'),
 			),
 		);
+	}
+
+	public function actionChoose() {
+		$this->render('choose');
 	}
 
 	/**

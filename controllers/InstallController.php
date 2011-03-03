@@ -172,6 +172,7 @@ $sql = "INSERT INTO `shop_tax` (`id`, `title`, `percent`) VALUES
 							`ordering_done` TINYINT(1) NULL ,
 							`ordering_confirmed` TINYINT(1) NULL ,
 							`payment_method` INT NOT NULL ,
+							`shipping_method` INT NOT NULL ,
 							PRIMARY KEY (`order_id`) ,
 							INDEX `fk_order_customer` (`customer_id` ASC) ,
 							CONSTRAINT `fk_order_customer1`

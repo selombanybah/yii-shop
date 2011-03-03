@@ -1,9 +1,11 @@
 <?php
-$this->breadcrumbs=array(
-	'Shipping Methods'=>array('index'),
-	$model->title,
-);
+if(!isset($this->breadcrumbs))
+	$this->breadcrumbs=array(
+			'Shipping Methods'=>array('index'),
+			$model->title,
+			);
 
+if(!isset($this->menu))
 $this->menu=array(
 	array('label'=>'List ShippingMethod', 'url'=>array('index')),
 	array('label'=>'Create ShippingMethod', 'url'=>array('create')),
@@ -13,14 +15,13 @@ $this->menu=array(
 );
 ?>
 
-<h1>View ShippingMethod #<?php echo $model->id; ?></h1>
+<h2> <?php echo Shop::t('Shipping method');?></h2>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
 		'title',
-		'tax_id',
+		'description',
 		'price',
 	),
 )); ?>

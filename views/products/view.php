@@ -28,8 +28,10 @@ if($specs) {
 	echo '</table>';
 
 } 
-?>
 
+?>
+<br />
+<br />
 <?php $this->renderPartial('/products/addToCart', array(
 			'model' => $model)); ?>
 
