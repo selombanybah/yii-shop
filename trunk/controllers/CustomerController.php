@@ -39,6 +39,9 @@ class CustomerController extends Controller
 						$model->billing_address_id = $billingAddress->id;
 				}
 
+				if(!Yii::app()->user->isGuest)
+					$model->user_id = Yii::app()->user->id;
+
 				if($model->save()) {
 					Yii::app()->user->setState('customer_id', $model->customer_id);
 					$this->redirect(

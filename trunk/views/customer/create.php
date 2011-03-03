@@ -1,4 +1,10 @@
 <?php
+if(!isset($customer))
+	$customer = new Customer;
+
+if(!isset($address))
+	$address = new Address;
+
 $this->breadcrumbs=array(
 		Yii::t('ShopModule.shop', 'Customers')=>array('index'),
 		Yii::t('ShopModule.shop', 'Register as a new Customer'),

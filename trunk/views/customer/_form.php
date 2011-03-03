@@ -138,7 +138,9 @@ $form=$this->beginWidget('CActiveForm', array(
 "); ?>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($customer->isNewRecord ? Yii::t('ShopModule.shop', 'Register') : Yii::t('ShopModule.shop', 'Save')); ?>
+	<?php echo CHtml::submitButton($customer->isNewRecord 
+			? Yii::t('ShopModule.shop', 'Register') 
+			: Yii::t('ShopModule.shop', 'Save')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

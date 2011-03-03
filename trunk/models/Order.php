@@ -28,6 +28,8 @@ class Order extends CActiveRecord
 			'products' => array(self::HAS_MANY, 'OrderPosition', 'order_id'),
 			'billingAddress' => array(self::BELONGS_TO, 'BillingAddress', 'billing_address_id'),
 			'deliveryAddress' => array(self::BELONGS_TO, 'DeliveryAddress', 'delivery_address_id'),
+			'paymentMethod' => array(self::BELONGS_TO, 'PaymentMethod', 'payment_method'),
+			'shippingMethod' => array(self::BELONGS_TO, 'ShippingMethod', 'shipping_method'),
 
 		);
 	}
@@ -35,8 +37,8 @@ class Order extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'order_id' => Shop::t('Order'),
-			'customer_id' => Shop::t('Customer'),
+			'order_id' => Shop::t('Order number'),
+			'customer_id' => Shop::t('Customer number'),
 			'ordering_date' => Shop::t('Ordering Date'),
 			'ordering_done' => Shop::t('Ordering Done'),
 			'ordering_confirmed' => Shop::t('Ordering Confirmed'),
