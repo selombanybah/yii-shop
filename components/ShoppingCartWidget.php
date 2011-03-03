@@ -6,10 +6,15 @@ class ShoppingCartWidget extends CPortlet {
 	public function	init() {
 		$this->title = CHtml::link(Shop::t('Shopping cart'), array(
 									'//shop/shoppingCart/view'));
+		if(!Shop::getCartContent())
+			return false;
 		return parent::init();
 	}
 
 	public function	run() {
+		if(!Shop::getCartContent())
+			return false;
+
 		$this->render('shopping_cart', array(
 					'products' => Shop::getCartContent()));
 		return parent::run();
