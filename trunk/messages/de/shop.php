@@ -1,5 +1,7 @@
 <?php
 return array(
+	'All prices are gross' => 'Alle Preise sind inkl. MwSt. angegeben',
+	'All prices excluding shipping costs' => 'Alle Preise sind exkl. Versandkosten angegeben',
 	'Payment Method' => 'Zahlungsmethode',
 	'Payment method' => 'Zahlungsmethode',
 	'Price total:' => 'Gesamtpreis:',

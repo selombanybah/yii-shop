@@ -81,6 +81,23 @@ your Yii Web Application </p>
 <tr> 
 <td> Table for the Product Images</td>
 <td> <?php echo CHtml::textField('imageTable', $module->imageTable); ?> </td> </tr>
+<tr> 
+<td> Table for the Shipping Methods</td>
+<td> <?php echo CHtml::textField('shippingMethodTable', $module->shippingMethodTable); ?> </td> 
+</tr>
+<tr> 
+<td> Table for the Payment Methods</td>
+<td> <?php echo CHtml::textField('paymentMethodTable', $module->paymentMethodTable); ?> </td> 
+</tr>
+<tr> 
+<td> Table for Taxes</td>
+<td> <?php echo CHtml::textField('taxTable', $module->taxTable); ?> </td> 
+</tr>
+
+
+
+
+
 </table>
 
 <p> Your Product images will be stored unter Approot
