@@ -1,8 +1,11 @@
 <?php
- Shop::register('shop.css');
- if(!isset($products)) {
-$products = Shop::getCartContent();
-} ?>
+Shop::register('shop.css');
+if(!isset($products)) 
+	$products = Shop::getCartContent();
+$this->breadcrumbs = array(
+Shop::t('Shop') => array('//shop/products/'),
+Shop::t('Shopping Cart'));
+ ?>
 <h2> <?php echo Shop::t('Shopping cart'); ?> </h2>
 
 
@@ -39,16 +42,39 @@ if($products) {
 			}
 
 			printf('<tr><td>%s</td><th>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>',
-					$product['amount'],
+					CHtml::textField('amount_'.$position,
+						$product['amount'], array(
+							'size' => 4,
+							)
+						),
 					$model->title,
 					$variations,
 					$price,
 					$price * $product['amount'],
-					CHtml::link(Shop::t('Remove'), array('//shop/shoppingCart/delete', 'id' => $position), array('confirm' => Shop::t('Are you sure?')))
-);
-		$price_total += $price * $product['amount'];
-		}
-	}
+					CHtml::link(Shop::t('Remove'), array(
+							'//shop/shoppingCart/delete',
+							'id' => $position), array(
+								'confirm' => Shop::t('Are you sure?')))
+					);
+			$price_total += $price * $product['amount'];
+
+			Yii::app()->clientScript->registerScript('amount_'.$position,"
+					$('#amount_".$position."').change(function() {
+						$.ajax({
+							url:'".$this->createUrl('//shop/shoppingCart/updateAmount')."',
+							data: $('#amount_".$position."'),
+							success: function() {
+							$('#amount_".$position."').css('background-color', 'lightgreen');
+							},
+							error: function() {
+							$('#amount_".$position."').css('background-color', 'red');
+							},
+
+							});
+				});
+					");
+			}
+}
 	echo '</table>';
 
 	echo Shop::t('Price total: {total}', array('{total}' => $price_total));

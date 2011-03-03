@@ -11,6 +11,25 @@ class ShoppingCartController extends Controller
 						));
 	}
 
+	public function actionUpdateAmount() {
+		$cart = Shop::getCartContent();
+
+		foreach($_GET as $key => $value) {
+			if(substr($key, 0, 7) == 'amount_') {
+				if (!is_numeric($value) || $value <= 0)
+					throw new CException('Wrong amount');
+				$position = explode('_', $key);
+				$position = $position[1];
+				
+				if(isset($cart[$position]['amount']))
+					$cart[$position]['amount'] = $value;
+			}	
+		}
+
+		return Shop::setCartContent($cart);
+}
+
+
 	public function actionCreate()
 	{
 		if(!is_numeric($_POST['amount']) || $_POST['amount'] <= 0) {
