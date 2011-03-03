@@ -29,13 +29,16 @@ class InstallController extends Controller
 						$sql = "SET FOREIGN_KEY_CHECKS=0;";
 						$db->createCommand($sql)->execute();
 
-						$db->createCommand(sprintf('drop table if exists %s, %s, %s, %s, `%s`, %s, %s',
+						$db->createCommand(sprintf('drop table if exists %s, %s, %s, %s, %s, %s, %s, `%s`, %s, %s',
 									$categoryTable, 
 									$productsTable, 
 									$orderTable,
 									$customerTable,
 									$imageTable,
 									$variationTable,
+									$taxTable,
+									$shippingMethodTable,
+									$paymentMethodTable,
 									$specificationTable)
 								)->execute();
 
@@ -66,9 +69,9 @@ class InstallController extends Controller
 								) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;";
 
 						$db->createCommand($sql)->execute();
-$sql = "INSERT INTO `shop_tax` (`id`, `title`, `percent`) VALUES
-(1, '19%', 19),
-(2, '7%', 7);";
+						$sql = "INSERT INTO `shop_tax` (`id`, `title`, `percent`) VALUES
+							(1, '19%', 19),
+							(2, '7%', 7);";
 
 						$db->createCommand($sql)->execute();
 
