@@ -14,7 +14,7 @@ $this->menu=array(
 );
 ?>
 
-<h2> <?php echo Shop::t('Payment method');?></h2>
+<h2> <?php echo Shop::t('Payment method') ?> </h2>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

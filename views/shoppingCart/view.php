@@ -50,9 +50,9 @@ if($products) {
 						),
 					$model->title,
 					$variations,
-					$model->getPrice($product['Variations']),
+					Shop::priceFormat($model->getPrice($product['Variations'])),
 					Shop::module()->currencySymbol,
-					$product['amount'] * $model->getPrice($product['Variations']),
+					Shop::priceFormat($product['amount'] * $model->getPrice($product['Variations'])),
 					Shop::module()->currencySymbol,
 					CHtml::link(Shop::t('Remove'), array(
 							'//shop/shoppingCart/delete',
@@ -81,7 +81,7 @@ if($products) {
 	echo '</table>';
 
 	echo '<h2>' . Shop::t('Price total: {total} {currencySymbol}', array(
-				'{total}' => $price_total,
+				'{total}' => Shop::priceFormat($price_total),
 				'{currencySymbol}' => Shop::module()->currencySymbol,
 				)) . '</h2>';
 ?>

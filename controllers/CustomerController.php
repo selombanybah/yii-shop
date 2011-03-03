@@ -24,21 +24,6 @@ class CustomerController extends Controller
 					if($address->save())
 						$model->address_id = $address->id;
 				}
-				if(isset($_POST['DeliveryAddress'])
-						&& !Address::isEmpty($_POST['DeliveryAddress'])) {
-					$deliveryAddress = new DeliveryAddress;
-					$deliveryAddress->attributes = $_POST['DeliveryAddress'];
-					if($deliveryAddress->save())
-						$model->delivery_address_id = $deliveryAddress->id;
-				}
-				if(isset($_POST['BillingAddress']) 
-						&& !Address::isEmpty($_POST['BillingAddress'])) {
-					$billingAddress = new BillingAddress;
-					$billingAddress->attributes = $_POST['BillingAddress'];
-					if($billingAddress->save())
-						$model->billing_address_id = $billingAddress->id;
-				}
-
 				if(!Yii::app()->user->isGuest)
 					$model->user_id = Yii::app()->user->id;
 
@@ -53,8 +38,6 @@ class CustomerController extends Controller
 		$this->render('create',array(
 			'customer'=>$model,
 			'address'=>isset($address) ? $address : new Address,
-			'deliveryAddress'=>isset($deliveryAddress) ? $deliveryAddress : new DeliveryAddress,
-			'billingAddress'=>isset($billingAddress) ? $billingAddress : new BillingAddress,
 		));
 	}
 
@@ -77,32 +60,6 @@ class CustomerController extends Controller
 				if($address->save())
 					$model->address_id = $address->id;
 			}
-			if(isset($_POST['DeliveryAddress'])
-					&& isset($_POST['toggle_delivery'])
-					&& !Address::isEmpty($_POST['DeliveryAddress'])) {
-				$deliveryAddress = $model->deliveryAddress 
-					? $model->deliveryAddress 
-					: new DeliveryAddress;
-				$deliveryAddress->attributes = $_POST['DeliveryAddress'];
-				if($deliveryAddress->save())
-					$model->delivery_address_id = $deliveryAddress->id;
-			}
-			if(isset($_POST['BillingAddress']) 
-					&& isset($_POST['toggle_billing'])
-					&& !Address::isEmpty($_POST['BillingAddress'])) {
-				$billingAddress = $model->billingAddress 
-					? $model->billingAddress
-					: new BillingAddress;
-				$billingAddress->attributes = $_POST['BillingAddress'];
-				if($billingAddress->save())
-					$model->billing_address_id = $billingAddress->id;
-			}
-			if(!isset($_POST['toggle_delivery']))
-				$model->delivery_address_id = 0;
-
-			if(!isset($_POST['toggle_billing']))
-				$model->billing_address_id = 0;
-
 			if($model->save()) {
 				if($order !== null)
 					$this->redirect(

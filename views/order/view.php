@@ -29,9 +29,20 @@ $this->breadcrumbs=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 			'data'=>$model->customer,
 			'attributes'=>array(
+				'email',
+				),
+			)); ?>
+
+<h3> <?php echo Shop::t('Customer address'); ?> </h3>
+<?php $this->widget('zii.widgets.CDetailView', array(
+			'data'=>$model->customer->address,
+			'attributes'=>array(
 				'firstname',
 				'lastname',
-				'email',
+				'street',
+				'zipcode',
+				'city',
+				'country'
 				),
 			)); ?>
 
@@ -41,6 +52,8 @@ $this->breadcrumbs=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 			'data'=>$model->deliveryAddress,
 			'attributes'=>array(
+				'firstname',
+				'lastname',
 				'street',
 				'zipcode',
 				'city',
@@ -52,6 +65,8 @@ $this->breadcrumbs=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 			'data'=>$model->billingAddress,
 			'attributes'=>array(
+				'firstname',
+				'lastname',
 				'street',
 				'zipcode',
 				'city',

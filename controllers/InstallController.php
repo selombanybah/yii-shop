@@ -152,8 +152,6 @@ $sql = "INSERT INTO `shop_tax` (`id`, `title`, `percent`) VALUES
 							`address_id` INT NOT NULL ,
 							`delivery_address_id` INT NOT NULL ,
 							`billing_address_id` INT NOT NULL ,
-							`firstname` varchar(255) NOT NULL,
-							`lastname` varchar(255) NOT NULL,
 							`email` VARCHAR(45) NOT NULL ,
 							PRIMARY KEY (`customer_id`) )
 								ENGINE = InnoDB;";
@@ -197,6 +195,8 @@ $sql = "INSERT INTO `shop_tax` (`id`, `title`, `percent`) VALUES
 
 						$sql = "CREATE TABLE IF NOT EXISTS `".$addressTable."` (
 							`id` int(11) NOT NULL AUTO_INCREMENT,
+							`firstname` varchar(255) NOT NULL,
+							`lastname` varchar(255) NOT NULL,
 							`street` varchar(255) NOT NULL,
 							`zipcode` varchar(255) NOT NULL,
 							`city` varchar(255) NOT NULL,

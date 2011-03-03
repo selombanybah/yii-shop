@@ -33,9 +33,9 @@ class Address extends CActiveRecord
 	public function rules()
 	{
 		return array(
-			array('street, zipcode, city, country', 'required'),
-			array('street, zipcode, city, country', 'length', 'max'=>255),
-			array('id, street, zipcode, city, country', 'safe', 'on'=>'search'),
+			array('firstname, lastname, street, zipcode, city, country', 'required'),
+			array('firstname, lastname, street, zipcode, city, country', 'length', 'max'=>255),
+			array('id, firstname, lastname, street, zipcode, city, country', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,6 +57,8 @@ class Address extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'firstname' => Yii::t('ShopModule.shop', 'Firstname'),
+			'lastname' => Yii::t('ShopModule.shop', 'Lastname'),
 			'street' => Shop::t('Street'),
 			'zipcode' =>Shop::t('Zipcode'),
 			'city' => Shop::t('City'),

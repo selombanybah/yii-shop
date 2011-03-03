@@ -28,6 +28,39 @@ class OrderController extends Controller
 			Yii::app()->user->setState('payment_method', $_POST['PaymentMethod']);
 		if(isset($_POST['ShippingMethod'])) 
 			Yii::app()->user->setState('shipping_method', $_POST['ShippingMethod']);
+		if(isset($_POST['DeliveryAddress'])
+				&& !Address::isEmpty($_POST['DeliveryAddress'])) {
+			$deliveryAddress = new DeliveryAddress;
+			$deliveryAddress->attributes = $_POST['DeliveryAddress'];
+			if($deliveryAddress->save()) {
+				$model = Shop::getCustomer();
+
+				if(isset($_POST['toggle_delivery']))
+					$model->delivery_address_id = $deliveryAddress->id;
+				else
+					$model->delivery_address_id = 0;
+				$model->save(false, array('delivery_address_id'));
+			}
+		}
+		if(isset($_POST['BillingAddress'])
+				&& !Address::isEmpty($_POST['BillingAddress'])) {
+			$BillingAddress = new BillingAddress;
+			$BillingAddress->attributes = $_POST['BillingAddress'];
+			if($BillingAddress->save()) {
+				$model = Shop::getCustomer();
+				if(isset($_POST['toggle_billing']))
+					$model->billing_address_id = $BillingAddress->id;
+				else
+					$model->billing_address_id = 0;
+				$model->save(false, array('billing_address_id'));
+			}
+		}
+
+
+
+
+
+
 
 		if(!$customer)
 			$customer = Yii::app()->user->getState('customer_id');
@@ -40,9 +73,11 @@ class OrderController extends Controller
 			$this->render('/customer/create', array(
 						'action' => array('//shop/customer/create')));
 		if(!$payment_method)
-			$this->render('/paymentMethod/choose');
+			$this->render('/paymentMethod/choose', array(
+						'customer' => Shop::getCustomer()));
 		if(!$shipping_method)
-			$this->render('/shippingMethod/choose');
+			$this->render('/shippingMethod/choose', array(
+						'customer' => Shop::getCustomer()));
 
 		if($customer && $payment_method && $shipping_method)  
 			$this->render('/order/create', array(
