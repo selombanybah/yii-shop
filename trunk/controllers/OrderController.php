@@ -4,6 +4,12 @@ class OrderController extends Controller
 {
 	public $_model;
 
+	public function beforeAction($action) {
+		$this->layout = Shop::module()->layout;
+		return parent::beforeAction($action);
+	}
+
+
 	public function actionView()
 	{
 		$this->render('view',array(
@@ -56,12 +62,6 @@ class OrderController extends Controller
 			}
 		}
 
-
-
-
-
-
-
 		if(!$customer)
 			$customer = Yii::app()->user->getState('customer_id');
 		if(!$payment_method)
@@ -69,15 +69,21 @@ class OrderController extends Controller
 		if(!$shipping_method)
 			$shipping_method = Yii::app()->user->getState('shipping_method');
 
-		if(!$customer)
+		if(!$customer) {
 			$this->render('/customer/create', array(
 						'action' => array('//shop/customer/create')));
-		if(!$payment_method)
+			Yii::app()->end();
+		}
+		if(!$payment_method) {
 			$this->render('/paymentMethod/choose', array(
 						'customer' => Shop::getCustomer()));
-		if(!$shipping_method)
+			Yii::app()->end();
+		}
+		if(!$shipping_method) {
 			$this->render('/shippingMethod/choose', array(
 						'customer' => Shop::getCustomer()));
+			Yii::app()->end();
+		}
 
 		if($customer && $payment_method && $shipping_method)  
 			$this->render('/order/create', array(
@@ -95,7 +101,7 @@ class OrderController extends Controller
 
 			$order->customer_id = $customer->customer_id;
 
-			$address = new Address();
+			$address = new DeliveryAddress();
 			if($customer->deliveryAddress)
 				$address->attributes = $customer->deliveryAddress->attributes;
 			else
@@ -103,7 +109,7 @@ class OrderController extends Controller
 			$address->save();
 			$order->delivery_address_id = $address->id;
 
-			$address = new Address();
+			$address = new BillingAddress();
 			if($customer->billingAddress)
 				$address->attributes = $customer->billingAddress->attributes;
 			else
@@ -128,7 +134,7 @@ class OrderController extends Controller
 					Yii::app()->user->setState('payment_method', null);
 				}
 				$this->redirect(Shop::module()->successAction);
-			} else 
+			} else var_dump($order->getErrors()); 
 				$this->redirect(Shop::module()->failureAction);
 		} else {
 			Shop::setFlash(

@@ -11,6 +11,12 @@ class ShippingMethodController extends Controller
 		);
 	}
 
+	public function beforeAction($action) {
+		$this->layout = Shop::module()->layout;
+		return parent::beforeAction($action);
+	}
+
+
 	public function accessRules()
 	{
 		return array(
@@ -19,7 +25,7 @@ class ShippingMethodController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', 
-				'actions'=>array('admin','delete', 'create', 'uodate', 'index', 'view'),
+				'actions'=>array('admin','delete', 'create', 'update', 'index', 'view'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users

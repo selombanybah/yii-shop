@@ -4,14 +4,9 @@ class CategoryController extends Controller
 {
 	public $_model;
 
-	public function beforeAction($action)
-	{
-		if(isset(Yii::app()->controller->module->layout))
-			$this->layout = Yii::app()->controller->module->layout;
-		else
-			$this->layout = 'main'; 
-
-		return true;
+	public function beforeAction($action) {
+		$this->layout = Shop::module()->layout;
+		return parent::beforeAction($action);
 	}
 
 	public function actionView()

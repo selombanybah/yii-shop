@@ -27,8 +27,6 @@ if($variations = $model->getVariations()) {
 			echo '<div style="clear: both;"></div>';
 	}
 
-echo '<div style="clear: both;"></div>';
-
 }
 echo Shop::t('All prices are gross') . '<br />';
 echo Shop::t('All prices excluding shipping costs') . '<br /><br />';

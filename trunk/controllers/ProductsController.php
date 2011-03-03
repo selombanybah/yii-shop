@@ -4,6 +4,35 @@ class ProductsController extends Controller
 {
 	public $_model;
 
+
+	public function filters()
+	{
+		return array(
+			'accessControl',
+		);
+	}	
+
+	public function accessRules() {
+		return array(
+				array('allow',
+					'actions'=>array('view', 'index'),
+					'users' => array('*'),
+					),
+				array('allow',
+					'actions'=>array('admin','delete','create','update', 'view'),
+					'users' => array('admin'),
+					),
+				array('deny',  // deny all other users
+						'users'=>array('*'),
+						),
+				);
+	}
+
+	public function beforeAction($action) {
+		$this->layout = Shop::module()->layout;
+		return parent::beforeAction($action);
+	}
+
 	public function actionView()
 	{
 		$this->render('view',array(

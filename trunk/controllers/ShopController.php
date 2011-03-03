@@ -26,6 +26,29 @@ class ShopController extends Controller
 		}
 	}
 
+	public function filters()
+	{
+		return array(
+			'accessControl',
+		);
+	}	
+
+	public function accessRules() {
+		return array(
+				array('allow',
+					'actions'=>array('install', 'index'),
+					'users' => array('*'),
+					),
+				array('allow',
+					'actions'=>array('admin'),
+					'users' => array('admin'),
+					),
+				array('deny',  // deny all other users
+						'users'=>array('*'),
+						),
+				);
+	}
+
 	public function actionAdmin()
 	{
 		$this->render('admin', array( ));

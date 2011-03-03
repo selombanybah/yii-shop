@@ -3,8 +3,7 @@
 		<?php
         if($products) {
             $sum_price = 0;
-						echo '<h3>'.CHtml::link(Shop::t('Shopping cart'), array(
-									'//shop/shoppingCart/view')).'</h3>';
+
 						echo '<table cellpadding="0" cellspacing="0">';	
             foreach($products as $position) { 
                 $model = Products::model()->findByPk($position['product_id']);

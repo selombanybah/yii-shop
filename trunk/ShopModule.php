@@ -32,7 +32,7 @@ class ShopModule extends CWebModule
 	// Where the uploaded product images are stored:
 	public $productImagesFolder = 'productimages'; // Approot/...
 
-	public $layout = '';
+	public $layout = 'application.modules.shop.views.layouts.shop';
 
 	public function init()
 	{

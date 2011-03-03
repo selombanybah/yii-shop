@@ -25,11 +25,42 @@
 		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 	</div><!-- header -->
 
+
 	<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 		'links'=>$this->breadcrumbs,
 	)); ?><!-- breadcrumbs -->
+		<div id="mainmenu">
+		<?php
+	$items = array();
+	$items[] = array('label'=>'Home', 'url'=>array('/site/index'));
+	$items[] = array('label'=>'All', 'url'=>array('/shop/products/index'));
+	foreach(Category::model()->findAll() as $category)
+	$items[] = array(
+			'label' => $category->title,
+			'url' => array(
+				'//shop/category/view', 'id' => $category->category_id));
+	$items[] = array('label'=>'Admin', 'url'=>array('/shop/shop/admin'));
 
+ $this->widget('zii.widgets.CMenu',array(
+			'items'=>$items,
+		)); ?>
+	</div><!-- mainmenu -->
+
+	<div id="content">
+	<div style="float: right; max-height: 200px; width: 200px; margin: 5px;">
+	<?php
+	$this->widget('AdminWidget');
+	$this->widget('ShoppingCartWidget'); 
+	$this->widget('ProductCategoriesWidget'); 
+	?>	
+	</div>
+
+	<div style="width: 700px;">
 	<?php echo $content; ?>
+	</div>
+	</div>
+
+	<div style="clear: both;"></div>
 
 	<div id="footer">
 		Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>

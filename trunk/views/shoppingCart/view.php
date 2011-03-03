@@ -50,16 +50,16 @@ if($products) {
 						),
 					$model->title,
 					$variations,
-					Shop::priceFormat($model->getPrice($product['Variations'])),
+					Shop::priceFormat($model->getPrice(@$product['Variations'])),
 					Shop::module()->currencySymbol,
-					Shop::priceFormat($product['amount'] * $model->getPrice($product['Variations'])),
+					Shop::priceFormat(@$product['amount'] * $model->getPrice(@$product['Variations'])),
 					Shop::module()->currencySymbol,
 					CHtml::link(Shop::t('Remove'), array(
 							'//shop/shoppingCart/delete',
 							'id' => $position), array(
 								'confirm' => Shop::t('Are you sure?')))
 					);
-			$price_total += $model->getPrice($product['Variations']) * $product['amount'];
+			$price_total += $model->getPrice(@$product['Variations']) * @$product['amount'];
 
 			Yii::app()->clientScript->registerScript('amount_'.$position,"
 					$('#amount_".$position."').change(function() {
