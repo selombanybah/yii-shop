@@ -3,8 +3,6 @@
  $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'firstname',
-		'lastname',
 		'email',
 	),
 )); 
@@ -15,6 +13,8 @@ if($model->address) {
  $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model->address,
 	'attributes'=>array(
+		'firstname',
+		'lastname',
 		'street',
 		'zipcode',
 		'city',
@@ -27,6 +27,8 @@ echo '<h2>'.Shop::t('Delivery address').'</h2>';
  $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model->deliveryAddress ? $model->deliveryAddress : $model->address,
 	'attributes'=>array(
+		'firstname',
+		'lastname',
 		'street',
 		'zipcode',
 		'city',
@@ -38,6 +40,8 @@ echo '<h2>'.Shop::t('Delivery address').'</h2>';
  $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model->billingAddress ? $model->billingAddress : $model->address,
 	'attributes'=>array(
+		'firstname',
+		'lastname',
 		'street',
 		'zipcode',
 		'city',

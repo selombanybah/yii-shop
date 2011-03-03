@@ -6,7 +6,7 @@
 		public function rules()
 		{
 			return array(
-					array('street, zipcode, city, country', 'length', 'max'=>255),
+					array('firstname, lastname, street, zipcode, city, country', 'length', 'max'=>255),
 					array('id, street, zipcode, city, country', 'safe', 'on'=>'search'),
 					);
 		}

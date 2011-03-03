@@ -1,5 +1,7 @@
 <?php
 return array(
+		'Customer address' => 'Kundenadresse',
+		'edit' => 'Bearbeiten',
 		'Edit payment method' => 'Zahlungsmethode bearbeiten',
 		'Edit shipping method' => 'Versandart bearbeiten',
 		'Please accept our Terms and Conditions to continue' => 'Bitte akzeptieren sie unsere Allgemeinen Geschäftsbedingungen, um fortzufahren',

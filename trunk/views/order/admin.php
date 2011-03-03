@@ -15,8 +15,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'filter'=>$model,
 	'columns'=>array(
 		'order_id',
-		'customer.firstname',
-		'customer.lastname',
+		'customer.address.firstname',
+		'customer.address.lastname',
 		array('name' => 'ordering_date',
 			'value' => 'date("M j, Y", $data->ordering_date)'),
 		array(

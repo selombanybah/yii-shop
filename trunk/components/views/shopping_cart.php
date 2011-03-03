@@ -11,7 +11,7 @@
                 printf('<tr><td class="cart-left">%s</td><td class="cart-middle">%s</td><td class="cart-right">%s %s</td></tr>',
                         $position['amount'],
                         $model->title,
-                        $position['amount'] * $model->getPrice(@$position['Variations']),
+                        Shop::priceFormat($position['amount'] * $model->getPrice(@$position['Variations'])),
                         Shop::module()->currencySymbol
                         );
                 $sum_price += (float) $position['amount']* $model->getPrice(@$position['Variations']);
@@ -21,7 +21,7 @@
         
             printf('<tr><td colspan="2" class="cart-left cart-sum"><strong>%s</strong></td><td class="cart-sum cart-right">%s %s</td></tr>',
                     Shop::t('Price total:'),
-                    $sum_price,
+                    Shop::priceFormat($sum_price),
                     Shop::module()->currencySymbol);
 			 echo '</table>';
         }

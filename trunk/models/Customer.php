@@ -17,10 +17,10 @@ class Customer extends CActiveRecord
 	public function rules()
 	{
 		return array(
-			array('firstname, lastname, email', 'required'),
+			array('email', 'required'),
 			array('address_id, customer_id, user_id', 'numerical', 'integerOnly'=>true),
 			array('email', 'CEmailValidator'),
-			array('customer_id, user_id, firstname, lastname, email', 'safe', 'on'=>'search'),
+			array('customer_id, user_id, email', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -40,19 +40,10 @@ class Customer extends CActiveRecord
 		return array(
 			'customer_id' => Yii::t('ShopModule.shop', 'Customer'),
 			'user_id' => Yii::t('ShopModule.shop', 'Userid'),
-			'firstname' => Yii::t('ShopModule.shop', 'Firstname'),
-			'lastname' => Yii::t('ShopModule.shop', 'Lastname'),
-			'address' => Yii::t('ShopModule.shop', 'Address'),
-			'zipcode' => Yii::t('ShopModule.shop', 'Zipcode'),
-			'city' => Yii::t('ShopModule.shop', 'City'),
-			'country' => Yii::t('ShopModule.shop', 'Country'),
+			'address_id' => Yii::t('ShopModule.shop', 'Address'),
+			'billing_address_id' => Yii::t('ShopModule.shop', 'Billing Address'),
+			'delivery_address_id' => Yii::t('ShopModule.shop', 'Delivery Address'),
 			'email' => Yii::t('ShopModule.shop', 'Email'),
-			'delivery_address' => Yii::t('ShopModule.shop', 'Delivery address'),
-			'delivery_zipcode' => Yii::t('ShopModule.shop', 'Delivery zipcode'),
-			'delivery_city' => Yii::t('ShopModule.shop', 'Delivery City'),
-			'billing_address' => Yii::t('ShopModule.shop', 'Billing address'),
-			'billing_zipcode' => Yii::t('ShopModule.shop', 'Billing zipcode'),
-			'billing_city' => Yii::t('ShopModule.shop', 'Billing city'),
 		);
 	}
 
@@ -63,14 +54,6 @@ class Customer extends CActiveRecord
 		$criteria->compare('customer_id',$this->customer_id);
 
 		$criteria->compare('user_id',$this->user_id);
-
-		$criteria->compare('address',$this->address,true);
-
-		$criteria->compare('zipcode',$this->zipcode,true);
-
-		$criteria->compare('city',$this->city,true);
-
-		$criteria->compare('country',$this->country,true);
 
 		$criteria->compare('email',$this->email,true);
 

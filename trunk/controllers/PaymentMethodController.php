@@ -29,7 +29,7 @@ class PaymentMethodController extends Controller
 	}
 
 	public function actionChoose() {
-		$this->render('choose');
+		$this->render('choose', array('customer' => Shop::getCustomer()));
 	}
 
 	/**
