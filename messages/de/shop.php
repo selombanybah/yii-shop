@@ -1,5 +1,7 @@
 <?php
 return array(
+		'Confirm' => 'Bestätigung',
+		'Please enter your Customer information' => 'Bitte geben Sie ihre Kundendaten ein',
 		'Shipping costs' => 'Versandkosten',
 		'Click {link} if you are already registered' => 'Klicken Sie {link}, wenn Sie bereits bei uns Registriert sind',
 		'here' => 'hier',

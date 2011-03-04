@@ -29,8 +29,8 @@ if($products) {
 	} 
 
 	printf('<tr>
-			<td colspan="2" class="cart-left cart-sum price_total"><strong>%s</strong></td>
-			<td class="cart-sum cart-right"></td></tr>',
+			<td colspan="3" class="cart-right cart-sum price_total"><strong>%s</strong></td>
+			</tr>',
 			Shop::getPriceTotal());
 	echo '</table>';
 }
