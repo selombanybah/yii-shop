@@ -29,6 +29,7 @@ foreach(ShippingMethod::model()->findAll() as $method) {
 				'value' => $method->id));
 	echo CHtml::label($method->title, 'ShippingMethod');
 	echo CHtml::tag('p', array(), $method->description);
+	echo CHtml::tag('p', array(), Shop::t('Price: ') . $method->price);
 	echo '<br />';
 	$i++;
 }

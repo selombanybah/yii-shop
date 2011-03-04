@@ -29,7 +29,7 @@ class OrderController extends Controller
 			$customer = null,
 			$payment_method = null,
 			$shipping_method = null) {
-
+		
 		if(isset($_POST['PaymentMethod'])) 
 			Yii::app()->user->setState('payment_method', $_POST['PaymentMethod']);
 		if(isset($_POST['ShippingMethod'])) 
@@ -69,7 +69,7 @@ class OrderController extends Controller
 		if(!$shipping_method)
 			$shipping_method = Yii::app()->user->getState('shipping_method');
 
-		if(!$customer) {
+		if(!$customer || $customer == 'new') {
 			$this->render('/customer/create', array(
 						'action' => array('//shop/customer/create')));
 			Yii::app()->end();

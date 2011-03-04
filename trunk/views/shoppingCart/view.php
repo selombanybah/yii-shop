@@ -13,8 +13,6 @@ if(!isset($this->breadcrumbs))
 
 <?php
 if($products) {
-	$price_total = 0;
-
 	echo '<table class="shopping_cart">';
 	printf('<tr><th>%s</th><th>%s</th><th>%s</th><th>%s</th><th>%s</th><th>%s</th></tr>',
 			Shop::t('Image'),
@@ -41,33 +39,36 @@ if($products) {
 				}
 			}
 
-			printf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s %s</td><td>%s %s</td><td>%s</td></tr>',
+			printf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td class="price_'.$position.'">%s</td><td>%s</td></tr>',
 					$model->getImage(),
 					CHtml::textField('amount_'.$position,
 						$product['amount'], array(
 							'size' => 4,
+							'class' => 'amount_'.$position,
 							)
 						),
 					$model->title,
 					$variations,
 					Shop::priceFormat($model->getPrice(@$product['Variations'])),
-					Shop::module()->currencySymbol,
 					Shop::priceFormat(@$product['amount'] * $model->getPrice(@$product['Variations'])),
-					Shop::module()->currencySymbol,
 					CHtml::link(Shop::t('Remove'), array(
 							'//shop/shoppingCart/delete',
 							'id' => $position), array(
 								'confirm' => Shop::t('Are you sure?')))
 					);
-			$price_total += $model->getPrice(@$product['Variations']) * @$product['amount'];
 
 			Yii::app()->clientScript->registerScript('amount_'.$position,"
-					$('#amount_".$position."').change(function() {
+					$('.amount_".$position."').change(function() {
 						$.ajax({
 							url:'".$this->createUrl('//shop/shoppingCart/updateAmount')."',
 							data: $('#amount_".$position."'),
-							success: function() {
-							$('#amount_".$position."').css('background-color', 'lightgreen');
+							success: function(result) {
+							$('.amount_".$position."').css('background-color', 'lightgreen');
+							$('.widget_amount_".$position."').css('background-color', 'lightgreen');
+							$('.widget_amount_".$position."').html($('.amount_".$position."').val());
+							$('.price_".$position."').html(result);	
+							$('.price_total').load('".$this->createUrl(
+							'//shop/shoppingCart/getPriceTotal')."');
 							},
 							error: function() {
 							$('#amount_".$position."').css('background-color', 'red');
@@ -78,12 +79,25 @@ if($products) {
 					");
 			}
 }
+	if($shippingMethod = Shop::getShippingMethod()) {
+		printf('<tr>
+				<td></td>
+				<td>1</td>
+				<td>%s</td>
+				<td></td>
+				<td>%s</td>
+				<td>%s</td>
+				<td>%s</td></tr>',
+				Shop::t('Shipping costs'),
+				Shop::priceFormat($shippingMethod->price),
+				Shop::priceFormat($shippingMethod->price),
+				CHtml::link(Shop::t('edit'), array('//shop/shippingMethod/choose'))
+				);
+	}
+
 	echo '</table>';
 
-	echo '<h2>' . Shop::t('Price total: {total} {currencySymbol}', array(
-				'{total}' => Shop::priceFormat($price_total),
-				'{currencySymbol}' => Shop::module()->currencySymbol,
-				)) . '</h2>';
+	echo '<h2 class="price_total">'.shop::getPriceTotal().'</h2>';
 ?>
 <hr />
 

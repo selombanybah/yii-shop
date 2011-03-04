@@ -11,6 +11,10 @@ class ShoppingCartController extends Controller
 						));
 	}
 
+	public function actionGetPriceTotal() {
+		echo Shop::getPriceTotal();
+	}
+
 	public function actionUpdateAmount() {
 		$cart = Shop::getCartContent();
 
@@ -23,10 +27,14 @@ class ShoppingCartController extends Controller
 				
 				if(isset($cart[$position]['amount']))
 					$cart[$position]['amount'] = $value;
+					$product = Products::model()->findByPk($cart[$position]['product_id']);
+					echo Shop::priceFormat(
+							$value * $product->getPrice($cart[$position]['Variations'])) .
+						' ' .Shop::module()->currencySymbol;
+					return Shop::setCartContent($cart);
 			}	
 		}
 
-		return Shop::setCartContent($cart);
 }
 
 

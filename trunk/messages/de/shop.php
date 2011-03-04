@@ -1,5 +1,10 @@
 <?php
 return array(
+		'Shipping costs' => 'Versandkosten',
+		'Click {link} if you are already registered' => 'Klicken Sie {link}, wenn Sie bereits bei uns Registriert sind',
+		'here' => 'hier',
+		'I am a new customer' => 'Ich bin Neukunde',
+		'I am a customer already' => 'Ich bin schon Kunde',
 		'Customer address' => 'Kundenadresse',
 		'edit' => 'Bearbeiten',
 		'Edit payment method' => 'Zahlungsmethode bearbeiten',
@@ -41,7 +46,7 @@ return array(
 		'Shopping cart' => 'Warenkorb',
 		'Price Single' => 'Einzelpreis',
 		'Price Total' => 'Gesamtpreis',
-		'Price total: {total} {currencySymbol}' => 'Gesamtpreis: {total} {currencySymbol}',
+		'Price total: {total}' => 'Gesamtpreis: {total}',
 		'Are you sure?' => 'Sind Sie sicher?',
 		'Buy additional Products' => 'Weitere Produkte kaufen',
 		'Buy this products' => 'Zur Kasse',

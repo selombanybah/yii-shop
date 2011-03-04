@@ -2,28 +2,36 @@
 <div id="shopping-cart-content">
 <?php
 if($products) {
-	$sum_price = 0;
 	echo '<h3>'.CHtml::link(Shop::t('Shopping cart'), array(
 				'//shop/shoppingCart/view')) . '</h3>';
 
 	echo '<table cellpadding="0" cellspacing="0">';	
-	foreach($products as $position) { 
+	foreach($products as $num => $position) { 
 		$model = Products::model()->findByPk($position['product_id']);
-		printf('<tr><td class="cart-left">%s</td><td class="cart-middle">%s</td><td class="cart-right">%s %s</td></tr>',
+		printf('<tr>
+				<td class="cart-left widget_amount_'.$num.'">%s</td>
+				<td class="cart-middle">%s</td>
+				<td class="cart-right price_'.$num.'">%s</td></tr>',
 				$position['amount'],
 				$model->title,
-				Shop::priceFormat($position['amount'] * $model->getPrice(@$position['Variations'])),
-				Shop::module()->currencySymbol
+				Shop::priceFormat($position['amount'] * $model->getPrice(@$position['Variations']))
 				);
-		$sum_price += (float) $position['amount']* $model->getPrice(@$position['Variations']);
 	}
 
+	if($shippingMethod = Shop::getShippingMethod()) {
+		printf('<tr>
+				<td class="cart-left">1</td>
+				<td class="cart-middle">%s</td>
+				<td class="cart-right>%s</td></tr>',
+				Shop::t('Shipping costs'),
+				Shop::priceFormat($shippingMethod->price)
+				);
+	} 
 
-
-	printf('<tr><td colspan="2" class="cart-left cart-sum"><strong>%s</strong></td><td class="cart-sum cart-right">%s %s</td></tr>',
-			Shop::t('Price total:'),
-			Shop::priceFormat($sum_price),
-			Shop::module()->currencySymbol);
+	printf('<tr>
+<td colspan="2" class="cart-left cart-sum price_total"><strong>%s</strong></td>
+<td class="cart-sum cart-right"></td></tr>',
+			Shop::getPriceTotal());
 	echo '</table>';
 }
 ?>
