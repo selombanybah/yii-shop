@@ -14,8 +14,9 @@ $this->breadcrumbs=array(
 
 <h2> <?php echo Shop::t('Please enter your Address information'); ?> </h2>
 
-<h3> Click <?php echo CHtml::link('here', Yii::app()->getModule('shop')->loginUrl); ?>, 
-	if you are already registered </h3>
+<h3>  <?php echo Shop::t('Click {link} if you are already registered', array(
+	'{link}' =>  CHtml::link(Shop::t('here'), Shop::module()->loginUrl))); ?> 
+</h3>
 
 	<?php
 

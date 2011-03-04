@@ -5,6 +5,8 @@
 			$price = sprintf('%.2f', $price);
 			if(Yii::app()->language == 'de')
 				$price = str_replace('.', ',', $price);
+
+			$price .= ' '.Shop::module()->currencySymbol;
 		
 			return $price;
 		}
@@ -12,16 +14,39 @@
 			return Yii::app()->user->getState('payment_method');
 		}
 
+		public static function getShippingMethod() {
+			if($shipping_method = Yii::app()->user->getState('shipping_method'))
+				return ShippingMethod::model()->findByPk($shipping_method);
+		}
+
+
 		public static function getCartContent() {
 			if(is_string(Yii::app()->user->getState('cart')))
 				return json_decode(Yii::app()->user->getState('cart'), true);
 			else
 				return Yii::app()->user->getState('cart');
 		}
+
 		public static function setCartContent($cart) {
 			return Yii::app()->user->setState('cart', json_encode($cart));
 		}
 
+		public static function getPriceTotal() {
+			$price_total = 0;
+			foreach(Shop::getCartContent() as $product)  {
+				$model = Products::model()->findByPk($product['product_id']);
+				$price_total += $model->getPrice(@$product['Variations']) * @$product['amount'];
+		}
+
+			if($shipping_method = Shop::getShippingMethod())
+				$price_total += $shipping_method->price;
+
+			$price_total = Shop::t('Price total: {total}', array(
+						'{total}' => Shop::priceFormat($price_total),
+						)); 
+
+			return $price_total;
+		}
 
 		public static function register($file)
 		{
