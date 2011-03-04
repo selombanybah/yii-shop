@@ -23,6 +23,8 @@ class ShopModule extends CWebModule
 	public $productVariationTable = 'shop_product_variation';
 	public $currencySymbol = '$';
 
+	public $notifyAdminEmail = null;
+
 	public $termsView = '/order/terms';
 	public $successAction = array('//shop/order/success');
 	public $failureAction = array('//shop/order/failure');

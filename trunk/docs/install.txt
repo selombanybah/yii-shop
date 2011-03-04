@@ -21,4 +21,7 @@ is approot/productimages. Make sure it is writable by your Web Server Process.
 6.) After Installation, make sure to remove the 'debug' => 'true' in
 your Configuration.
 
-7.) Read docs/config.txt for Configuration Options
+7.) Set the option 'notifyAdminEmail' to a valid email address to receive
+an email every time a consumer orders a product
+
+8.) Read docs/config.txt for other Configuration Options

@@ -133,8 +133,9 @@ class OrderController extends Controller
 					Yii::app()->user->setState('shipping_method', null);
 					Yii::app()->user->setState('payment_method', null);
 				}
+				Shop::mailNotification($order);
 				$this->redirect(Shop::module()->successAction);
-			} else var_dump($order->getErrors()); 
+			} else 
 				$this->redirect(Shop::module()->failureAction);
 		} else {
 			Shop::setFlash(
