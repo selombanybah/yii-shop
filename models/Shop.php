@@ -1,6 +1,20 @@
 <?php
 
 	class Shop {
+		public static function mailNotification ($order) {
+			$email = Shop::module()->notifyAdminEmail;
+			if($email !== null) {
+				$appTitle = Yii::app()->name;
+				$headers="From: {$title}\r\nReply-To: {do@not-reply.org}";
+
+				mail($email,
+						Shop::t('Order #{order_id} has been made in your Webshop', array(
+								'{order_id}' => $order->id)),
+						CHtml::link(Shop::t('direct link'), array(
+								'//shop/order/view', 'id' => $order->id)));
+			}
+		}
+
 		public static function priceFormat ($price) {
 			$price = sprintf('%.2f', $price);
 			if(Yii::app()->language == 'de')
