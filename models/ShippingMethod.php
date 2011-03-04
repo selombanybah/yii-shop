@@ -39,6 +39,7 @@ class ShippingMethod extends CActiveRecord
 			array('title, tax_id, price', 'required'),
 			array('tax_id', 'numerical', 'integerOnly'=>true),
 			array('price', 'numerical'),
+			array('description', 'safe'),
 			array('title', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

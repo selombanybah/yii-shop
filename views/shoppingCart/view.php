@@ -50,7 +50,7 @@ if($products) {
 					$model->title,
 					$variations,
 					Shop::priceFormat($model->getPrice(@$product['Variations'])),
-					Shop::priceFormat(@$product['amount'] * $model->getPrice(@$product['Variations'])),
+					Shop::priceFormat($model->getPrice(@$product['Variations'], @$product['amount'])),
 					CHtml::link(Shop::t('Remove'), array(
 							'//shop/shoppingCart/delete',
 							'id' => $position), array(
@@ -58,7 +58,7 @@ if($products) {
 					);
 
 			Yii::app()->clientScript->registerScript('amount_'.$position,"
-					$('.amount_".$position."').change(function() {
+					$('.amount_".$position."').keyup(function() {
 						$.ajax({
 							url:'".$this->createUrl('//shop/shoppingCart/updateAmount')."',
 							data: $('#amount_".$position."'),

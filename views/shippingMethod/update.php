@@ -1,18 +1,17 @@
 <?php
 $this->breadcrumbs=array(
-	'Shipping Methods'=>array('index'),
+	Shop::t('Shipping Methods')=>array('index'),
 	$model->title=>array('view','id'=>$model->id),
-	'Update',
+	Shop::t('Update'),
 );
 
 $this->menu=array(
-	array('label'=>'List ShippingMethod', 'url'=>array('index')),
-	array('label'=>'Create ShippingMethod', 'url'=>array('create')),
-	array('label'=>'View ShippingMethod', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage ShippingMethod', 'url'=>array('admin')),
+	array('label'=>Shop::t('Create Shipping method'), 'url'=>array('create')),
+	array('label'=>Shop::t('View Shipping method'), 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>Shop::t('Manage Shipping methods'), 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update ShippingMethod <?php echo $model->id; ?></h1>
+<h2><?php echo $model->title; ?></h2>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

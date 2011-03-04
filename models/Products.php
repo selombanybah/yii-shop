@@ -107,13 +107,15 @@ class Products extends CActiveRecord
 		);
 	}
 
-	public function getPrice($variations = null) {
+	public function getPrice($variations = null, $amount = 1) {
 		$price = (float) $this->price;
 		if($variations)
 			foreach($variations as $key => $variation) {
 				$price += @ProductVariation::model()->findByPk($variation[0])->price_adjustion;
 			}
 
+
+		$price *= $amount;
 
 		$price = sprintf('%.2f', $price);
 

@@ -32,8 +32,10 @@ class OrderController extends Controller
 		
 		if(isset($_POST['PaymentMethod'])) 
 			Yii::app()->user->setState('payment_method', $_POST['PaymentMethod']);
+
 		if(isset($_POST['ShippingMethod'])) 
 			Yii::app()->user->setState('shipping_method', $_POST['ShippingMethod']);
+
 		if(isset($_POST['DeliveryAddress'])
 				&& !Address::isEmpty($_POST['DeliveryAddress'])) {
 			$deliveryAddress = new DeliveryAddress;
@@ -48,6 +50,7 @@ class OrderController extends Controller
 				$model->save(false, array('delivery_address_id'));
 			}
 		}
+
 		if(isset($_POST['BillingAddress'])
 				&& !Address::isEmpty($_POST['BillingAddress'])) {
 			$BillingAddress = new BillingAddress;
@@ -64,12 +67,14 @@ class OrderController extends Controller
 
 		if(!$customer)
 			$customer = Yii::app()->user->getState('customer_id');
+		if(!Yii::app()->user->isGuest && !$customer)
+			$customer = Customer::model()->find('user_id = '.Yii::app()->user->id);
 		if(!$payment_method)
 			$payment_method = Yii::app()->user->getState('payment_method');
 		if(!$shipping_method)
 			$shipping_method = Yii::app()->user->getState('shipping_method');
 
-		if(!$customer || $customer == 'new') {
+		if(!$customer) {
 			$this->render('/customer/create', array(
 						'action' => array('//shop/customer/create')));
 			Yii::app()->end();
@@ -85,12 +90,20 @@ class OrderController extends Controller
 			Yii::app()->end();
 		}
 
-		if($customer && $payment_method && $shipping_method)  
+		if($customer && $payment_method && $shipping_method)   {
+			if(is_numeric($customer))
+				$customer = Customer::model()->findByPk($customer);
+			if(is_numeric($shipping_method))
+				$shipping_method = ShippingMethod::model()->findByPk($shipping_method);
+			if(is_numeric($payment_method))
+				$payment_method = PaymentMethod::model()->findByPk($payment_method);
+
 			$this->render('/order/create', array(
-						'customer' => Customer::model()->findByPk($customer),
-						'shippingMethod' => ShippingMethod::model()->findByPk($shipping_method),
-						'paymentMethod' => PaymentMethod::model()->findByPk($payment_method),
+						'customer' => $customer,
+						'shippingMethod' => $shipping_method,
+						'paymentMethod' => $payment_method,
 						));
+		}
 	}
 
 	public function actionConfirm() {
