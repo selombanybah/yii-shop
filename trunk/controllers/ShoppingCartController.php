@@ -20,6 +20,8 @@ class ShoppingCartController extends Controller
 
 		foreach($_GET as $key => $value) {
 			if(substr($key, 0, 7) == 'amount_') {
+				if($value == '')
+					return true;
 				if (!is_numeric($value) || $value <= 0)
 					throw new CException('Wrong amount');
 				$position = explode('_', $key);
@@ -29,8 +31,7 @@ class ShoppingCartController extends Controller
 					$cart[$position]['amount'] = $value;
 					$product = Products::model()->findByPk($cart[$position]['product_id']);
 					echo Shop::priceFormat(
-							$value * $product->getPrice($cart[$position]['Variations'])) .
-						' ' .Shop::module()->currencySymbol;
+							@$product->getPrice($cart[$position]['Variations'], $value));
 					return Shop::setCartContent($cart);
 			}	
 		}

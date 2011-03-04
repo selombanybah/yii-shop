@@ -10,13 +10,6 @@
 } ?>
 </div>
 
-<div style="float:left;margin-right:100px;">
-	<b><?php echo $data->getAttributeLabel('price'); ?>:</b>
-	<?php printf('%s %s', $data->getPrice(), Shop::module()->currencySymbol); ?>
-	<br />
-
-</div>
-
 <div style="clear: both;"></div>
 
 </div>

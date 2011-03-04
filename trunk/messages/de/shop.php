@@ -1,5 +1,6 @@
 <?php
 return array(
+		'Price: ' => 'Preis: ',
 		'Confirm' => 'Bestätigung',
 		'Please enter your Customer information' => 'Bitte geben Sie ihre Kundendaten ein',
 		'Shipping costs' => 'Versandkosten',

@@ -31,6 +31,10 @@ if($specs) {
 
 ?>
 <br />
+<?php printf('%s: %s',
+	Shop::t('Price'),
+	Shop::priceFormat($model->price));
+?>
 <br />
 <?php $this->renderPartial('/products/addToCart', array(
 			'model' => $model)); ?>
