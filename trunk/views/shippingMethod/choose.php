@@ -1,4 +1,6 @@
 <?php
+$this->renderPartial('/order/waypoint', array('point' => 3));
+
 if(!isset($customer))
 	$customer = new Customer;
 

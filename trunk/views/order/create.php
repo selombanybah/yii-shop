@@ -1,4 +1,6 @@
 <?php
+$this->renderPartial('/order/waypoint', array('point' => 4));
+
 $this->breadcrumbs=array(
 	Shop::t('Order')=>array('index'),
 	Shop::t('New Order'),
