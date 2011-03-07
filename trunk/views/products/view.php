@@ -6,39 +6,50 @@ $this->breadcrumbs=array(
 
 ?>
 
-<h2><?php echo $model->title; ?></h2>
+<div class="product-header">
+    <h2 class="title"><?php echo $model->title; ?></h2>
+    <?php printf('<h2 class="price">%s</h2>',
+            Shop::priceFormat($model->price));
+    ?>
+</div>
+
+<div class="clear"></div>
+
+<div class="product-images">
+	<?php 
+    foreach($model->images as $image) {
+        $this->renderPartial('/image/view', array( 'model' => $image));
+        echo '<br />'; 
+    }
+    ?>	
+</div>
+
+<div class="product-options"> 
+	<?php $this->renderPartial('/products/addToCart', array(
+			'model' => $model)); ?>
+</div>
 
 
-<?php 
-foreach($model->images as $image) {
-	$this->renderPartial('/image/view', array( 'model' => $image)); 
-}
-?>
+<div class="product-description">
+	<p> <?php echo $model->description; ?> </p>
+</div>
 
-<h3> <?php echo $model->description; ?> </h3>
 
 <?php 
 $specs = $model->getSpecifications();
 if($specs) {
 	echo '<table>';
+	
+	printf ('<tr><td colspan="2"><strong>%s</strong></td></tr>',
+			Shop::t('Product Specifications'));
+			
 	foreach($specs as $key => $spec) {
 		if($spec != '')
-			printf('<tr> <td> %s </td> <td> %s </td> </td>', $key, $spec);
+			printf('<tr> <td> %s: </td> <td> %s </td> </td>',
+					$key,
+					$spec);
 	}
+	
 	echo '</table>';
-
 } 
-
 ?>
-<br />
-<?php printf('%s: %s',
-	Shop::t('Price'),
-	Shop::priceFormat($model->price));
-?>
-<br />
-<?php $this->renderPartial('/products/addToCart', array(
-			'model' => $model)); ?>
-
-<div class="clear"> </div>
-
-
