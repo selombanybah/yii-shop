@@ -1,5 +1,7 @@
 <?php
 return array(
+		'show product' => 'Anzeigen',
+		'Product Specifications' => 'Produktspezifikationen',
 		'Price: ' => 'Preis: ',
 		'Confirm' => 'Bestätigung',
 		'Please enter your Customer information' => 'Bitte geben Sie ihre Kundendaten ein',
@@ -20,8 +22,8 @@ return array(
 		'Order' => 'Bestellung',
 		'Order number' => 'Bestellnummer',
 		'New Order' => 'Neue Bestellung',
-		'All prices are gross' => 'Alle Preise sind inkl. MwSt. angegeben',
-		'All prices excluding shipping costs' => 'Alle Preise sind exkl. Versandkosten angegeben',
+		'All prices are gross' => 'inkl. MwSt.',
+		'All prices excluding shipping costs' => 'zzgl. Versandkosten',
 		'Payment Method' => 'Zahlungsmethode',
 		'Payment method' => 'Zahlungsmethode',
 		'Shipping Method' => 'Versandart',
@@ -80,7 +82,7 @@ return array(
 		'Create a new Product' => 'Neues Produkt erstellen',
 		'Create a new Category' => 'Neue Kategorie erstellen',
 		'images' => 'Bilder',
-		'Add to shopping Cart' => 'In den Warenkorb...',
+		'Add to shopping Cart' => 'In Warenkorb',
 		'of' => 'von',
 		'Remove from Cart' => 'Aus dem Warenkorb entfernen',
 		'Product Properties' => 'Produkteigenschaften',
