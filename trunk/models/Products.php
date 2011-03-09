@@ -36,6 +36,7 @@ class Products extends CActiveRecord
 			'variations' => array(self::HAS_MANY, 'ProductVariation', 'product_id'),
 			'orders' => array(self::MANY_MANY, 'Order', 'ShopProductOrder(order_id, product_id)'),
 			'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
+			'tax' => array(self::BELONGS_TO, 'Tax', 'tax_id'),
 			'images' => array(self::HAS_MANY, 'Image', 'product_id'),
 			'shopping_carts' => array(self::HAS_MANY, 'ShoppingCart', 'product_id'),
 		);
@@ -50,10 +51,11 @@ class Products extends CActiveRecord
 		return false;
 	}
 
-	public function getImage($image = 0) {
+	public function getImage($image = 0, $thumb = false) {
 		if(isset($this->images[$image]))
 			return Yii::app()->controller->renderPartial('/image/view', array(
-				'model' => $this->images[$image]), true); 
+				'model' => $this->images[$image],
+				'thumb' => $thumb), true); 
 	}
 
 	public function getSpecifications() {
@@ -114,6 +116,22 @@ class Products extends CActiveRecord
 		);
 	}
 
+	public function getTaxRate($variations = null, $amount = 1) { 
+		$taxrate = $this->tax->percent;	
+		$price = (float) $this->price;
+		if($variations)
+			foreach($variations as $key => $variation) {
+				$price += @ProductVariation::model()->findByPk($variation[0])->price_adjustion;
+			}
+
+
+		(float) $price *= $amount;
+
+		(float) $tax = $price * ($taxrate / 100);
+
+		return $tax;
+
+}
 	public function getPrice($variations = null, $amount = 1) {
 		$price = (float) $this->price;
 		if($variations)
@@ -122,12 +140,7 @@ class Products extends CActiveRecord
 			}
 
 
-		$price *= $amount;
-
-		$price = sprintf('%.2f', $price);
-
-		if(Yii::app()->language == 'de')
-			$price = str_replace('.', ',', $price);
+		(float) $price *= $amount;
 
 		return $price;
 	}

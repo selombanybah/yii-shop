@@ -20,13 +20,18 @@ if(!isset($customer))
 	$customer = Shop::getCustomer();
 
 $this->renderPartial('application.modules.shop.views.customer.view', array(
-				'model' => $customer));
+				'model' => $customer,
+				'hideAddress' => true));
 
+echo '<div class="summary_billing_address">';
 $this->renderPartial('application.modules.shop.views.paymentMethod.view', array(
 			'model' => PaymentMethod::model()->findByPk(Yii::app()->user->getState('payment_method'))));
+echo '</div>';
 
+echo '<div class="summary_delivery_address">';
 $this->renderPartial('application.modules.shop.views.shippingMethod.view', array(
 			'model' => ShippingMethod::model()->findByPk(Yii::app()->user->getState('shipping_method'))));
+echo '</div>';
 
 
 

@@ -1,5 +1,5 @@
 <?php
-Shop::register('shop.css');
+Shop::register('css/shop.css');
 if(!isset($products)) 
 	$products = Shop::getCartContent();
 
@@ -41,7 +41,7 @@ if($products) {
 			}
 
 			printf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td class="text-right">%s</td><td class="text-right price_'.$position.'">%s</td><td>%s</td></tr>',
-					$model->getImage(),
+					$model->getImage(0, true),
 					CHtml::textField('amount_'.$position,
 						$product['amount'], array(
 							'size' => 4,
@@ -95,8 +95,11 @@ if($products) {
 				CHtml::link(Shop::t('edit'), array('//shop/shippingMethod/choose'))
 				);
 	}
-	echo '<tr><td class="text-right no-border" colspan="6"><p class="price_total">'.shop::getPriceTotal().'<br />'.Shop::t('All prices are gross'). '<br />'.Shop::t('All prices excluding shipping costs') . '<br /></p></td><td class=" no-border"></td></tr>';
-	echo '</table>';
+echo '<tr>
+<td class="text-right no-border" colspan="6">
+<p class="price_total">'.Shop::getPriceTotal().'</p></td>
+<td class="no-border"></td></tr>';
+echo '</table>';
 ?>
 
 <?php

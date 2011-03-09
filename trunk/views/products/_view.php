@@ -1,3 +1,5 @@
+<?php 
+?>
 <div class="view">
     <h3>
 		<?php echo CHtml::link(CHtml::encode($data->title), array('products/view', 'id' => $data->product_id)); ?>
@@ -15,8 +17,8 @@
      <div class="product-overview-description">
         <p> <?php echo CHtml::encode($data->description); ?> </p>
         <p><strong> <?php echo Shop::priceFormat($data->price); ?></strong> <br />
-        <?php echo Shop::t('All prices are gross').' '.Shop::t('All prices excluding shipping costs')?></p>
-       
+        <?php echo Shop::pricingInfo(); ?>
+      
         <p><?php echo CHtml::link(Shop::t('show product'), array('products/view', 'id' => $data->product_id), array('class' =>'show-product')); ?></p>
     </div>
     

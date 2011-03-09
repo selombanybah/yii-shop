@@ -20,9 +20,9 @@ class Address extends CActiveRecord
 	public static function isEmpty($vars) {
 		return 
 			$vars['street'] == '' 
-			&& $vars['zipcode'] == '' 
-			&& $vars['city'] == '' 
-			&& $vars['country'] == ''; 
+			|| $vars['zipcode'] == '' 
+			|| $vars['city'] == '' 
+			|| $vars['country'] == ''; 
 	}
 
 	public function tableName()

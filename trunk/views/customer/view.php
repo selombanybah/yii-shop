@@ -8,7 +8,7 @@
 )); 
 
 
-if($model->address) {
+if($model->address && !isset($hideAddress)) {
 	echo '<h2>'.Shop::t('Address').'</h2>';
  $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model->address,

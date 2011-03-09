@@ -1,5 +1,5 @@
 <?php
-$this->renderPartial('/order/waypoint', array('point' => 3));
+$this->renderPartial('/order/waypoint', array('point' => 2));
 
 if(!isset($customer))
 	$customer = new Customer;
@@ -31,7 +31,7 @@ foreach(ShippingMethod::model()->findAll() as $method) {
 				'value' => $method->id));
 	echo CHtml::label($method->title, 'ShippingMethod');
 	echo CHtml::tag('p', array(), $method->description);
-	echo CHtml::tag('p', array(), Shop::t('Price: ') . $method->price);
+	echo CHtml::tag('p', array(), Shop::t('Price: ') . Shop::priceFormat($method->price));
 	echo '<br />';
 	$i++;
 }
@@ -44,6 +44,26 @@ foreach(ShippingMethod::model()->findAll() as $method) {
 	<div class="form">
 	<fieldset id="delivery_information" style="display: none;">
 	<legend> <?php echo Shop::t('Delivery information'); ?> </legend>
+<div class="current_address">
+<h2> <?php echo Shop::t('Current Customer address'); ?> </h2>
+
+<?php $this->widget('zii.widgets.CDetailView', array(
+			'data'=>$customer->address,
+			'htmlOptions' => array('class' => 'detail-view'),
+			'attributes'=>array(
+				'firstname',
+				'lastname',
+				'street',
+				'zipcode',
+				'city',
+				'country'
+				),
+			)); ?>
+</div>
+
+<div class="payment_address">
+
+<h2> <?php echo Shop::t('Delivery address'); ?> </h2>
 	<div class="row">
 		<?php echo $form->labelEx($deliveryAddress,'firstname'); ?>
 		<?php echo $form->textField($deliveryAddress,'firstname',array('size'=>45,'maxlength'=>45)); ?>
