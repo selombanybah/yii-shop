@@ -6,7 +6,7 @@ echo CHtml::image(Yii::app()->baseUrl. '/' . $folder . '/' . $model->filename,
 		array(
 			'title' => $model->title,
 			'style' => 'margin: 10px;',
-			'width' => 150)
+			'width' => Shop::module()->imageWidthThumb)
 		); ?>
 <?php 
 

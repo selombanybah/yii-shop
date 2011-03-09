@@ -87,7 +87,15 @@ foreach(ShippingMethod::model()->findAll() as $method) {
 		$('#delivery_information').toggle(500);
 	});
 ");
-echo CHtml::submitButton(Shop::t('Continue'));
+?>
+
+<div class="row buttons">
+<?php
+echo CHtml::submitButton(Shop::t('Continue'),array('id'=>'next'));
+?>
+</div>
+
+<?php
 echo '</div>';
 $this->endWidget(); 
 

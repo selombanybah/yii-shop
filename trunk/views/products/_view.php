@@ -1,13 +1,15 @@
 <div class="view">
-    <h3> <?php echo CHtml::link(CHtml::encode($data->title), array('products/view', 'id' => $data->product_id)); ?> </h3>
-     <div class="product-overview-image">
-		
-           <?php 
-		   if($data->images){
-		   	$this->renderPartial('/image/view', array( 'model' => $data->images[0]));
+    <h3>
+		<?php echo CHtml::link(CHtml::encode($data->title), array('products/view', 'id' => $data->product_id)); ?>
+    </h3>
+    
+    <div class="product-overview-image">	
+          	<?php 
+		  	if($data->images){
+		   		$this->renderPartial('/image/view', array( 'model' => $data->images[0]));
 			}else {
-				echo CHtml::image(Shop::register('no-pic.jpg'));}?>
-     
+				echo CHtml::image(Shop::register('no-pic.jpg'));
+			}?>
 	</div>
     
      <div class="product-overview-description">

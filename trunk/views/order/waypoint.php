@@ -5,7 +5,7 @@ $points = array(
 		Shop::t('Shipping method'),
 		Shop::t('Confirm'));
 
-echo '<div class="waypointarea">';
+echo '<div id="waypointarea" class="waypointarea">';
 foreach ($points as $p => $pointText) 
 {
 	printf('<span class="waypoint%s">%s</span>',
@@ -18,3 +18,4 @@ foreach ($points as $p => $pointText)
 			);
 }
 echo '</div>';
+?>
