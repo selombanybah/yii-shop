@@ -22,7 +22,7 @@ if($products) {
 		printf('<tr>
 				<td class="cart-left">1</td>
 				<td class="cart-middle">%s</td>
-				<td class="cart-right>%s</td></tr>',
+				<td class="cart-right">%s</td></tr>',
 				Shop::t('Shipping costs'),
 				Shop::priceFormat($shippingMethod->price)
 				);

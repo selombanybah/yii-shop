@@ -12,6 +12,13 @@ class Products extends CActiveRecord
 		return Shop::module()->productsTable;
 	}
 
+	public function beforeValidate() {
+		if(Yii::app()->language == 'de')
+			$this->price = str_replace(',', '.', $this->price);
+		
+		return parent::beforeValidate();
+	}
+
 	public function rules()
 	{
 		return array(

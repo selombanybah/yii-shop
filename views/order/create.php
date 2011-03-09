@@ -9,7 +9,7 @@
 
 <?php 
 	Shop::renderFlash();
-	$this->renderPartial'application.modules.shop.views.shoppingCart.view'); 
+	$this->renderPartial('application.modules.shop.views.shoppingCart.view'); 
 
 if(Shop::getCartContent() == array())
 	return false;
