@@ -3,24 +3,25 @@ Shop::register('shop.css');
 if(!isset($products)) 
 	$products = Shop::getCartContent();
 
-if(!isset($this->breadcrumbs))
+if(!isset($this->breadcrumbs) || ($this->breadcrumbs== array()))
 	$this->breadcrumbs = array(
 			Shop::t('Shop') => array('//shop/products/'),
 			Shop::t('Shopping Cart'));
-	?>
-	<h2> <?php echo Shop::t('Shopping cart'); ?> </h2>
+?>
+
+<h2><?php echo Shop::t('Shopping cart'); ?></h2>
 
 
 <?php
 if($products) {
-	echo '<table class="shopping_cart">';
-	printf('<tr><th>%s</th><th>%s</th><th>%s</th><th>%s</th><th>%s</th><th>%s</th></tr>',
+	echo '<table cellpadding="0" cellspacing="0" class="shopping_cart">';
+	printf('<tr><th>%s</th><th>%s</th><th>%s</th><th>%s</th><th style="width:60px;">%s</th><th style="width:60px;">%s</th><th>%s</th></tr>',
 			Shop::t('Image'),
 			Shop::t('Amount'),
 			Shop::t('Product'),
 			Shop::t('Variation'),
 			Shop::t('Price Single'),
-			Shop::t('Price Total'),
+			Shop::t('Sum'),
 			Shop::t('Actions')
 );
 
@@ -39,7 +40,7 @@ if($products) {
 				}
 			}
 
-			printf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td class="price_'.$position.'">%s</td><td>%s</td></tr>',
+			printf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td class="text-right">%s</td><td class="text-right price_'.$position.'">%s</td><td>%s</td></tr>',
 					$model->getImage(),
 					CHtml::textField('amount_'.$position,
 						$product['amount'], array(
@@ -94,16 +95,12 @@ if($products) {
 				CHtml::link(Shop::t('edit'), array('//shop/shippingMethod/choose'))
 				);
 	}
-
+	echo '<tr><td class="text-right no-border" colspan="6"><p class="price_total">'.shop::getPriceTotal().'<br />'.Shop::t('All prices are gross'). '<br />'.Shop::t('All prices excluding shipping costs') . '<br /></p></td><td class=" no-border"></td></tr>';
 	echo '</table>';
-
-	echo '<h2 class="price_total">'.shop::getPriceTotal().'</h2>';
 ?>
-<hr />
 
 <?php
-echo Shop::t('All prices are gross') . '<br />';
-echo Shop::t('All prices excluding shipping costs') . '<br />';
+
  if(Yii::app()->controller->id != 'order') {
 echo CHtml::link(Shop::t('Buy additional Products'), array(
 			'//shop/products')) . '<br />'; 

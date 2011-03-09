@@ -78,9 +78,13 @@ foreach(PaymentMethod::model()->findAll() as $method) {
 	</div>
 
 	</fieldset>
+<div class="row buttons">
+<?php
+echo CHtml::submitButton(Shop::t('Continue'),array('id'=>'next'));
+?>
+</div>
 
 <?php
-echo CHtml::submitButton(Shop::t('Continue'));
 echo '</div>';
 $this->endWidget(); 
 Yii::app()->clientScript->registerScript('toggle', "

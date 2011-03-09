@@ -22,6 +22,9 @@ class ShopModule extends CWebModule
 	public $productSpecificationTable = 'shop_product_specification';
 	public $productVariationTable = 'shop_product_variation';
 	public $currencySymbol = '$';
+	
+	public $imageWidthThumb = 100;
+	public $imageWidth = 200;
 
 	public $notifyAdminEmail = null;
 

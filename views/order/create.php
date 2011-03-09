@@ -1,16 +1,15 @@
 <?php
-$this->renderPartial('/order/waypoint', array('point' => 4));
-
-$this->breadcrumbs=array(
-	Shop::t('Order')=>array('index'),
-	Shop::t('New Order'),
-);
-
+	$this->renderPartial('/order/waypoint', array('point' => 4));
+	
+	$this->breadcrumbs=array(
+		Shop::t('Order')=>array('index'),
+		Shop::t('New Order'),
+	);
 ?>
 
 <?php 
-Shop::renderFlash();
-$this->renderPartial('application.modules.shop.views.shoppingCart.view'); 
+	Shop::renderFlash();
+	$this->renderPartial'application.modules.shop.views.shoppingCart.view'); 
 
 if(Shop::getCartContent() == array())
 	return false;
@@ -52,5 +51,4 @@ echo '<br />';
 				'//shop/order/confirm')); ?>
 
 <?php echo CHtml::endForm(); ?>
-	</div>
-
+</div>
