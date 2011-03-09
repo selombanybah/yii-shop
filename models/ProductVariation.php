@@ -23,12 +23,15 @@ class ProductVariation extends CActiveRecord
 
 	public static function listData($variations) {
 		$var = array();
+
 		foreach($variations as $id => $variation) 
-			$var[$variation->id] = sprintf('%s (%s%s %s)',
-					$variation->title,
-					$variation->price_adjustion > 0 ? '+' : '',
-					str_replace('.',',',sprintf('%.2f', $variation->price_adjustion)),
-					Shop::module()->currencySymbol); 
+			if($variation->price_adjustion == 0) 
+				$var[$variation->id] = sprintf('%s', $variation->title);
+			else
+				$var[$variation->id] = sprintf('%s (%s%s)',
+						$variation->title,
+						$variation->price_adjustion > 0 ? '+' : '',
+						Shop::priceFormat($variation->price_adjustion));
 
 		return $var;
 	}

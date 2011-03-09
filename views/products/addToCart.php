@@ -1,7 +1,6 @@
 <?php
 echo '<div class="product-price-info">';
-echo Shop::t('All prices are gross') . '<br />';
-echo Shop::t('All prices excluding shipping costs') . '<br /><br />';
+echo Shop::pricingInfo();
 echo '</div>';
 
 echo CHtml::beginForm(array('shoppingCart/create'));
@@ -12,7 +11,9 @@ if($variations = $model->getVariations()) {
 		$i++;
 		$field = "Variations[{$variation[0]->specification_id}][]";
 		echo '<div class="product_variation product_variation_'.$i.'">';
-		echo CHtml::label($variation[0]->specification->title, $field, array( 'class' => 'lbl-header')) . '<br />';
+		echo CHtml::label($variation[0]->specification->title,
+				$field, array(
+					'class' => 'lbl-header')) . '<br />';
 		if($variation[0]->specification->is_user_input) {
 			echo CHtml::textField($field);
 		}

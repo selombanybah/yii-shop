@@ -1,5 +1,6 @@
 <?php
-$this->renderPartial('/order/waypoint', array('point' => 2));
+Shop::register('css/shop.css');
+$this->renderPartial('/order/waypoint', array('point' => 3));
 
 if(!isset($customer))
 	$customer = new Customer;
@@ -16,7 +17,11 @@ if(!isset($this->breadcrumbs))
 			Shop::t('Payment method'));
 ?>
 
+
+
+
 <h2> <?php echo Shop::t('Choose your Payment method'); ?> </h2>
+
 
 <?php
 $i = 0;
@@ -44,6 +49,28 @@ foreach(PaymentMethod::model()->findAll() as $method) {
 <div class="form">
 	<fieldset id="billing_information" style="display: none;" >
 	<legend> <?php echo Shop::t('Billing information'); ?> </legend>
+
+<div class="current_address">
+<h2> <?php echo Shop::t('Current Customer address'); ?> </h2>
+
+<?php $this->widget('zii.widgets.CDetailView', array(
+			'data'=>$customer->address,
+			'htmlOptions' => array('class' => 'detail-view'),
+			'attributes'=>array(
+				'firstname',
+				'lastname',
+				'street',
+				'zipcode',
+				'city',
+				'country'
+				),
+			)); ?>
+</div>
+
+<div class="payment_address">
+
+<h2> <?php echo Shop::t('Payment address'); ?> </h2>
+
 	<div class="row">
 		<?php echo $form->labelEx($billingAddress,'firstname'); ?>
 		<?php echo $form->textField($billingAddress,'firstname',array('size'=>45,'maxlength'=>45)); ?>

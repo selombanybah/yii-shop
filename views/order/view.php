@@ -33,21 +33,7 @@ $this->breadcrumbs=array(
 				),
 			)); ?>
 
-<h3> <?php echo Shop::t('Customer address'); ?> </h3>
-<?php $this->widget('zii.widgets.CDetailView', array(
-			'data'=>$model->customer->address,
-			'attributes'=>array(
-				'firstname',
-				'lastname',
-				'street',
-				'zipcode',
-				'city',
-				'country'
-				),
-			)); ?>
-
-
-
+<div class="summary_delivery_address">
 <h3> <?php echo Shop::t('Delivery address'); ?> </h3>
 <?php $this->widget('zii.widgets.CDetailView', array(
 			'data'=>$model->deliveryAddress,
@@ -60,7 +46,9 @@ $this->breadcrumbs=array(
 				'country'
 				),
 			)); ?>
+</div>
 
+<div class="summary_billing_address">
 <h3> <?php echo Shop::t('Billing address'); ?> </h3>
 <?php $this->widget('zii.widgets.CDetailView', array(
 			'data'=>$model->billingAddress,
@@ -73,6 +61,7 @@ $this->breadcrumbs=array(
 				'country'
 				),
 			)); ?>
+</div>
 
 <?php 
 $this->renderPartial('/paymentMethod/view', array(

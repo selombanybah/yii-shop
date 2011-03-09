@@ -15,6 +15,23 @@
 			}
 		}
 
+		public static function pricingInfo() {
+			Shop::register('js/jquery.tools.min.js');
+			Shop::register('css/shop.css');
+			Yii::app()->clientScript->registerScript('tooltip', 
+					"$('.price_information').tooltip(); ");
+
+			echo '<p class="price_information">';
+			echo Shop::t('All prices are including VAT') . '<br />';
+			echo Shop::t('All prices excluding shipping costs') . '<br /><br />';
+			echo '</p>';
+			echo '<div class="tooltip">';
+				Yii::app()->controller->renderPartial('/shippingMethod/index'); 
+			echo '</div>';
+
+		}
+
+
 		public static function priceFormat ($price) {
 			$price = sprintf('%.2f', $price);
 			if(Yii::app()->language == 'de')
@@ -47,9 +64,12 @@
 
 		public static function getPriceTotal() {
 			$price_total = 0;
+			$tax_total = 0;
 			foreach(Shop::getCartContent() as $product)  {
 				$model = Products::model()->findByPk($product['product_id']);
-				$price_total += $model->getPrice(@$product['Variations']) * @$product['amount'];
+				$price_total += $model->getPrice(@$product['Variations'], @$product['amount']);
+				$tax_total += $model->getTaxRate(@$product['Variations'], @$product['amount']);
+
 		}
 
 			if($shipping_method = Shop::getShippingMethod())
@@ -58,6 +78,10 @@
 			$price_total = Shop::t('Price total: {total}', array(
 						'{total}' => Shop::priceFormat($price_total),
 						)); 
+			$price_total .= '<br />';
+			$price_total .= Shop::t('All prices are including VAT: {vat}', array(
+						'{vat}' => Shop::priceFormat($tax_total))) . '<br />';
+			$price_total .= Shop::t('All prices excluding shipping costs') . '<br />';
 
 			return $price_total;
 		}
@@ -65,7 +89,7 @@
 		public static function register($file)
 		{
 			$url = Yii::app()->getAssetManager()->publish(
-					Yii::getPathOfAlias('application.modules.shop.assets.css'));
+					Yii::getPathOfAlias('application.modules.shop.assets'));
 
 			$path = $url . '/' . $file;
 			if(strpos($file, 'js') !== false)

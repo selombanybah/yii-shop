@@ -130,6 +130,7 @@ class InstallController extends Controller
 						$sql = "CREATE  TABLE IF NOT EXISTS `".$productsTable."` (
 							`product_id` INT NOT NULL AUTO_INCREMENT ,
 							`category_id` INT NOT NULL ,
+							`tax_id` INT NOT NULL ,
 							`title` VARCHAR(45) NOT NULL ,
 							`description` TEXT NULL ,
 							`price` VARCHAR(45) NULL ,

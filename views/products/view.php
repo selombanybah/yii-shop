@@ -16,12 +16,15 @@ $this->breadcrumbs=array(
 <div class="clear"></div>
 
 <div class="product-images">
-	<?php 
-    foreach($model->images as $image) {
-        $this->renderPartial('/image/view', array( 'model' => $image));
-        echo '<br />'; 
-    }
-    ?>	
+<?php 
+if($model->images) {
+	foreach($model->images as $image) {
+		$this->renderPartial('/image/view', array( 'model' => $image));
+		echo '<br />'; 
+	}
+} else 
+$this->renderPartial('/image/view', array( 'model' => new Image()));
+?>	
 </div>
 
 <div class="product-options"> 
