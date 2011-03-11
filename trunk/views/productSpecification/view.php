@@ -20,5 +20,7 @@ $this->menu=array(
 	'attributes'=>array(
 		'id',
 		'title',
+		'is_user_input',
+		'required',
 	),
 )); ?>

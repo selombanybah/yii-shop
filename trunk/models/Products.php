@@ -33,7 +33,7 @@ class Products extends CActiveRecord
 	public function relations()
 	{
 		return array(
-			'variations' => array(self::HAS_MANY, 'ProductVariation', 'product_id'),
+			'variations' => array(self::HAS_MANY, 'ProductVariation', 'product_id', 'order' => 'position'),
 			'orders' => array(self::MANY_MANY, 'Order', 'ShopProductOrder(order_id, product_id)'),
 			'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
 			'tax' => array(self::BELONGS_TO, 'Tax', 'tax_id'),
@@ -83,19 +83,26 @@ class Products extends CActiveRecord
 					':product_id' => $this->product_id));
 
 		foreach($variations as $key => $value) {
-			if(isset($value['title']) && $value['title'] != '')
+			if($value['specification_id'] 
+					&& isset($value['title']) 
+					&& $value['title'] != '') {
+
 				if(isset($value['sign']) && $value['sign'] == '-')
 					$value['price_adjustion'] -= 2 * $value['price_adjustion'];
+
+
 				$db->createCommand()->insert('shop_product_variation', array(
 							'product_id' => $this->product_id,
 							'specification_id' => $value['specification_id'],
+							'position' => @$value['position'] ?: 0,
 							'title' => $value['title'],
-							'price_adjustion' => $value['price_adjustion'],
+							'price_adjustion' => @$value['price_adjustion'] ?: 0,
 							));	
+			}
 		}
 	}
 
-	public function getVariations() {
+		public function getVariations() {
 		$variations = array();
 		foreach($this->variations as $variation) {
 			$variations[$variation->specification_id][] = $variation;

@@ -54,6 +54,7 @@ class InstallController extends Controller
 							`id` int(11) NOT NULL AUTO_INCREMENT,
 							`product_id` int(11) NOT NULL,
 							`specification_id` int(11) NOT NULL,
+							`position` int(11) NOT NULL,
 							`title` varchar(255) NOT NULL,
 							`price_adjustion` float NOT NULL,
 							PRIMARY KEY (`id`)
@@ -175,6 +176,7 @@ class InstallController extends Controller
 							`ordering_confirmed` TINYINT(1) NULL ,
 							`payment_method` INT NOT NULL ,
 							`shipping_method` INT NOT NULL ,
+							`comment` TEXT NULL ,
 							PRIMARY KEY (`order_id`) ,
 							INDEX `fk_order_customer` (`customer_id` ASC) ,
 							CONSTRAINT `fk_order_customer1`

@@ -56,7 +56,7 @@ class ProductVariation extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('product_id, specification_id, title, price_adjustion', 'required'),
+			array('product_id, specification_id, title, price_adjustion, position', 'required'),
 			array('product_id, specification_id', 'numerical', 'integerOnly'=>true),
 			array('price_adjustion', 'numerical'),
 			array('title', 'length', 'max'=>255),

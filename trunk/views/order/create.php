@@ -10,6 +10,13 @@
 <?php 
 	Shop::renderFlash();
 	$this->renderPartial('application.modules.shop.views.shoppingCart.view'); 
+echo CHtml::beginForm(array('//shop/order/confirm'));
+echo CHtml::label(Shop::t('Please add additional comments to the order here'), 
+'Order[Comment]') . '<br />';
+echo CHtml::textArea('Order[Comment]',
+		@Yii::app()->user->getState('order_comment'), array(
+			'cols' => '90',
+			'rows' => '15'));
 
 if(Shop::getCartContent() == array())
 	return false;
@@ -36,7 +43,6 @@ echo '</div>';
 
 
 echo '<br />';
-echo CHtml::beginForm(array('//shop/order/confirm'));
 $this->renderPartial(Shop::module()->termsView);
 echo '<br />';
 echo '<br />';

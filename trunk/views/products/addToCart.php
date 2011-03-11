@@ -1,4 +1,5 @@
 <?php
+echo Shop::renderFlash();
 echo '<div class="product-price-info">';
 echo Shop::pricingInfo();
 echo '</div>';
@@ -13,13 +14,20 @@ if($variations = $model->getVariations()) {
 		echo '<div class="product_variation product_variation_'.$i.'">';
 		echo CHtml::label($variation[0]->specification->title,
 				$field, array(
-					'class' => 'lbl-header')) . '<br />';
+					'class' => 'lbl-header'));
+
+		if($variation[0]->specification->required)
+			echo ' <span class="required">*</span>';
+
+		echo  '<br />';
 		if($variation[0]->specification->is_user_input) {
 			echo CHtml::textField($field);
 		}
 		else {
+			// If the specification is required, preselect the first field. Otherwise
+			// let the customer choose which one to pick
 			echo CHtml::radioButtonList($field,
-					$variation[0]->id,
+					$variation[0]->specification->required ? $variation[0]->id : null,
 					ProductVariation::listData($variation));
 		}
 		echo '</div>';

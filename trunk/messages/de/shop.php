@@ -1,5 +1,9 @@
 <?php
 return array(
+		'Please select a {specification}' => 'Bitte wählen Sie aus: {specification}',
+		'Please add additional comments to the order here' => 'Bitte geben Sie zusätzliche Anmerkungen zur Bestellung hier an: ',
+		'Payment' => 'Zahlung',
+		'Success' => 'Erfolg',
 		'Available shipping methods' => 'Versandarten: ',
 		'Payment address' => 'Rechungsadresse',
 		'Delivery address' => 'Lieferadresse',
