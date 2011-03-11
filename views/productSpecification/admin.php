@@ -11,14 +11,13 @@ $this->menu=array(
 
 ?>
 
-<h2>Manage Product Specifications</h2>
+<h2><?php echo Shop::t('Manage Product Specifications'); ?></h2>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'product-specification-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
 		'title',
 		'is_user_input',
 		'required',

@@ -49,9 +49,11 @@
 	<div id="content">
 	<div style="float: right; max-height: 200px; width: 200px; margin: 5px;">
 	<?php
-	$this->widget('AdminWidget');
 	$this->widget('ShoppingCartWidget'); 
 	$this->widget('ProductCategoriesWidget'); 
+	if(!Yii::app()->user->isGuest) 
+		$this->widget('AdminWidget');
+
 	?>	
 	</div>
 

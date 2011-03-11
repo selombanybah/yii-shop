@@ -46,6 +46,7 @@ class InstallController extends Controller
 							`id` int(11) NOT NULL AUTO_INCREMENT,
 							`title` varchar(255) NOT NULL,
 							`is_user_input` tinyint(1),
+							`required` tinyint(1),
 							PRIMARY KEY (`id`)
 								) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 						$db->createCommand($sql)->execute();
@@ -265,10 +266,30 @@ class InstallController extends Controller
 
 							$db->createCommand($sql)->execute();
 
+							$sql = "INSERT INTO `".$productsTable."` 
+(`product_id`, `tax_id`, `title`, `description`, `price`, `category_id`) VALUES 
+(1, 1, 'Demonstration of Article with variations', 'Hello, World!', '19.99', 1),
+(2, 2, 'Another Demo Article with less Tax', '!!', '29.99', 1), 
+(3, 1, 'Demo3', '', '', 2), (4, 1, 'Demo4', '', '7, 55', 4); ";
 
-							$sql = "INSERT INTO `".$productsTable."` (`product_id`, `title`, `description`, `price`, `category_id`) VALUES (1, 'Demonstration of Article 1', 'Hello, World!', '19.99', 1), (2, 'Another Demo Article', '!!', '29.99', 1), (3, 'Demo3', '', '', 2), (4, 'Demo4', '', '7, 55', 4); ";
 
-
+							$db->createCommand($sql)->execute();
+							$sql = "
+								INSERT INTO `shop_product_variation` (`id`, `product_id`, `specification_id`, `title`, `price_adjustion`, `position`) VALUES
+								(1, 1, 1, 'variation1', 3, 2),
+								(2, 1, 1, 'variation2', 6, 3),
+								(3, 1, 2, 'variation3', 9, 4),
+								(4, 1, 5, 'please enter a number here', 0, 1);
+							";
+							$db->createCommand($sql)->execute();
+							$sql = "
+								INSERT INTO `shop_product_specification` (`id`, `title`, `is_user_input`, `required`) VALUES
+								(1, 'Size', 0, 1),
+								(2, 'Color', 0, 0),
+								(3, 'Some random attribute', 0, 0),
+								(4, 'Material', 0, 1),
+								(5, 'Specific number', 1, 1);
+							";
 							$db->createCommand($sql)->execute();
 						$sql = "SET FOREIGN_KEY_CHECKS=1;";
 						$db->createCommand($sql)->execute();

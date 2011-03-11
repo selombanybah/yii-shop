@@ -9,6 +9,11 @@ class TaxController extends Controller
 		);
 	}
 
+	public function beforeAction($action) {
+		$this->layout = Shop::module()->layout;
+		return parent::beforeAction($action);
+	}
+
 	public function accessRules()
 	{
 		return array(

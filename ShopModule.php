@@ -2,11 +2,17 @@
 
 class ShopModule extends CWebModule
 {
+	public $version = '0.7';
+
 	// Is the Shop in debug Mode?
 	public $debug = false;
 
   // Whether the installer should install some demo data
 	public $installDemoData = true;
+
+	// Enable this to use the shop module together with the yii user
+	// management module
+	public $useWithYum = false;
 
 	// Names of the tables
 	public $categoryTable = 'shop_category';

@@ -15,8 +15,8 @@ echo CHtml::label(Shop::t('Please add additional comments to the order here'),
 'Order[Comment]') . '<br />';
 echo CHtml::textArea('Order[Comment]',
 		@Yii::app()->user->getState('order_comment'), array(
-			'cols' => '90',
-			'rows' => '15'));
+			'cols' => '60',
+			'rows' => '5'));
 
 if(Shop::getCartContent() == array())
 	return false;

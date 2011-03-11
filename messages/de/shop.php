@@ -1,5 +1,12 @@
 <?php
 return array(
+		'Article categories' => 'Artikelkategorien',
+		'Article specifications' => 'Artikelspezifikationen',
+		'Articles' => 'Artikel',
+		'Shipping methods' => 'Versandarten',
+		'Payment methods' => 'Bezahlmethoden',
+		'Tax' => 'Steuer',
+		'Manage Product Specifications' => 'Produktspezifikationen verwalten',
 		'Please select a {specification}' => 'Bitte wählen Sie aus: {specification}',
 		'Please add additional comments to the order here' => 'Bitte geben Sie zusätzliche Anmerkungen zur Bestellung hier an: ',
 		'Payment' => 'Zahlung',

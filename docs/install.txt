@@ -1,8 +1,8 @@
-Thank you for choosing the Yii Webshop module!
+Thank you for trying the Yii Webshop module!
 
-To install this module, follow the following steps:
+To install this module, follow these steps:
 
-1.) extract the file under the modules/ directory of your Web Application
+1.) extract the file under the modules/ directory of your Web Application. If the directory does not exist, create it.
 
 2.) set up the Module in your protected/config/main.php:
 
@@ -11,11 +11,12 @@ return array(
  'modules' => array('shop' => array( 'debug' => 'true')),
  [...]
 
-3.) run webapp/shop/install in your Web Browser
+3.) run <webapp_url>/shop/install in your Web Browser
 
-4.) follow the on-screen installation instructions
+4.) follow the on-screen installation instructions (in most cases simply click
+the install button)
 
-5.) Create an empty directory containing your Product Images. By Default, this
+5.) Create an empty directory containing your product Images. By Default, this
 is approot/productimages. Make sure it is writable by your Web Server Process.
 
 6.) After Installation, make sure to remove the 'debug' => 'true' in

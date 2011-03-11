@@ -124,21 +124,22 @@ class Products extends CActiveRecord
 	}
 
 	public function getTaxRate($variations = null, $amount = 1) { 
-		$taxrate = $this->tax->percent;	
-		$price = (float) $this->price;
-		if($variations)
-			foreach($variations as $key => $variation) {
-				$price += @ProductVariation::model()->findByPk($variation[0])->price_adjustion;
-			}
+		if($this->tax) {
+			$taxrate = $this->tax->percent;	
+			$price = (float) $this->price;
+			if($variations)
+				foreach($variations as $key => $variation) {
+					$price += @ProductVariation::model()->findByPk($variation[0])->price_adjustion;
+				}
 
 
-		(float) $price *= $amount;
+			(float) $price *= $amount;
 
-		(float) $tax = $price * ($taxrate / 100);
+			(float) $tax = $price * ($taxrate / 100);
 
-		return $tax;
-
-}
+			return $tax;
+		}
+	}
 	public function getPrice($variations = null, $amount = 1) {
 		$price = (float) $this->price;
 		if($variations)
