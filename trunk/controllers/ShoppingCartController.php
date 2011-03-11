@@ -47,14 +47,15 @@ class ShoppingCartController extends Controller
 			$this->redirect(array( 
 							'//shop/products/view', 'id' => $_POST['product_id']));
 		}
-		foreach($_POST['Variations'] as $key => $variation) {
-			$specification = ProductSpecification::model()->findByPk($key);
-			if($specification->required && $variation[0] == '') {
-				Shop::setFlash(Shop::t('Please select a {specification}', array(
-								'{specification}' => $specification->title)));
-				$this->redirect(array(
-							'//shop/products/view', 'id' => $_POST['product_id']));
-			}
+		if(isset($_POST['Variations']))
+			foreach($_POST['Variations'] as $key => $variation) {
+				$specification = ProductSpecification::model()->findByPk($key);
+				if($specification->required && $variation[0] == '') {
+					Shop::setFlash(Shop::t('Please select a {specification}', array(
+									'{specification}' => $specification->title)));
+					$this->redirect(array(
+								'//shop/products/view', 'id' => $_POST['product_id']));
+				}
 
 		}
 

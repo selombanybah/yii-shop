@@ -49,6 +49,9 @@ class ProductsController extends Controller
 		if(isset($_POST['Products']))
 		{
 			$model->attributes=$_POST['Products'];
+			if(isset($_POST['Specifications']))
+				$model->setSpecifications($_POST['Specifications']);
+
 
 			if($model->save())
 				$this->redirect(array('shop/admin'));

@@ -8,14 +8,7 @@ The global currency of your Webshop is configured under 'currencySymbol'.
 		'shop' => array(
 			'currencySymbol' => '€',
 
-2. Set your available payment Methods
-
-the paymentMethods needs to be a array with the key identifying the 
-payment method in the database like this:
-
-			'paymentMethods' => array(1 => 'Vorkasse'),
-
-3. Set your project-specific views
+2. Set your project-specific views
 			'termsView' = '/myprojectspecific_view_folder/terms',
 			'successAction' = array('/myprojectspecific_controller/success'),
 			'failureAction' = array('/myprojectspecific_controller/failure'),
@@ -31,7 +24,6 @@ Here is the full example:
 			'debug' => true,
 			'loginUrl' => array('/user/auth'),
 			'currencySymbol' => '€',
-			'paymentMethods' => array(1 => 'Vorkasse'),
 			'termsView' = array('/myprojectspecific_controller/terms'),
 			'successView' = array('/myprojectspecific_controller/success'),
 			'failureView' = array('/myprojectspecific_controller/failure'),

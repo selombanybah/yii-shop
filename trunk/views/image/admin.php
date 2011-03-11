@@ -25,7 +25,7 @@ if($images)
 
 echo '<br />';
 
-echo CHtml::link(Yii::t('ShopModule.shop', 'Cancel'), array('/shop/shop/admin'));
+echo CHtml::link(Yii::t('ShopModule.shop', 'Cancel'), array('/shop/shop/admin')) . '<br />';
 echo CHtml::link(Yii::t('ShopModule.shop', 'Upload new Image'), array('create', 'product_id' => $product->product_id));
 
 
