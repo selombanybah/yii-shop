@@ -17,7 +17,7 @@ class Order extends CActiveRecord
 		return array(
 			array('customer_id, ordering_date, delivery_address_id, billing_address_id, payment_method', 'required'),
 			array('customer_id, ordering_done, ordering_confirmed', 'numerical', 'integerOnly'=>true),
-			array('order_id, customer_id, ordering_date, ordering_done, ordering_confirmed', 'safe', 'on'=>'search'),
+			array('order_id, customer_id, ordering_date, ordering_done, ordering_confirmed, comment', 'safe'),
 		);
 	}
 

@@ -115,6 +115,7 @@ class OrderController extends Controller
 	}
 
 	public function actionConfirm() {
+		Yii::app()->user->setState('order_comment', @$_POST['Order']['Comment']);
 		if(isset($_POST['accept_terms']) && $_POST['accept_terms'] == 1) {
 			$order = new Order();
 			$customer = Shop::getCustomer();
@@ -141,6 +142,8 @@ class OrderController extends Controller
 			$order->ordering_date = time();
 			$order->payment_method = Yii::app()->user->getState('payment_method');
 			$order->shipping_method = Yii::app()->user->getState('shipping_method');
+			$order->comment = Yii::app()->user->getState('order_comment');
+
 
 			if($order->save()) {
 				foreach($cart as $position => $product) {
@@ -153,6 +156,7 @@ class OrderController extends Controller
 					Yii::app()->user->setState('cart', array());
 					Yii::app()->user->setState('shipping_method', null);
 					Yii::app()->user->setState('payment_method', null);
+					Yii::app()->user->setState('order_comment', null);
 				}
 				Shop::mailNotification($order);
 				$this->redirect(Shop::module()->successAction);

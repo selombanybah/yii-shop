@@ -21,6 +21,13 @@
 		<?php echo $form->error($model,'is_user_input'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'required'); ?>
+		<?php echo $form->checkBox($model,'required'); ?>
+		<?php echo $form->error($model,'required'); ?>
+	</div>
+
+
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

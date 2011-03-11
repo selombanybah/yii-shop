@@ -35,12 +35,11 @@ class ProductSpecification extends CActiveRecord
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
 			array('title', 'required'),
 			array('title', 'length', 'max'=>255),
-			array('is_user_input', 'numerical'),
+			array('is_user_input, required', 'numerical'),
+			array('is_user_input, required', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, title', 'safe', 'on'=>'search'),

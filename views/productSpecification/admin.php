@@ -20,6 +20,8 @@ $this->menu=array(
 	'columns'=>array(
 		'id',
 		'title',
+		'is_user_input',
+		'required',
 		array(
 			'class'=>'CButtonColumn',
 		),

@@ -8,8 +8,10 @@ function renderVariation($variation, $i) {
 	}
 
 	$str = '<tr> <td>';
-	$str .= CHtml::dropDownList("Variations[{$i}][specification_id]", $variation->specification_id, CHtml::listData(
-				ProductSpecification::model()->findall(), "id", "title"));  
+	$str .= CHtml::dropDownList("Variations[{$i}][specification_id]",
+			$variation->specification_id, CHtml::listData(
+				ProductSpecification::model()->findall(), "id", "title"), array(
+				'empty' => '-'));  
 
 	$str .= '</td> <td>';
 	$str .= CHtml::textField("Variations[{$i}][title]", $variation->title); 
@@ -20,7 +22,12 @@ function renderVariation($variation, $i) {
 				'-' => '-'));
 	$str .= '</td> <td>';
 	$str .= CHtml::textField("Variations[{$i}][price_adjustion]", abs($variation->price_adjustion));  
-
+	$str .= '</td> <td>';
+	for($j = -10; $j <= 10; $j++)
+		$positions[$j] = $j;
+	$str .= CHtml::dropDownList("Variations[{$i}][position]",
+			$variation->position,
+			$positions);
 	$str .= '</td> </tr>';
 
 return $str;
@@ -88,10 +95,11 @@ return $str;
 
 <table>
 		<?php 
-		printf('<tr><th>%s</th><th>%s</th><th colspan = 2>%s</th></tr>',
+		printf('<tr><th>%s</th><th>%s</th><th colspan = 2>%s</th><th>%s</th></tr>',
 				Shop::t('Specification'), 
 				Shop::t('Value'), 
-				Shop::t('Price adjustion'));
+				Shop::t('Price adjustion'),
+				Shop::t('Position'));
 
 
 		$i = 0;
