@@ -4,6 +4,41 @@ class OrderController extends Controller
 {
 	public $_model;
 
+	public function filters()
+	{
+		return array(
+			'accessControl',
+		);
+	}	
+
+	public function accessRules() {
+		return array(
+				array('allow',
+					'actions'=>array('view', 'create', 'confirm'),
+					'users' => array('*'),
+					),
+				array('allow',
+					'actions'=>array('admin','delete', 'view', 'slip', 'invoice'),
+					'users' => array('admin'),
+					),
+				array('deny',  // deny all other users
+						'users'=>array('*'),
+						),
+				);
+	}
+
+	public function actionSlip($id) {
+		if($model = $this->loadModel($id))
+			$this->render(Shop::module()->slipView, array('model' => $model));
+	}
+
+	public function actionInvoice($id) {
+		if($model = $this->loadModel($id))
+			$this->render(Shop::module()->invoiceView, array('model' => $model));
+	}
+
+
+
 	public function beforeAction($action) {
 		$this->layout = Shop::module()->layout;
 		return parent::beforeAction($action);
@@ -76,7 +111,8 @@ class OrderController extends Controller
 		if(!$customer)
 			$customer = Yii::app()->user->getState('customer_id');
 		if(!Yii::app()->user->isGuest && !$customer)
-			$customer = Customer::model()->find('user_id = '.Yii::app()->user->id);
+			$customer = Customer::model()->find('user_id = :user_id ', array(
+				':user_id' => Yii::app()->user->id));
 		if(!$payment_method)
 			$payment_method = Yii::app()->user->getState('payment_method');
 		if(!$shipping_method)

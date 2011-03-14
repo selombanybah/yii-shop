@@ -17,11 +17,13 @@ $this->menu=array(
 
 <h2> <?php echo Shop::t('Shipping method');?></h2>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'title',
-		'description',
-		'price',
-	),
-)); ?>
+<?php 
+if($model)
+	$this->widget('zii.widgets.CDetailView', array(
+				'data'=>$model,
+				'attributes'=>array(
+					'title',
+					'description',
+					'price',
+					),
+				)); ?>

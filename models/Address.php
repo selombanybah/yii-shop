@@ -25,6 +25,13 @@ class Address extends CActiveRecord
 			|| $vars['country'] == ''; 
 	}
 
+	public function renderAddress() {
+		echo $this->firstname . ' ' . $this->lastname . '<br />';
+		echo $this->street . '<br />';
+		echo $this->zipcode . ' ' . $this->city . '<br />';
+		echo $this->country;
+	}
+
 	public function tableName()
 	{
 		return 'shop_address';

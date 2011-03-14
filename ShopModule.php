@@ -28,6 +28,13 @@ class ShopModule extends CWebModule
 	public $productSpecificationTable = 'shop_product_specification';
 	public $productVariationTable = 'shop_product_variation';
 	public $currencySymbol = '$';
+
+	public $logoPath = 'logo.jpg';
+	public $slipView = '/order/slip';
+	public $invoiceView = '/order/invoice';
+	public $footerView = '/order/footer';
+
+	public $dateFormat = 'd/m/Y';
 	
 	public $imageWidthThumb = 100;
 	public $imageWidth = 200;

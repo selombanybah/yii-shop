@@ -1,4 +1,5 @@
 <?php
+Shop::register('css/shop.css');
 $this->breadcrumbs=array(
 		Shop::t('Orders')=>array('index'),
 		$model->order_id,
@@ -94,4 +95,17 @@ $this->renderPartial('/shippingMethod/view', array(
 
 <div style="clear:both;"> </div>
 
-<?php echo CHtml::link(Yii::t('ShopModule.shop', 'Back to Administration'), array('shop/admin')); ?>
+<div class="buttons"> 
+<?php
+
+echo CHtml::link(Shop::t('Delivery slip'), array(
+			'//shop/order/slip', 'id' => $model->order_id )); 
+
+echo CHtml::link(Shop::t('Invoice'), array(
+			'//shop/order/invoice', 'id' => $model->order_id)); 
+
+echo CHtml::link(Shop::t('Back to Orders'), array(
+			'//shop/order/admin')); 
+
+?>
+</div>

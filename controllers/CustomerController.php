@@ -20,6 +20,11 @@ class CustomerController extends Controller
 	{
 		$model=new Customer;
 
+		if($customer_id = Yii::app()->user->getState('customer_id')) {
+			$model = Customer::model()->findByPk($customer_id);
+			$address = $model->address;
+		}
+
 		if(isset($_POST['Customer']))
 		{
 			$model->attributes = $_POST['Customer'];
