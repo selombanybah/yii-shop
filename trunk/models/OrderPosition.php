@@ -53,11 +53,11 @@ class OrderPosition extends CActiveRecord
 	public function renderSpecifications() {
 		$string = '<table>';
 		foreach($this->getSpecifications() as $key =>$specification) {
-				$model = ProductSpecification::model()->findByPk($key);
+			if($model = ProductSpecification::model()->findByPk($key))
 				if($model->is_user_input)
 					$value = $specification[0];
 				else
-					$value = ProductVariation::model()->findByPk($specification[0])->title;
+					$value = @ProductVariation::model()->findByPk($specification[0])->title;
 			$string .= sprintf('<tr><td>%s</td><td>%s</td></tr>',
 				$model->title,
 				$value	
@@ -65,6 +65,36 @@ class OrderPosition extends CActiveRecord
 		}
 		$string .= '</table>';
 		return $string;
+	}
+
+	public function listSpecifications() {
+		if(!$specs = $this->getSpecifications())
+			return '';
+	
+		$str = '(';	
+		foreach($specs as $key => $specification) {
+			if($model = ProductSpecification::model()->findByPk($key))
+				if($model->is_user_input)
+					$value = $specification[0];
+				else
+					$value = @ProductVariation::model()->findByPk($specification[0])->title;
+
+		$str .= $model->title. ': '.$value . ', ';
+		}
+
+		$str = substr($str, 0, -2);
+		$str .= ')';
+
+		return $str;
+	}
+	public function getPrice() {
+		$price = $this->product->price;
+
+		if($this->specifications)
+			foreach($this->getSpecifications() as $key => $spec) 
+				$price += @ProductVariation::model()->findByPk(@$spec[0])->price_adjustion;
+
+		return $this->amount * $price;
 	}
 
 

@@ -1,5 +1,7 @@
 <?php
 return array(
+		'Total value' => 'Gesamtsumme',
+		'Product number' => 'Artikelnummer',
 		'Article categories' => 'Artikelkategorien',
 		'Article specifications' => 'Artikelspezifikationen',
 		'Articles' => 'Artikel',

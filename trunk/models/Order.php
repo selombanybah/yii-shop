@@ -46,6 +46,18 @@ class Order extends CActiveRecord
 		);
 	}
 
+	public function getTotalPrice() {
+		$price = 0;
+		if($this->products)
+			foreach($this->products as $position)
+				$price += $position->getPrice();
+
+		if($this->shippingMethod)
+			$price += $this->shippingMethod->price;
+
+		return $price;
+	}
+
 	public function search()
 	{
 		$criteria=new CDbCriteria;
