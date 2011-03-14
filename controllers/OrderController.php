@@ -123,16 +123,17 @@ class OrderController extends Controller
 						'action' => array('//shop/customer/create')));
 			Yii::app()->end();
 		}
-		if(!$payment_method) {
-			$this->render('/paymentMethod/choose', array(
-						'customer' => Shop::getCustomer()));
-			Yii::app()->end();
-		}
 		if(!$shipping_method) {
 			$this->render('/shippingMethod/choose', array(
 						'customer' => Shop::getCustomer()));
 			Yii::app()->end();
 		}
+		if(!$payment_method) {
+			$this->render('/paymentMethod/choose', array(
+						'customer' => Shop::getCustomer()));
+			Yii::app()->end();
+		}
+
 
 		if($customer && $payment_method && $shipping_method)   {
 			if(is_numeric($customer))
