@@ -1,7 +1,7 @@
 <?php
 $points = array(
 		Shop::t('Customer information'),
-		Shop::t('Shipping method'),
+		Shop::t('Shipping'),
 		Shop::t('Payment'),
 		Shop::t('Confirm'),
 		Shop::t('Success')
@@ -15,7 +15,7 @@ $links = array(
 
 
 echo '<div id="waypointarea" class="waypointarea">';
-	printf('<span class="waypoint active">%s</span>',
+	printf('<span class="waypoint ">%s</span>',
 			CHtml::link(Shop::t('Shopping Cart'), array(
 						'//shop/shoppingCart/view')));
 

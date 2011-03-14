@@ -23,7 +23,7 @@
 
 			echo '<p class="price_information">';
 			echo Shop::t('All prices are including VAT') . '<br />';
-			echo Shop::t('All prices excluding shipping costs') . '<br /><br />';
+			echo Shop::t('All prices excluding shipping costs');
 			echo '</p>';
 			echo '<div class="tooltip">';
 				Yii::app()->controller->renderPartial('/shippingMethod/index'); 

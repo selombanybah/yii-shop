@@ -1,5 +1,6 @@
 <?php
 Shop::register('css/shop.css');
+	$this->renderPartial('/order/waypoint', array('point' => 0));
 if(!isset($products)) 
 	$products = Shop::getCartContent();
 
@@ -106,10 +107,13 @@ echo '</table>';
 
  if(Yii::app()->controller->id != 'order') {
 echo CHtml::link(Shop::t('Buy additional Products'), array(
-			'//shop/products')) . '<br />'; 
+			'//shop/products'), array('class'=>'btn-previous'));
+			
 echo CHtml::link(Shop::t('Buy this products'), array(
-			'//shop/order/create')); 
+			'//shop/order/create'), array('class'=>'btn-next')); 
 }
+
+echo '<div class="clear"></div>';
 
 } else echo Shop::t('Your shopping cart is empty'); ?>
 
