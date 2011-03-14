@@ -31,7 +31,7 @@ if($variations = $model->getVariations()) {
 					ProductVariation::listData($variation));
 		}
 		echo '</div>';
-		if($i % 3 == 0)
+		if($i % 2 == 0)
 			echo '<div style="clear: both;"></div>';
 	}
 
