@@ -13,16 +13,13 @@ $this->breadcrumbs=array(
 		);
 
 ?>
-<h2> <?php echo Shop::t('Customer information'); ?> </h2>
 
-<h3><?php echo Shop::t('I am a registered customer'); ?></h3>
-<p>  <?php echo Shop::t('Click {link} if you are already registered', array(
+<h2> <?php echo Shop::t('Please enter your Customer information'); ?> </h2>
+
+<h3> <?php echo Shop::t('Click {link} if you are already registered', array(
 	'{link}' =>  CHtml::link(Shop::t('here'), Shop::module()->loginUrl))); ?> 
-</p>
+</h3>
 
-<h3><?php echo Shop::t('I am a new customer'); ?></h3>
-<p><?php echo Shop::t('Registration information'); ?></p>
-<p> <?php echo Shop::t('Please enter your Customer information'); ?> </p>
 	<?php
 
 if($address === null)
@@ -33,8 +30,6 @@ if(!isset($deliveryAddress) || $deliveryAddress === null)
 
 if(!isset($billingAddress) || $billingAddress === null)
 	$billingAddress = new BillingAddress;
-
-
 
  echo $this->renderPartial('/customer/_form', array(
 				'action' => isset($action) ? $action : null,
