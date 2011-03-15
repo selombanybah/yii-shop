@@ -90,8 +90,8 @@ if($products) {
 				<td>1</td>
 				<td>%s</td>
 				<td></td>
-				<td>%s</td>
-				<td>%s</td>
+				<td class="text-right">%s</td>
+				<td class="text-right">%s</td>
 				<td>%s</td></tr>',
 				Shop::t('Shipping costs'),
 				Shop::priceFormat($shippingMethod->price),
