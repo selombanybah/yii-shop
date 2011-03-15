@@ -109,14 +109,21 @@ echo '</table>';
 <?php
 
  if(Yii::app()->controller->id != 'order') {
+echo '<div class="buttons">';
 echo CHtml::link(Shop::t('Buy additional Products'), array(
 			'//shop/products'), array('class'=>'btn-previous'));
+
+echo '<br />';
 			
 echo CHtml::link(Shop::t('Buy this products'), array(
 			'//shop/order/create'), array('class'=>'btn-next')); 
+echo '</div>';
 }
 
-echo '<div class="clear"></div>';
+?>
+<div class="clear"></div>
+
+<?php
 
 } else echo Shop::t('Your shopping cart is empty'); ?>
 

@@ -14,7 +14,7 @@ class OrderController extends Controller
 	public function accessRules() {
 		return array(
 				array('allow',
-					'actions'=>array('view', 'create', 'confirm'),
+					'actions'=>array('view', 'create', 'confirm', 'success', 'failure'),
 					'users' => array('*'),
 					),
 				array('allow',
@@ -72,7 +72,7 @@ class OrderController extends Controller
 			Yii::app()->user->setState('payment_method', $_POST['PaymentMethod']);
 
 
-		if(isset($_POST['DeliveryAddress'])) {
+		if(isset($_POST['DeliveryAddress']) && $_POST['DeliveryAddress'] === true) {
 			if(Address::isEmpty($_POST['DeliveryAddress'])) {
 				Shop::setFlash(Shop::t('Delivery address is not complete! Please fill in all fields to set the Delivery address'));
 			} else {
@@ -90,7 +90,7 @@ class OrderController extends Controller
 			}
 		}
 
-		if(isset($_POST['BillingAddress'])) {
+		if(isset($_POST['BillingAddress']) && $_POST['BillingAddress'] === true) {
 			if(Address::isEmpty($_POST['BillingAddress'])) {
 				Shop::setFlash(Shop::t('Billing address is not complete! Please fill in all fields to set the Billing address'));
 			} else {
