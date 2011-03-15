@@ -20,6 +20,9 @@ $this->breadcrumbs=array(
 	'{link}' =>  CHtml::link(Shop::t('here'), Shop::module()->loginUrl))); ?> 
 </h3>
 
+<h3><?php echo Shop::t('I am a new customer'); ?></h3>
+<p><?php echo Shop::t('Registration information'); ?></p>
+<p> <?php echo Shop::t('Please enter your Customer information'); ?> </p>
 	<?php
 
 if($address === null)
