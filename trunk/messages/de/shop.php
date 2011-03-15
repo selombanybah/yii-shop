@@ -1,5 +1,8 @@
 <?php
 return array(
+		'Invoice' => 'Rechnung',
+		'Delivery slip' => 'Lieferschein',
+		'Back to Orders' => 'Zurück zu den Bestellungen',
 		'Total value' => 'Gesamtsumme',
 		'Product number' => 'Artikelnummer',
 		'Article categories' => 'Artikelkategorien',

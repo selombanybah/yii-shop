@@ -65,7 +65,6 @@ class OrderController extends Controller
 			$payment_method = null,
 			$shipping_method = null) {
 
-
 		if(isset($_POST['ShippingMethod'])) 
 			Yii::app()->user->setState('shipping_method', $_POST['ShippingMethod']);
 

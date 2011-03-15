@@ -87,6 +87,7 @@ class OrderPosition extends CActiveRecord
 
 		return $str;
 	}
+
 	public function getPrice() {
 		$price = $this->product->price;
 

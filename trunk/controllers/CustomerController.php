@@ -18,12 +18,10 @@ class CustomerController extends Controller
 
 	public function actionCreate()
 	{
-		$model=new Customer;
-
-		if($customer_id = Yii::app()->user->getState('customer_id')) {
-			$model = Customer::model()->findByPk($customer_id);
+		if($model = Shop::getCustomer()) 
 			$address = $model->address;
-		}
+		else
+			$model = new Customer;
 
 		if(isset($_POST['Customer']))
 		{
