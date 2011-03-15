@@ -4,4 +4,5 @@
 .tooltip { display: none; background-color: #CCC; border-radius:5px; margin: 5px; padding: 5px;} 
 .info { margin: 5px; padding: 5px; background-color: yellow;}
 .price_information{ cursor: pointer;}
+.buttons a {margin: 5px;}
 
