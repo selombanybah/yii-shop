@@ -1,6 +1,7 @@
 <?php
 return array(
 		'Invoice' => 'Rechnung',
+		'Edit' => 'bearbeiten',
 		'Delivery slip' => 'Lieferschein',
 		'Back to Orders' => 'Zurück zu den Bestellungen',
 		'Total value' => 'Gesamtsumme',
@@ -54,6 +55,7 @@ return array(
 		'All prices excluding shipping costs' => 'zzgl. Versandkosten',
 		'Payment Method' => 'Zahlungsweise',
 		'Payment method' => 'Zahlungsmethode',
+		'Confirmation' => 'Bestellung aufgeben',
 		'Shipping' => 'Versand',
 		'Shipping new address' => 'Bitte nutzen Sie dieses Formular, um eine neue Adresse für Ihre Bestellung zu erfassen.',
 		'Shipping Method' => 'Versandart',
@@ -74,7 +76,7 @@ return array(
 		'City' => 'Stadt',
 		'Country' => 'Land',
 		'Edit customer Information' => 'Kundendaten bearbeiten',
-		'Confirm Order' => 'Bestellung bestätigen',
+		'Confirm Order' => 'Bestellen',
 		'Delivery address' => 'Lieferadresse',
 		'Shipping address' => 'Versandadresse',
 		'new shipping address' => 'Neue Versandadresse',
