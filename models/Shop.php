@@ -31,6 +31,16 @@
 
 		}
 
+/*		public function getCustomer() {
+			$customer = false;
+			$customer = Yii::app()->user->getState('customer_id');
+				if(!$customer && !Yii::app()->user->isGuest)
+					$customer = Customer::model()->find('user_id = :uid', array(
+								':uid' => Yii::app()->user->id));
+
+			return $customer;
+
+		} */
 
 		public static function priceFormat ($price) {
 			$price = sprintf('%.2f', $price);

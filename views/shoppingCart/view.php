@@ -1,6 +1,9 @@
 <?php
 Shop::register('css/shop.css');
+
+if($this->id == 'shoppingCart')
 	$this->renderPartial('/order/waypoint', array('point' => 0));
+
 if(!isset($products)) 
 	$products = Shop::getCartContent();
 
