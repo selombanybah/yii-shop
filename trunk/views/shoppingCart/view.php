@@ -35,7 +35,7 @@ if($products) {
 			if(isset($product['Variations'])) {
 				foreach($product['Variations'] as $specification => $variation) {
 					$specification = ProductSpecification::model()->findByPk($specification);
-					if($specification->is_user_input)
+					if($specification->input_type == 'textfield')
 						$variation = $variation[0];
 					else
 						$variation = ProductVariation::model()->findByPk($variation);

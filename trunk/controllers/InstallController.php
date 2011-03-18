@@ -45,7 +45,7 @@ class InstallController extends Controller
 						$sql = "CREATE TABLE IF NOT EXISTS `".$specificationTable."` (
 							`id` int(11) NOT NULL AUTO_INCREMENT,
 							`title` varchar(255) NOT NULL,
-							`is_user_input` tinyint(1),
+ 							`input_type` enum('select','textfield','image') NOT NULL DEFAULT 'select',
 							`required` tinyint(1),
 							PRIMARY KEY (`id`)
 								) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
@@ -283,12 +283,12 @@ class InstallController extends Controller
 							";
 							$db->createCommand($sql)->execute();
 							$sql = "
-								INSERT INTO `shop_product_specification` (`id`, `title`, `is_user_input`, `required`) VALUES
-								(1, 'Size', 0, 1),
-								(2, 'Color', 0, 0),
-								(3, 'Some random attribute', 0, 0),
-								(4, 'Material', 0, 1),
-								(5, 'Specific number', 1, 1);
+								INSERT INTO `shop_product_specification` (`id`, `title`, `input_type`, `required`) VALUES
+								(1, 'Size', 'select', 1),
+								(2, 'Color', 'select', 0),
+								(3, 'Some random attribute', 'select', 0),
+								(4, 'Material', 'select', 1),
+								(5, 'Specific number', 'textfield', 1);
 							";
 							$db->createCommand($sql)->execute();
 						$sql = "SET FOREIGN_KEY_CHECKS=1;";

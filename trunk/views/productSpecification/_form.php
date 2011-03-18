@@ -5,7 +5,7 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<?php echo Shop::requiredFieldNote(); ?>
 
 	<?php echo $form->errorSummary($model); ?>
 
@@ -16,21 +16,25 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'is_user_input'); ?>
-		<?php echo $form->checkBox($model,'is_user_input'); ?>
-		<?php echo $form->error($model,'is_user_input'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'required'); ?>
 		<?php echo $form->checkBox($model,'required'); ?>
 		<?php echo $form->error($model,'required'); ?>
 	</div>
 
-
+	<div class="row">
+		<?php echo $form->labelEx($model,'input_type'); ?>
+		<?php echo $form->dropDownList($model,'input_type', array(
+					'select' => Shop::t('Selection'),
+					'textfield' => Shop::t('Text field'),
+					'image' => Shop::t('Image upload'),
+					)); ?>
+		<?php echo $form->error($model,'input_type'); ?>
+	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	<?php echo CHtml::submitButton($model->isNewRecord 
+			? Shop::t('Create') 
+			: Shop::t('Save')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

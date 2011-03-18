@@ -2,7 +2,7 @@
 
 class ShopModule extends CWebModule
 {
-	public $version = '0.7';
+	public $version = '0.7rc3';
 
 	// Is the Shop in debug Mode?
 	public $debug = false;
