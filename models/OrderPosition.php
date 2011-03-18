@@ -54,7 +54,7 @@ class OrderPosition extends CActiveRecord
 		$string = '<table>';
 		foreach($this->getSpecifications() as $key =>$specification) {
 			if($model = ProductSpecification::model()->findByPk($key))
-				if($model->is_user_input)
+				if($model->input_type == 'textfield')
 					$value = $specification[0];
 				else
 					$value = @ProductVariation::model()->findByPk($specification[0])->title;
@@ -74,7 +74,7 @@ class OrderPosition extends CActiveRecord
 		$str = '(';	
 		foreach($specs as $key => $specification) {
 			if($model = ProductSpecification::model()->findByPk($key))
-				if($model->is_user_input)
+				if($model->input_type == 'textfield')
 					$value = $specification[0];
 				else
 					$value = @ProductVariation::model()->findByPk($specification[0])->title;
