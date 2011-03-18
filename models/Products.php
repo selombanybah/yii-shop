@@ -2,6 +2,19 @@
 
 class Products extends CActiveRecord
 {
+	// If at least one product variation has the type 'image', the user needs
+	// to upload a image file in order to buy the product. To achieve this,
+	// we need to set the 'enctype' to 'multipart/form-data'. This function
+	// checks, if the product has a 'image' variation.
+	public function hasUpload() {
+		foreach($this->variations as $variation)
+			if($variation->specification->input_type == 'image')
+				return true;
+
+		return false;
+
+	}
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);

@@ -37,6 +37,11 @@ return $str;
 <?php $form=$this->beginWidget('CActiveForm', array(
 			'id'=>'products-form',
 			'enableAjaxValidation'=>true,
+			'htmlOptions' => array(
+				'enctype' => $model->hasUpload() 
+				? 'multipart/form-data' 
+				: 'x-www-form-urlencoded'
+				)
 			)); ?>
 
 <?php echo $form->errorSummary($model); ?>
@@ -50,7 +55,8 @@ return $str;
 			'model' => $model,
 			'relation' => 'category',
 			'fields' => 'title',
-			'showAddButton' => false)); ?>
+			'showAddButton' => false,
+		)); ?>
 <?php echo $form->error($model,'category_id'); ?>
 </div>
 
@@ -70,7 +76,7 @@ return $str;
 
 
 <fieldset>
-<legend> <?php echo Yii::t('ShopModule.shop', 'Article Specifications'); ?> </legend>
+<legend> <?php echo Shop::t('Article Specifications'); ?> </legend>
 
 <div class="row">
 <?php echo $form->labelEx($model,'price'); ?>

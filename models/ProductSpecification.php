@@ -38,8 +38,8 @@ class ProductSpecification extends CActiveRecord
 		return array(
 			array('title', 'required'),
 			array('title', 'length', 'max'=>255),
-			array('is_user_input, required', 'numerical'),
-			array('is_user_input, required', 'required'),
+			array('required', 'numerical'),
+			array('input_type, required', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, title', 'safe', 'on'=>'search'),
@@ -65,7 +65,9 @@ class ProductSpecification extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Title',
+			'title' => Shop::t('Title'),
+			'input_type' => Shop::t('Input type'),
+			'required' => Shop::t('Required'),
 		);
 	}
 

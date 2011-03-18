@@ -1,6 +1,13 @@
 <?php
 
 	class Shop {
+
+
+		public static function requiredFieldNote () {
+			return Shop::t('Fields with {*} are required', array(
+						'{*}' => '<span class="required">*</span>'));
+		}
+
 		public static function mailNotification ($order) {
 			$email = Shop::module()->notifyAdminEmail;
 			if($email !== null) {
