@@ -1,5 +1,10 @@
 <?php
 return array(
+		'Ordering done' => 'Bestellung abgeschlossen',
+		'Ordering confirmed' => 'Bestellung bestätigt',
+		'Update order status' => 'Bestellstatus bearbeiten',
+		'Update status of Order' => 'Status bearbeiten. Bestellnummer: ',
+		'Illegal amount given' => 'Ungültige Menge angegeben',	
 		'Article Variations' => 'Artikelvariationen',
 		'Are you sure you want to delete this product specification?' => 'Sind sie Sicher, dass sie diese Produktspezifikation löschen wollen?',
 		'Variations of this specification' => 'Variationen dieser Spezifikation',
