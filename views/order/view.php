@@ -20,10 +20,21 @@ $this->breadcrumbs=array(
 						'label' => Shop::t('Ordering Date'),
 						'value' => date('d. m. Y G:i',$model->ordering_date)
 					),
-				'ordering_done',
-				'ordering_confirmed',
+				array(
+					'label' => Shop::t('Ordering confirmed'),
+					'value' => $model->ordering_confirmed ? Shop::t('Yes') : Shop::t('No'),),
+				array(
+					'label' => Shop::t('Ordering done'),
+					'value' => $model->ordering_done ? Shop::t('Yes') : Shop::t('No'),),
+
+
+
 				),
-			)); ?>
+			)); 
+
+echo CHtml::link(Shop::t('Update order status'), array(
+			'//shop/order/update', 'id' => $model->order_id )); 
+?>
 
 <h3> <?php echo Shop::t('Customer Info'); ?> </h3>
 
@@ -97,6 +108,9 @@ $this->renderPartial('/shippingMethod/view', array(
 
 <div class="buttons"> 
 <?php
+
+echo CHtml::link(Shop::t('Update order status'), array(
+			'//shop/order/update', 'id' => $model->order_id )); 
 
 echo CHtml::link(Shop::t('Delivery slip'), array(
 			'//shop/order/slip', 'id' => $model->order_id )); 

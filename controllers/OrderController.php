@@ -18,7 +18,7 @@ class OrderController extends Controller
 					'users' => array('*'),
 					),
 				array('allow',
-					'actions'=>array('admin','delete', 'view', 'slip', 'invoice'),
+					'actions'=>array('admin','delete', 'view', 'slip', 'invoice', 'update'),
 					'users' => array('admin'),
 					),
 				array('deny',  // deny all other users
@@ -50,6 +50,17 @@ class OrderController extends Controller
 		$this->render('view',array(
 					'model'=>$this->loadModel(),
 					));
+	}
+
+	public function actionUpdate($id) {
+		$order = $this->loadModel();
+
+		if(isset($_POST['Order'])) {
+			$order->attributes = $_POST['Order'];
+			$order->save();
+			$this->redirect(array('//shop/order/view', 'id' => $order->order_id));
+		}
+		$this->render('update', array('model' => $order));	
 	}
 
 	/** Creation of a new Order 
@@ -220,6 +231,7 @@ class OrderController extends Controller
 	public function actionAdmin()
 	{
 		$model=new Order('search');
+
 		if(isset($_GET['Order']))
 			$model->attributes=$_GET['Order'];
 
