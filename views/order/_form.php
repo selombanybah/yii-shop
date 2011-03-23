@@ -14,19 +14,30 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'ordering_confirmed'); ?>
-		<?php echo $form->checkBox($model,'ordering_confirmed'); ?>
-		<?php echo $form->error($model,'ordering_confirmed'); ?>
-
-		<?php echo $form->labelEx($model,'ordering_done'); ?>
-		<?php echo $form->checkBox($model,'ordering_done'); ?>
-		<?php echo $form->error($model,'ordering_done'); ?>
+		<?php echo $form->labelEx($model,'status'); ?>
+		<?php echo $form->dropDownList($model,'status', Order::statusOptions()); ?>
+		<?php echo $form->error($model,'status'); ?>
 	</div>
 
+	<?php echo CHtml::checkBox('SendConfirmationMessage'); ?>
+	<?php echo CHtml::label(Shop::t('Send a confirmation message to the customer'), 'SendConfirmationMessage'); ?>
+	<div class="row confirmation" style="display: none;">
+	<?php echo CHtml::label(Shop::t('Confirmation message'), 'ConfirmationMessage'); ?>
+	<?php echo CHtml::textArea('ConfirmationMessage',
+ Shop::confirmationMessage($model), array('cols' => 50, 'rows' => 10)); ?>
+	</div>
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('ShopModule.shop', 'Create') : Yii::t('ShopModule.shop', 'Save')); ?>
+	<?php echo CHtml::submitButton(Shop::t('Save')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
+<?php
+	Yii::app()->clientScript->registerScript('confirmation_message', "
+	$('#SendConfirmationMessage').click(function() {
+	$('.confirmation').toggle(500);
+});
+")
+?>

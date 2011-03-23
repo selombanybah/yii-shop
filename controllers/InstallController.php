@@ -173,6 +173,7 @@ class InstallController extends Controller
 							`delivery_address_id` INT NOT NULL ,
 							`billing_address_id` INT NOT NULL ,
 							`ordering_date` INT NOT NULL ,
+							`status` enum('new', 'in_progress', 'done', 'cancelled') NOT NULL DEFAULT 'new',
 							`ordering_done` TINYINT(1) NULL ,
 							`ordering_confirmed` TINYINT(1) NULL ,
 							`payment_method` INT NOT NULL ,
@@ -202,6 +203,7 @@ class InstallController extends Controller
 
 						$sql = "CREATE TABLE IF NOT EXISTS `".$addressTable."` (
 							`id` int(11) NOT NULL AUTO_INCREMENT,
+							`title` varchar(255) NOT NULL,
 							`firstname` varchar(255) NOT NULL,
 							`lastname` varchar(255) NOT NULL,
 							`street` varchar(255) NOT NULL,

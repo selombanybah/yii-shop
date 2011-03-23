@@ -15,6 +15,7 @@ if($model->address && !isset($hideAddress)) {
  $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model->address,
 	'attributes'=>array(
+		'title',
 		'firstname',
 		'lastname',
 		'street',
@@ -31,6 +32,7 @@ echo '<h3>'.Shop::t('Delivery address').'</h3>';
  $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model->deliveryAddress ? $model->deliveryAddress : $model->address,
 	'attributes'=>array(
+		'title',
 		'firstname',
 		'lastname',
 		'street',
@@ -48,6 +50,7 @@ echo '<h3>'.Shop::t('Billing address').'</h3>';
  $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model->billingAddress ? $model->billingAddress : $model->address,
 	'attributes'=>array(
+		'title',
 		'firstname',
 		'lastname',
 		'street',

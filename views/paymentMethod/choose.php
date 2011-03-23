@@ -30,6 +30,7 @@ $form=$this->beginWidget('CActiveForm', array(
 			'data'=>$customer->address,
 			'htmlOptions' => array('class' => 'detail-view'),
 			'attributes'=>array(
+				'title',
 				'firstname',
 				'lastname',
 				'street',
@@ -54,6 +55,12 @@ echo CHtml::checkBox('toggle_billing',
         	<h3> <?php echo Shop::t('new payment address'); ?> </h3>
             <p><?php echo Shop::t('Shipping new address'); ?></p>
         
+            <div class="row">
+                <?php echo $form->labelEx($billingAddress,'title'); ?>
+                <?php echo $form->textField($billingAddress,'title',array('size'=>45,'maxlength'=>45)); ?>
+                <?php echo $form->error($billingAddress,'title'); ?>
+            </div>
+
             <div class="row">
                 <?php echo $form->labelEx($billingAddress,'firstname'); ?>
                 <?php echo $form->textField($billingAddress,'firstname',array('size'=>45,'maxlength'=>45)); ?>

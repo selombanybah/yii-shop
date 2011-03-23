@@ -1,5 +1,15 @@
 <?php
 return array(
+		'A order confirmation has been sent' => 'Die Bestellbestätigung wurde versandt',
+		'Error while sending confirmation message' => 'Fehler beim versenden der Bestellbestätigung',
+		'Title' => 'Anrede',
+		'Confirmation message' => 'Bestätigungsnachricht',
+		'Send a confirmation message to the customer' => 'Eine Bestellbestätigung an den Kunden schicken',
+		'Cancelled' => 'Storniert',
+		'Done' => 'Abgeschlossen',
+		'In progress' => 'In Bearbeitung',
+		'new' => 'neu',
+		'New' => 'Neu',
 		'Ordering done' => 'Bestellung abgeschlossen',
 		'Ordering confirmed' => 'Bestellung bestätigt',
 		'Update order status' => 'Bestellstatus bearbeiten',

@@ -18,6 +18,12 @@ $form=$this->beginWidget('CActiveForm', array(
 		<?php echo $form->hiddenField($customer, 'user_id', array('value'=> Yii::app()->user->id)); ?>
 
 	<div class="row">
+		<?php echo $form->labelEx($address,'title'); ?>
+		<?php echo $form->textField($address,'title',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->error($address,'title'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($address,'firstname'); ?>
 		<?php echo $form->textField($address,'firstname',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($address,'firstname'); ?>

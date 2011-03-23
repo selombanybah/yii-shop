@@ -4,6 +4,7 @@ $this->breadcrumbs=array(
 		Shop::t('Orders')=>array('index'),
 		$model->order_id,
 		);
+Shop::renderFlash();
 
 ?>
 
@@ -16,21 +17,17 @@ $this->breadcrumbs=array(
 			'attributes'=>array(
 				'order_id',
 				'customer_id',
-					array(
-						'label' => Shop::t('Ordering Date'),
-						'value' => date('d. m. Y G:i',$model->ordering_date)
+				array(
+					'label' => Shop::t('Ordering Date'),
+					'value' => date('d. m. Y G:i',$model->ordering_date)
 					),
 				array(
-					'label' => Shop::t('Ordering confirmed'),
-					'value' => $model->ordering_confirmed ? Shop::t('Yes') : Shop::t('No'),),
-				array(
-					'label' => Shop::t('Ordering done'),
-					'value' => $model->ordering_done ? Shop::t('Yes') : Shop::t('No'),),
-
-
-
-				),
-			)); 
+					'label' => Shop::t('Status'),
+					'value' => Shop::t($model->status), 
+					)
+				)
+			)
+		); 
 
 echo CHtml::link(Shop::t('Update order status'), array(
 			'//shop/order/update', 'id' => $model->order_id )); 
@@ -50,6 +47,7 @@ echo CHtml::link(Shop::t('Update order status'), array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 			'data'=>$model->deliveryAddress,
 			'attributes'=>array(
+				'title',
 				'firstname',
 				'lastname',
 				'street',
@@ -66,6 +64,7 @@ echo CHtml::link(Shop::t('Update order status'), array(
 			'data'=>$model->billingAddress,
 			'attributes'=>array(
 				'firstname',
+				'title',
 				'lastname',
 				'street',
 				'zipcode',
