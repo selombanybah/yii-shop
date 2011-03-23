@@ -1,0 +1,7 @@
+changes since yii-shop 0.8rc1
+
+ENH: order has a status 'new', 'in_progress', 'done', 'cancelled' 
+ENH: delivery slip and invoice footer now at the bottom of the page, defined
+in assets/css/shop_print.css
+ENH: added possibility to create delivery slip and invoice as pdf. tcpdf needs
+to be installed. see docs/pdf.txt for further instructions.

@@ -31,6 +31,7 @@ $form=$this->beginWidget('CActiveForm', array(
                 'data'=>$customer->address,
                 'htmlOptions' => array('class' => 'detail-view'),
                 'attributes'=>array(
+                    'title',
                     'firstname',
                     'lastname',
                     'street',
@@ -58,6 +59,13 @@ echo CHtml::label(
 			<h3> <?php echo Shop::t('new shipping address'); ?> </h3>
             <p><?php echo Shop::t('Shipping new address'); ?></p>
             
+     <div class="row">
+                <?php echo $form->labelEx($deliveryAddress,'title'); ?>
+                <?php echo $form->textField($deliveryAddress,'title',array('size'=>45,'maxlength'=>45)); ?>
+                <?php echo $form->error($deliveryAddress,'title'); ?>
+            </div>
+        
+
             <div class="row">
                 <?php echo $form->labelEx($deliveryAddress,'firstname'); ?>
                 <?php echo $form->textField($deliveryAddress,'firstname',array('size'=>45,'maxlength'=>45)); ?>

@@ -2,6 +2,17 @@
 
 	class Shop {
 
+		public static function confirmationMessage($order) {
+			if(!$order instanceof Order)
+				throw new CException(Shop::t('Error while sending confirmation message'));
+
+			return strtr(Shop::module()->orderConfirmTemplate, array(
+						'{title}' => $order->customer->address->title,
+						'{firstname}' => $order->customer->address->firstname,
+						'{lastname}' => $order->customer->address->lastname,
+						'{order_id}' => $order->order_id));
+
+		}
 
 		public static function requiredFieldNote () {
 			return Shop::t('Fields with {*} are required', array(
@@ -103,7 +114,7 @@
 			return $price_total;
 		}
 
-		public static function register($file)
+		public static function register($file, $media = 'screen')
 		{
 			$url = Yii::app()->getAssetManager()->publish(
 					Yii::getPathOfAlias('application.modules.shop.assets'));
@@ -112,7 +123,7 @@
 			if(strpos($file, 'js') !== false)
 				return Yii::app()->clientScript->registerScriptFile($path);
 			else if(strpos($file, 'css') !== false)
-				return Yii::app()->clientScript->registerCssFile($path);
+				return Yii::app()->clientScript->registerCssFile($path, $media);
 
 			return $path;
 		}

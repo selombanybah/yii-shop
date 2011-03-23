@@ -15,10 +15,20 @@ class Order extends CActiveRecord
 	public function rules()
 	{
 		return array(
-			array('customer_id, ordering_date, delivery_address_id, billing_address_id, payment_method', 'required'),
-			array('customer_id, ordering_done, ordering_confirmed', 'numerical', 'integerOnly'=>true),
-			array('order_id, customer_id, ordering_date, ordering_done, ordering_confirmed, comment', 'safe'),
+				array('customer_id, ordering_date, delivery_address_id, billing_address_id, payment_method', 'required'),
+				array('status', 'in', 'range' => array('new', 'in_progress', 'done', 'cancelled')),
+					array('customer_id', 'numerical', 'integerOnly'=>true),
+			array('order_id, customer_id, ordering_date, status, comment', 'safe'),
 		);
+	}
+
+	public static function statusOptions() {
+		return array(
+				'new' => Shop::t('New'),
+				'in_progress' => Shop::t('In progress'),
+				'done' => Shop::t('Done'),
+				'cancelled' => Shop::t('Cancelled'));
+
 	}
 
 	public function relations()
@@ -41,8 +51,7 @@ class Order extends CActiveRecord
 			'order_id' => Shop::t('Order number'),
 			'customer_id' => Shop::t('Customer number'),
 			'ordering_date' => Shop::t('Ordering Date'),
-			'ordering_done' => Shop::t('Ordering Done'),
-			'ordering_confirmed' => Shop::t('Ordering Confirmed'),
+			'status' => Shop::t('Status'),
 		);
 	}
 
@@ -65,8 +74,7 @@ class Order extends CActiveRecord
 		$criteria->compare('order_id',$this->order_id);
 		$criteria->compare('customer_id',$this->customer_id);
 		$criteria->compare('ordering_date',$this->ordering_date,true);
-		$criteria->compare('ordering_done',$this->ordering_done);
-		$criteria->compare('ordering_confirmed',$this->ordering_confirmed);
+		$criteria->compare('status',$this->status);
 
 		return new CActiveDataProvider('Order', array( 'criteria'=>$criteria,));
 	}

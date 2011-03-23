@@ -29,7 +29,11 @@ class OrderController extends Controller
 
 	public function actionSlip($id) {
 		if($model = $this->loadModel($id))
-			$this->render(Shop::module()->slipView, array('model' => $model));
+			if(Shop::module()->useTcPdf)
+				$this->renderPartial(Shop::module()->slipViewPdf, array(
+							'model' => $model));
+			else
+				$this->render(Shop::module()->slipView, array('model' => $model));
 	}
 
 	public function actionInvoice($id) {
@@ -52,10 +56,28 @@ class OrderController extends Controller
 					));
 	}
 
+	public function mailConfirmationMessage($order, $message) {
+		$email = $order->customer->email;
+		$title = Shop::t('Order confirmation');
+
+		
+	  if(mail($email, $title, $message))
+			Shop::setFlash(Shop::t('A order confirmation has been sent'));
+		else
+			Shop::setFlash(Shop::t('Error while sending confirmation message'));
+
+	}
+
 	public function actionUpdate($id) {
 		$order = $this->loadModel();
 
 		if(isset($_POST['Order'])) {
+			if(
+					isset($_POST['SendConfirmationMessage'])
+					&& $_POST['SendConfirmationMessage'] == 1
+					&& isset($_POST['ConfirmationMessage']))
+				$this->mailConfirmationMessage($order, $_POST['ConfirmationMessage']);	
+
 			$order->attributes = $_POST['Order'];
 			$order->save();
 			$this->redirect(array('//shop/order/view', 'id' => $order->order_id));
@@ -190,7 +212,7 @@ class OrderController extends Controller
 			$order->payment_method = Yii::app()->user->getState('payment_method');
 			$order->shipping_method = Yii::app()->user->getState('shipping_method');
 			$order->comment = Yii::app()->user->getState('order_comment');
-
+			$order->status = 'new';
 
 			if($order->save()) {
 				foreach($cart as $position => $product) {

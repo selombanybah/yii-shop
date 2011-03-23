@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Orders'=>array('index'),
-	Yii::t('ShopModule.shop', 'Manage'),
+	Shop::t('Orders')=>array('admin'),
+	Shop::t('Manage'),
 );
 
 ?>
@@ -19,17 +19,14 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'value' => 'date("M j, Y", $data->ordering_date)',
 			'filter' => false
 			),
-	array('name' => 'ordering_done',
-			'value' => '$data->ordering_done ? Shop::t("Yes") : Shop::t("No")',
+	array('name' => 'status',
+			'value' => '$data->status',
 			'filter' => array(
-				0 => Shop::t('No'),
-				1 => Shop::t('Yes'))
-		),
-	array('name' => 'ordering_confirmed',
-		'value' => '$data->ordering_confirmed ? Shop::t("Yes") : Shop::t("No")',
-		'filter' => array(
-			0 => Shop::t('No'),
-			1 => Shop::t('Yes'))
+				'new' => Shop::t('New'),
+				'in_progress' => Shop::t('In progress'),
+				'done' => Shop::t('Done'),
+				'cancelled' => Shop::t('Cancelled'),
+				),
 		),
 	array(
 			'class'=>'CButtonColumn', 

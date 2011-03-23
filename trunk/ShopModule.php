@@ -29,7 +29,15 @@ class ShopModule extends CWebModule
 	public $productVariationTable = 'shop_product_variation';
 	public $currencySymbol = '$';
 
+	// See docs/tcpdf.txt on how to enable PDF Generation of Invoices
+	public $useTcPdf = false;
+	public $tcPdfPath = 'ext.tcpdf.tcpdf';
+	public $slipViewPdf = '/order/pdf/slip';
+	public $invoiceViewPdf = '/order/pdf/invoice';
+	public $footerViewPdf = '/order/pdf/footer';
+
 	public $logoPath = 'logo.jpg';
+
 	public $slipView = '/order/slip';
 	public $invoiceView = '/order/invoice';
 	public $footerView = '/order/footer';
@@ -46,6 +54,8 @@ class ShopModule extends CWebModule
 	public $failureAction = array('//shop/order/failure');
 
 	public $loginUrl = array('/site/login');
+
+	public $orderConfirmTemplate = "Dear {title} {firstname} {lastname}, \n your order #{order_id} has been taken";
 
 	// Where the uploaded product images are stored:
 	public $productImagesFolder = 'productimages'; // Approot/...

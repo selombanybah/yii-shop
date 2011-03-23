@@ -1,4 +1,5 @@
 <?php
+Shop::register('css/shop_print.css', 'print');
 Shop::register('js/print.js');
 Yii::app()->clientScript->registerScript('print',  " $('#slip').printElement(); " );
 
@@ -73,5 +74,7 @@ Yii::app()->clientScript->registerScript('print',  " $('#slip').printElement(); 
 <br />
 <br />
 <br />
+<div id="print-footer">
 <?php $this->renderPartial(Shop::module()->footerView); ?>
+</div>
 </div>

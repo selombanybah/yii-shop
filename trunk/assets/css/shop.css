@@ -5,4 +5,4 @@
 .info { margin: 5px; padding: 5px; background-color: yellow;}
 .price_information{ cursor: pointer;}
 .buttons a {margin: 5px;}
-
+div#print-footer {display: block; position: fixed; bottom: 0;}
