@@ -3,6 +3,8 @@
 class Customer extends CActiveRecord
 {
 	public $terms_accepted = null;
+	public $password;
+	public $passwordRepeat;
 
 	public static function model($className=__CLASS__)
 	{
@@ -38,6 +40,8 @@ class Customer extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'password' => Shop::t('Password'),
+			'passwordRepeat' => Shop::t('repeat Password'),
 			'customer_id' => Yii::t('ShopModule.shop', 'Customer'),
 			'user_id' => Yii::t('ShopModule.shop', 'Userid'),
 			'address_id' => Yii::t('ShopModule.shop', 'Address'),

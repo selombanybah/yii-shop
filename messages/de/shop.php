@@ -1,5 +1,11 @@
 <?php
 return array(
+		'Password is empty' => 'Passwort ist leer',
+		'Passwords do not match' => 'Passwörter sind nicht identisch!',
+		'Password' => 'Passwort',
+		'repeat Password' => 'Passwort wiederholen',
+		'Enter a password to create an user account' => 'Bitte geben Sie ein Passwort an, mit dem sie sich in Zukunft anmelden möchten',
+		'Register an account' => 'Ich möchte einen Benutzeraccount anmelden',
 		'A order confirmation has been sent' => 'Die Bestellbestätigung wurde versandt',
 		'Error while sending confirmation message' => 'Fehler beim versenden der Bestellbestätigung',
 		'Title' => 'Anrede',
