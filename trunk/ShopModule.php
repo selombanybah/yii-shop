@@ -2,7 +2,7 @@
 
 class ShopModule extends CWebModule
 {
-	public $version = '0.7rc3';
+	public $version = '0.7-svn';
 
 	// Is the Shop in debug Mode?
 	public $debug = false;
@@ -11,7 +11,8 @@ class ShopModule extends CWebModule
 	public $installDemoData = true;
 
 	// Enable this to use the shop module together with the yii user
-	// management module
+	// management module. Optional registration when ordering a product
+	// will be enabled, for example.
 	public $useWithYum = false;
 
 	// Names of the tables

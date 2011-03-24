@@ -5,6 +5,9 @@ $this->renderPartial('/order/waypoint', array('point' => 3));
 if(!isset($customer))
 	$customer = new Customer;
 
+if($customer->address === NULL)
+	$this->redirect(array('//shop/customer/create'));
+
 	if(!isset($billingAddress))
 		if(isset($customer->billingAddress))
 			$billingAddress = $customer->billingAddress;

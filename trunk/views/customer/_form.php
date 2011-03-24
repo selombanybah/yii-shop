@@ -62,12 +62,41 @@ $form=$this->beginWidget('CActiveForm', array(
 		<?php echo $form->error($address,'country'); ?>
 	</div>
 
+	<?php if(Shop::module()->useWithYum && $customer->isNewRecord) { ?>
+
+	<?php echo CHtml::label(Shop::t('Register an account'), 'register'); ?>
+	<?php echo CHtml::checkbox('register', true); ?>
+
+	<div class="registration">
+	<?php echo Shop::t('Enter a password to create an user account'); ?>
+	<div class="row">
+		<?php echo $form->labelEx($customer,'password'); ?>
+		<?php echo $form->passwordField($customer,'password',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->error($customer,'password'); ?>
+	</div>
+
+<div class="row">
+		<?php echo $form->labelEx($customer,'passwordRepeat'); ?>
+		<?php echo $form->passwordField($customer,'passwordRepeat',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->error($customer,'passwordRepeat'); ?>
+	</div>
+	</div>
+
+	<?php Yii::app()->clientScript->registerScript('registration', "
+			$('#register').click(function() { 
+				$('.registration').toggle(500);
+				});
+			") ?>
+
+
+	<?php } ?>
+
 	<div style="clear: both;"> </div>
 
 	<div class="row buttons">
 	<?php echo CHtml::submitButton($customer->isNewRecord 
-			? Yii::t('ShopModule.shop', 'Register') 
-			: Yii::t('ShopModule.shop', 'Save')
+			? Yum::t('Register') 
+			: Yum::t('Save')
 			,array('id'=>'next')
 			); ?>
 	</div>

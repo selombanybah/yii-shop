@@ -8,8 +8,8 @@ if(!isset($address))
 	$address = new Address;
 
 $this->breadcrumbs=array(
-		Yii::t('ShopModule.shop', 'Customers')=>array('index'),
-		Yii::t('ShopModule.shop', 'Register as a new Customer'),
+		Shop::t('Customers')=>array('index'),
+		Shop::t('Register as a new Customer'),
 		);
 
 ?>
@@ -43,3 +43,4 @@ if(!isset($billingAddress) || $billingAddress === null)
 				'deliveryAddress' => $deliveryAddress,
 				'billingAddress' => $billingAddress,
 				)); ?>
+
