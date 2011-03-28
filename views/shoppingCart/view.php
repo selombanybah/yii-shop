@@ -34,13 +34,16 @@ if($products) {
 			$variations = '';
 			if(isset($product['Variations'])) {
 				foreach($product['Variations'] as $specification => $variation) {
-					$specification = ProductSpecification::model()->findByPk($specification);
-					if($specification->input_type == 'textfield')
-						$variation = $variation[0];
-					else
-						$variation = ProductVariation::model()->findByPk($variation);
+					if($specification = ProductSpecification::model()->findByPk($specification)) {
+						if($specification->input_type == 'textfield')
+							$variation = $variation[0];
+						else
+							$variation = ProductVariation::model()->findByPk($variation);
 
-					$variations .= $specification . ': ' . $variation . '<br />';
+						$variations .= $specification . ': ' . $variation . '<br />';
+					} else {
+						$variations .= CHtml::image(Yii::app()->baseUrl.'/'.$variation, '', array('width' => Shop::module()->imageWidthThumb));
+					}
 				}
 			}
 
