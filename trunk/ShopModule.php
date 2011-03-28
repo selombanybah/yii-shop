@@ -58,8 +58,11 @@ class ShopModule extends CWebModule
 
 	public $orderConfirmTemplate = "Dear {title} {firstname} {lastname}, \n your order #{order_id} has been taken";
 
-	// Where the uploaded product images are stored:
-	public $productImagesFolder = 'productimages'; // Approot/...
+	// Where the uploaded product images are stored, started from approot/:
+	public $productImagesFolder = 'productimages'; 
+
+	// Images uploaded by the customer (for example, for Poster Shops)
+	public $uploadedImagesFolder = 'uploadedimages'; 
 
 	public $layout = 'application.modules.shop.views.layouts.shop';
 

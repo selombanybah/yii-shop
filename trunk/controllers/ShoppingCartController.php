@@ -47,8 +47,10 @@ class ShoppingCartController extends Controller
 			$this->redirect(array( 
 							'//shop/products/view', 'id' => $_POST['product_id']));
 		}
+
 		if(isset($_POST['Variations']))
 			foreach($_POST['Variations'] as $key => $variation) {
+			
 				$specification = ProductSpecification::model()->findByPk($key);
 				if($specification->required && $variation[0] == '') {
 					Shop::setFlash(Shop::t('Please select a {specification}', array(
@@ -57,6 +59,15 @@ class ShoppingCartController extends Controller
 								'//shop/products/view', 'id' => $_POST['product_id']));
 				}
 
+			}
+
+
+		if(isset($_FILES))  {
+			foreach($_FILES as $variation) {
+				$target = Shop::module()->uploadedImagesFolder . '/' . $variation['name'];
+				if(move_uploaded_file($variation['tmp_name'], $target))
+					$_POST['Variations']['image'] = $target;
+			}
 		}
 
 
