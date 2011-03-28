@@ -20,7 +20,7 @@ class Customer extends CActiveRecord
 	{
 		return array(
 			array('email', 'required'),
-			array('address_id, customer_id, user_id', 'numerical', 'integerOnly'=>true),
+			array('address_id, customer_id', 'numerical', 'integerOnly'=>true),
 			array('email', 'CEmailValidator'),
 			array('customer_id, user_id, email', 'safe', 'on'=>'search'),
 		);
