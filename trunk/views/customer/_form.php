@@ -95,8 +95,8 @@ $form=$this->beginWidget('CActiveForm', array(
 
 	<div class="row buttons">
 	<?php echo CHtml::submitButton($customer->isNewRecord 
-			? Yum::t('Register') 
-			: Yum::t('Save')
+			? Shop::t('Register') 
+			: Shop::t('Save')
 			,array('id'=>'next')
 			); ?>
 	</div>

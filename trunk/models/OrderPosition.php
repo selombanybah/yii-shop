@@ -59,8 +59,8 @@ class OrderPosition extends CActiveRecord
 				else
 					$value = @ProductVariation::model()->findByPk($specification[0])->title;
 			$string .= sprintf('<tr><td>%s</td><td>%s</td></tr>',
-				$model->title,
-				$value	
+				@$model->title,
+				@$value	
 				);
 		}
 		$string .= '</table>';
