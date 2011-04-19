@@ -4,6 +4,7 @@ class InstallController extends Controller
 {
 	public function actionInstall() 
 	{
+		$this->layout = '';
 		if($this->module->debug) 
 		{
 			if(Yii::app()->request->isPostRequest) 

@@ -21,7 +21,8 @@ class ImageUploadWidget extends CPortlet
 	}
 
 	public function run() {
-		$this->render($this->view, array('product' => Products::model()->findByPk($this->product_id)));
+		$this->render($this->view, array(
+					'product' => Products::model()->findByPk($this->product_id)));
 		return parent::run();
 	}
 
