@@ -1,5 +1,6 @@
 <?php
 return array(
+		'Upload a Image' => 'Bild hochladen',
 		'Password is empty' => 'Passwort ist leer',
 		'Passwords do not match' => 'Passwörter sind nicht identisch!',
 		'Password' => 'Passwort',

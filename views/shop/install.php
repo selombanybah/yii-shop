@@ -45,9 +45,6 @@ your Yii Web Application </p>
 <td> Table for Products </td>
 <td> <?php echo Yii::app()->controller->module->productsTable; ?> </td> </tr>
 <tr> 
-<td> Table for the Shopping Carts </td>
-<td> <?php echo Yii::app()->controller->module->shoppingCartTable; ?> </td> </tr>
-<tr> 
 <td> Table for the Orderings </td>
 <td> <?php echo Yii::app()->controller->module->orderTable; ?> </td> </tr>
 <tr> 
