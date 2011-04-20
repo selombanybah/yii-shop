@@ -18,6 +18,11 @@ class OrderController extends Controller
 					'users' => array('*'),
 					),
 				array('allow',
+					'actions'=>array('index'),
+					'users' => array('@'),
+					),
+
+				array('allow',
 					'actions'=>array('admin','delete', 'view', 'slip', 'invoice', 'update'),
 					'users' => array('admin'),
 					),
@@ -49,11 +54,16 @@ class OrderController extends Controller
 	}
 
 
-	public function actionView()
+	public function actionView($id)
 	{
-		$this->render('view',array(
-					'model'=>$this->loadModel(),
-					));
+		$model =Order::model()->with('customer')->findbyPk($id);
+
+		if($model->customer->user_id == Yii::app()->user->id)
+			$this->render('view',array(
+						'model'=>$model
+						));
+		else
+			throw new CHttpException(403);
 	}
 
 	public function mailConfirmationMessage($order, $message) {
@@ -249,6 +259,19 @@ class OrderController extends Controller
 		$this->render('/order/failure');
 	}
 
+	public function actionIndex()
+	{
+		$model = new Order('search');
+
+		if(isset($_GET['Order']))
+			$model->attributes=$_GET['Order'];
+
+		$model->user_id = Yii::app()->user->id;
+
+		$this->render('index',array(
+					'model'=>$model,
+					));
+	}
 
 	public function actionAdmin()
 	{

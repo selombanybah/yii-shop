@@ -1,5 +1,6 @@
 <?php
 return array(
+		'Please select a image from your hard drive' => 'Bitte wählen Sie ein Bild von ihrer Festplatte',
 		'Upload a Image' => 'Bild hochladen',
 		'Password is empty' => 'Passwort ist leer',
 		'Passwords do not match' => 'Passwörter sind nicht identisch!',

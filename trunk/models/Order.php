@@ -2,6 +2,8 @@
 
 class Order extends CActiveRecord
 {
+	public $user_id;
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -33,7 +35,7 @@ class Order extends CActiveRecord
 
 	public function relations()
 	{
-		return array(
+		$relations = array(
 			'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
 			'products' => array(self::HAS_MANY, 'OrderPosition', 'order_id'),
 			'address' => array(self::BELONGS_TO, 'Address', 'address_id'),
@@ -41,8 +43,12 @@ class Order extends CActiveRecord
 			'deliveryAddress' => array(self::BELONGS_TO, 'DeliveryAddress', 'delivery_address_id'),
 			'paymentMethod' => array(self::BELONGS_TO, 'PaymentMethod', 'payment_method'),
 			'shippingMethod' => array(self::BELONGS_TO, 'ShippingMethod', 'shipping_method'),
-
 		);
+
+		if(Shop::module()->useWithYum)
+			$relations['user'] = array(self::HAS_ONE, 'YumUser', 'user_id', 'through' => 'customer');
+
+		return $relations;
 	}
 
 	public function attributeLabels()
@@ -71,10 +77,19 @@ class Order extends CActiveRecord
 	{
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('order_id',$this->order_id);
-		$criteria->compare('customer_id',$this->customer_id);
-		$criteria->compare('ordering_date',$this->ordering_date,true);
-		$criteria->compare('status',$this->status);
+		$criteria->compare('t.order_id',$this->order_id);
+		$criteria->compare('t.customer_id',$this->customer_id);
+		$criteria->compare('t.ordering_date',$this->ordering_date,true);
+		$criteria->compare('t.status',$this->status);
+
+		// This code block is used mainly for searching for orders that a 
+		// specific user has made (a 'through' join is done here)
+		if($this->user_id !== null) {
+			$criteria->join = '
+				left join shop_customer on t.customer_id = shop_customer.customer_id 
+				left join users on shop_customer.user_id = users.id';
+			$criteria->compare('users.id', $this->user_id);
+		}
 
 		return new CActiveDataProvider('Order', array( 'criteria'=>$criteria,));
 	}
