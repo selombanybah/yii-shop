@@ -61,15 +61,18 @@ class ShoppingCartController extends Controller
 
 			}
 
-
-		if(isset($_FILES))  {
+		if(isset($_FILES)) {
 			foreach($_FILES as $variation) {
 				$target = Shop::module()->uploadedImagesFolder . '/' . $variation['name'];
+				if($variation['tmp_name'] == '') {
+					Shop::setFlash(Shop::t('Please select a image from your hard drive'));
+					$this->redirect(array('//shop/shoppingCart/view'));
+				}
+					
 				if(move_uploaded_file($variation['tmp_name'], $target))
 					$_POST['Variations']['image'] = $target;
 			}
 		}
-
 
 		$cart = Shop::getCartContent();
 
@@ -83,7 +86,7 @@ class ShoppingCartController extends Controller
 	
 		Shop::setCartcontent($cart);
 		Shop::setFlash(Shop::t('The product has been added to the shopping cart'));
-		$this->redirect(array('//shop/products/index'));
+		$this->redirect(array('//shop/shoppingCart/view'));
 	}
 
 	public function actionDelete($id)

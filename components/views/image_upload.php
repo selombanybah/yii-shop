@@ -5,52 +5,46 @@
 			)); ?>
 
 
-<h2> <?php echo $product->title; ?> </h2>
-
-<?php echo $product->description; ?>
-
+<?php
+if(count($products) == 1) {
+	echo Shop::t('Product').':';
+	echo $products[0]->title;
+}
+else {
+	echo Shop::t('Select a Product').':';
+	echo CHtml::dropDownList('product',
+			0,
+			CHtml::listData($products, 'product_id', 'title')); 
+}
+?>
 <hr />
 
+<div id="variations"> </div>
+
 <?php
-if($variations = $product->getVariations()) {
-	foreach($variations as $variation) {
-		$field = "Variations[{$variation[0]->specification_id}][]";
-		echo CHtml::label($variation[0]->specification->title,
-				$field, array(
-					'class' => 'lbl-header'));
-
-		if($variation[0]->specification->required)
-			echo ' <span class="required">*</span>';
-
-		echo  '<br />';
-		if($variation[0]->specification->input_type == 'textfield') {
-			echo CHtml::textField($field);
-		} else if ($variation[0]->specification->input_type == 'select'){
-			// If the specification is required, preselect the first field. Otherwise
-			// let the customer choose which one to pick
-			echo CHtml::radioButtonList($field,
-					$variation[0]->specification->required ? $variation[0]->id : null,
-					ProductVariation::listData($variation));
-		} else if ($variation[0]->specification->input_type == 'image'){
-			echo CHtml::fileField('filename');
-		}
-	}
-
-}
-
 echo '<div style="clear: both;"></div>';
 echo '<br />';
-echo CHtml::hiddenField('product_id', $product->product_id);
 echo CHtml::label(Shop::t('Amount'), 'ShoppingCart_amount');
 echo ': ';
 echo CHtml::textField('amount', 1, array('size' => 3));
 echo '<br />';
 
 echo CHtml::submitButton(
-		Shop::t('Add to shopping Cart'), array( 'class' => 'btn-add-cart'));
-
+Shop::t('Add to shopping Cart'), array( 'class' => 'btn-add-cart'));
 ?>
 
 <hr />
 
 <?php echo CHtml::endForm(); ?>
+
+<?php
+	if(count($products) > 1) {
+Yii::app()->clientScript->registerScript('product_selection', "
+		$('#variations').load('".Yii::app()->controller->createUrl('//shop/products/getVariations')."', {'product': ".$products[0]->product_id."});
+
+	$('#product').change(function() {
+		$('#variations').load('".Yii::app()->controller->createUrl('//shop/products/getVariations')."', $(this));
+});
+");
+}
+?>

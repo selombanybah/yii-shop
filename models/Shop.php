@@ -145,13 +145,13 @@
 	}
 
 
-		public static function getCustomer() {
-			if(!Yii::app()->user->isGuest) 
-				if($customer = Customer::model()->find('user_id = :uid', array(
+	public static function getCustomer() {
+		if(!Yii::app()->user->isGuest) 
+			if($customer = Customer::model()->find('user_id = :uid', array(
 							':uid' => Yii::app()->user->id))) 
 				return $customer;
 
-			if($customer_id = Yii::app()->user->getState('customer_id')) 
+		if($customer_id = Yii::app()->user->getState('customer_id')) 
 				return Customer::model()->findByPk($customer_id);
 		}
 
