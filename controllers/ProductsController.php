@@ -71,7 +71,7 @@ public function actionGetVariations() {
 
 	public function actionView()
 	{
-		$this->render('view',array(
+		$this->render(Shop::module()->productView,array(
 			'model'=>$this->loadModel(),
 		));
 	}
@@ -179,6 +179,9 @@ public function actionGetVariations() {
 		{
 			if(isset($_GET['id']))
 				$this->_model=Products::model()->findbyPk($_GET['id']);
+			if(isset($_GET['title']))
+				$this->_model=Products::model()->find('title = :title', array(
+							':title' => $_GET['title']));
 			if($this->_model===null)
 				throw new CHttpException(404,'The requested page does not exist.');
 		}
