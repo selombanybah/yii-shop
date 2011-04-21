@@ -29,6 +29,7 @@ class ShopModule extends CWebModule
 	public $productSpecificationTable = 'shop_product_specification';
 	public $productVariationTable = 'shop_product_variation';
 	public $currencySymbol = '$';
+	public $productView = 'view';
 
 	// See docs/tcpdf.txt on how to enable PDF Generation of Invoices
 	public $useTcPdf = false;
