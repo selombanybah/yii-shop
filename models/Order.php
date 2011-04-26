@@ -58,7 +58,17 @@ class Order extends CActiveRecord
 			'customer_id' => Shop::t('Customer number'),
 			'ordering_date' => Shop::t('Ordering Date'),
 			'status' => Shop::t('Status'),
+			'comment' => Shop::t('Comment'),
 		);
+	}
+
+	public function getTaxAmount() {
+		$amount = 0;
+		if($this->products)
+			foreach($this->products as $position)
+				$amount += ($position->getPrice() * ($position->product->tax->percent / 100 + 1) ) - $position->getPrice();
+
+		return $amount;
 	}
 
 	public function getTotalPrice() {

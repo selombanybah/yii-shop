@@ -17,6 +17,7 @@ Shop::renderFlash();
 			'attributes'=>array(
 				'order_id',
 				'customer_id',
+				'comment',
 				array(
 					'label' => Shop::t('Ordering Date'),
 					'value' => date('d. m. Y G:i',$model->ordering_date)

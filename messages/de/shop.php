@@ -1,5 +1,7 @@
 <?php
 return array(
+		'Tax amount' => 'Steueranteil',
+		'Comment' => 'Bemerkungen',
 		'Select a Product' => 'Wähle ein Produkt',
 		'Please select a image from your hard drive' => 'Bitte wählen Sie ein Bild von ihrer Festplatte',
 		'Upload a Image' => 'Bild hochladen',

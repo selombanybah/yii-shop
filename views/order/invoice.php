@@ -94,6 +94,11 @@ Yii::app()->clientScript->registerScript('print',  " $('#slip').printElement(); 
           <td nowrap width="100%" style="border-right: 2px solid; border-bottom: 2px solid; border-color: #ffffff;"><div align="right"><font size="1" face="Arial, Helvetica, sans-serif"><?php echo Shop::t('Total value'); ?>
               <?php echo Shop::priceFormat($model->getTotalPrice()); ?></font></div></td>
         </tr>
+        <tr> 
+          <td nowrap width="100%" style="border-right: 2px solid; border-bottom: 2px solid; border-color: #ffffff;"><div align="right"><font size="1" face="Arial, Helvetica, sans-serif"><?php echo Shop::t('Tax amount'); ?>
+              <?php echo Shop::priceFormat($model->getTaxAmount()); ?></font></div></td>
+        </tr>
+
         </table></td>
   </tr>
 </table>
