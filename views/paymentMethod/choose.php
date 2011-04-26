@@ -48,8 +48,9 @@ $form=$this->beginWidget('CActiveForm', array(
 echo CHtml::checkBox('toggle_billing',
 			$customer->billingAddress !== NULL, array(
 				'style' => 'float: left')); 
-	echo CHtml::label(Shop::t('alternative billing address'), 'toggle_billing', array(
-				'style' => 'cursor:pointer'));
+echo CHtml::label(Shop::t('alternative billing address'),
+		'toggle_billing', array(
+			'style' => 'cursor:pointer'));
 ?>
 <div class="form">
 	<fieldset id="billing_information" style="display: none;" >
@@ -103,28 +104,28 @@ echo CHtml::checkBox('toggle_billing',
 <h3> <?php echo Shop::t('Payment method'); ?> </h3>
 <p> <?php echo Shop::t('Choose your Payment method'); ?> </p>
 
-
 <?php
 $i = 0;
+	echo '<fieldset>';
 foreach(PaymentMethod::model()->findAll() as $method) {
 	echo '<div class="row">';
 	echo CHtml::radioButton("PaymentMethod", $i == 0, array(
 				'value' => $method->id));
-	echo '<div class="float-left">';
-	echo CHtml::label($method->title, 'PaymentMethod');
-	echo CHtml::tag('p', array(), $method->description);
-	echo '</div>';
+	echo CHtml::tag('p', array(
+				'class' => 'shop_selection',
+				'onClick' => "
+				$(\"input[name='PaymentMethod'][value='".$method->id."']\").attr('checked','checked');"),
+			$method->title . '<br />'.$method->description);
 	echo '</div>';
 	echo '<div class="clear"></div>';
 	$i++;
 }
+	echo '</fieldset>';
 	?>
 
 
 <div class="row buttons">
-<?php
-echo CHtml::submitButton(Shop::t('Continue'),array('id'=>'next'));
-?>
+<?php echo CHtml::submitButton(Shop::t('Continue'),array('id'=>'next')); ?>
 </div>
 
 <?php

@@ -1,15 +1,5 @@
 <?php
 
-/**
- * This is the model class for table "shop_product_variation".
- *
- * The followings are the available columns in table 'shop_product_variation':
- * @property integer $id
- * @property integer $product_id
- * @property integer $specification_id
- * @property string $title
- * @property double $price_adjustion
- */
 class ProductVariation extends CActiveRecord
 {
 	/**
@@ -21,17 +11,29 @@ class ProductVariation extends CActiveRecord
 		return parent::model($className);
 	}
 
-	public static function listData($variations) {
+
+	/**
+	 * If $price_absolute is set to true, display the absolute price in 
+	 * brackets (25 $), otherwise the relative price (+ 5 $)
+	 */
+	public static function listData($variations, $price_absolute = false) {
 		$var = array();
 
-		foreach($variations as $id => $variation) 
+		foreach($variations as $id => $variation)  {
 			if($variation->price_adjustion == 0) 
 				$var[$variation->id] = sprintf('%s', $variation->title);
-			else
-				$var[$variation->id] = sprintf('%s (%s%s)',
-						$variation->title,
-						$variation->price_adjustion > 0 ? '+' : '',
-						Shop::priceFormat($variation->price_adjustion));
+			else {
+				if($price_absolute)
+					$var[$variation->id] = sprintf('%s (%s)',
+							$variation->title,
+							Shop::priceFormat($variation->product->getPrice() + $variation->price_adjustion));
+				else
+					$var[$variation->id] = sprintf('%s (%s%s)',
+							$variation->title,
+							$variation->price_adjustion > 0 ? '+' : '',
+							Shop::priceFormat($variation->price_adjustion));
+			}
+		}
 
 		return $var;
 	}

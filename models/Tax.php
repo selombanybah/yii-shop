@@ -10,6 +10,10 @@
  */
 class Tax extends CActiveRecord
 {
+	public function __toString() {
+		return (float) '1.'.$this->percent;
+	}
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return Tax the static model class

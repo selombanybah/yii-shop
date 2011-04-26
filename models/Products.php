@@ -47,6 +47,7 @@ class Products extends CActiveRecord
 	{
 		return array(
 			'variations' => array(self::HAS_MANY, 'ProductVariation', 'product_id', 'order' => 'position'),
+			'variationCount' => array(self::STAT, 'ProductVariation', 'product_id'),
 			'orders' => array(self::MANY_MANY, 'Order', 'ShopProductOrder(order_id, product_id)'),
 			'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
 			'tax' => array(self::BELONGS_TO, 'Tax', 'tax_id'),
@@ -128,6 +129,7 @@ class Products extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'tax_id' => Shop::t('Tax'),
 			'product_id' => Yii::t('ShopModule.shop', 'Product'),
 			'title' => Yii::t('ShopModule.shop', 'Title'),
 			'description' => Yii::t('ShopModule.shop', 'Description'),
@@ -153,8 +155,13 @@ class Products extends CActiveRecord
 			return $tax;
 		}
 	}
+
 	public function getPrice($variations = null, $amount = 1) {
 		$price = (float) $this->price;
+
+		if($this->tax)
+			$price *= $this->tax->percent / 100 + 1;
+
 		if($variations)
 			foreach($variations as $key => $variation) {
 				$price += @ProductVariation::model()->findByPk($variation[0])->price_adjustion;

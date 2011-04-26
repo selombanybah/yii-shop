@@ -62,6 +62,7 @@
 
 		public static function priceFormat ($price) {
 			$price = sprintf('%.2f', $price);
+
 			if(Yii::app()->language == 'de')
 				$price = str_replace('.', ',', $price);
 
@@ -69,6 +70,14 @@
 		
 			return $price;
 		}
+
+		public static function pricePrefix() {
+			if(Yii::app()->language == 'de')
+				return 'ab';
+			
+			return 'from';
+		}
+
 		public static function getPaymentMethod() {
 			return Yii::app()->user->getState('payment_method');
 		}

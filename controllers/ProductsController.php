@@ -8,8 +8,8 @@ class ProductsController extends Controller
 	public function filters()
 	{
 		return array(
-			'accessControl',
-		);
+				'accessControl',
+				);
 	}	
 
 	public function accessRules() {
@@ -23,46 +23,52 @@ class ProductsController extends Controller
 					'users' => array('admin'),
 					),
 				array('deny',  // deny all other users
-						'users'=>array('*'),
-						),
+					'users'=>array('*'),
+					),
 				);
 	}
 
-public function actionGetVariations() {
-	if(Yii::app()->request->isAjaxRequest && isset($_POST['product'])) {
-		$product = Products::model()->findByPk($_POST['product']); 
-		echo CHtml::hiddenField('product_id', $product->product_id);
-		if($variations = $product->getVariations()) {
-			foreach($variations as $variation) {
-				$field = "Variations[{$variation[0]->specification_id}][]";
-				echo CHtml::label($variation[0]->specification->title,
-						$field, array(
-							'class' => 'lbl-header'));
+	public function actionGetVariations() {
+		if(Yii::app()->request->isAjaxRequest && isset($_POST['product'])) {
+			$product = Products::model()->findByPk($_POST['product']); 
+			echo CHtml::hiddenField('product_id', $product->product_id);
 
-				if($variation[0]->specification->required)
-					echo ' <span class="required">*</span>';
+			if($variations = $product->getVariations()) {
+				foreach($variations as $variation) {
+					$field = "Variations[{$variation[0]->specification_id}][]";
+					echo CHtml::label($variation[0]->specification->title,
+							$field, array(
+								'class' => 'lbl-header'));
 
-				echo  '<br />';
-				if($variation[0]->specification->input_type == 'textfield') {
-					echo CHtml::textField($field);
-				} else if ($variation[0]->specification->input_type == 'select'){
-					// If the specification is required, preselect the first field. Otherwise
-					// let the customer choose which one to pick
-					echo CHtml::radioButtonList($field,
-							$variation[0]->specification->required ? $variation[0]->id : null,
-							ProductVariation::listData($variation));
-				} else if ($variation[0]->specification->input_type == 'image'){
-					echo CHtml::fileField('filename');
+					if($variation[0]->specification->required)
+						echo ' <span class="required">*</span>';
+
+					echo '<br />';
+
+					if($variation[0]->specification->input_type == 'textfield') {
+						echo CHtml::textField($field);
+					} else if ($variation[0]->specification->input_type == 'select'){
+						// If the specification is required, preselect the first field.
+						// Otherwise  let the customer choose which one to pick
+						echo CHtml::radioButtonList($field,
+								$variation[0]->specification->required 
+								? $variation[0]->id 
+								: null,
+								ProductVariation::listData($variation, 
+									$product->variationCount > 1 ? true : false
+									));
+					} else if ($variation[0]->specification->input_type == 'image') {
+						echo CHtml::fileField('filename');
+					}
+					echo '<br />';
 				}
-			echo '<br />';
+
 			}
 
-		}
+		} else
+			throw new CHttpException(404);
 
-	} else
-		throw new CHttpException(404);
-
-}
+	}
 
 	public function beforeAction($action) {
 		$this->layout = Shop::module()->layout;
@@ -72,15 +78,15 @@ public function actionGetVariations() {
 	public function actionView()
 	{
 		$this->render(Shop::module()->productView,array(
-			'model'=>$this->loadModel(),
-		));
+					'model'=>$this->loadModel(),
+					));
 	}
 
 	public function actionCreate()
 	{
 		$model=new Products;
 
-		 $this->performAjaxValidation($model);
+		$this->performAjaxValidation($model);
 
 		if(isset($_POST['Products']))
 		{
@@ -94,8 +100,8 @@ public function actionGetVariations() {
 		}
 
 		$this->render('create',array(
-			'model'=>$model,
-		));
+					'model'=>$model,
+					));
 	}
 
 	public function actionUpdate($id, $return = null)
@@ -106,7 +112,8 @@ public function actionGetVariations() {
 
 		if(isset($_POST['Products']))
 		{
-			$model->attributes=$_POST['Products'];
+			$model->attributes = $_POST['Products'];
+
 			if(isset($_POST['Specifications']))
 				$model->setSpecifications($_POST['Specifications']);
 			if(isset($_POST['Variations']))
@@ -120,8 +127,8 @@ public function actionGetVariations() {
 		}
 
 		$this->render('update',array(
-			'model'=>$model,
-		));
+					'model'=>$model,
+					));
 	}
 
 	/**
@@ -151,8 +158,8 @@ public function actionGetVariations() {
 		$dataProvider = new CActiveDataProvider('Products');
 
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-		));
+					'dataProvider'=>$dataProvider,
+					));
 	}
 
 	/**
@@ -165,8 +172,8 @@ public function actionGetVariations() {
 			$model->attributes=$_GET['Products'];
 
 		$this->render('admin',array(
-			'model'=>$model,
-		));
+					'model'=>$model,
+					));
 	}
 
 	/**

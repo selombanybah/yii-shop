@@ -61,6 +61,18 @@ return $str;
 </div>
 
 <div class="row">
+<?php echo $form->labelEx($model,'tax_id'); ?>
+<?php $this->widget('application.modules.shop.components.Relation', array(
+			'model' => $model,
+			'relation' => 'tax',
+			'fields' => 'title',
+			'showAddButton' => false,
+		)); ?>
+<?php echo $form->error($model,'category_id'); ?>
+</div>
+
+
+<div class="row">
 <?php echo $form->labelEx($model,'title'); ?>
 <?php echo $form->textField($model,'title',array('size'=>45,'maxlength'=>45)); ?>
 <?php echo $form->error($model,'title'); ?>
