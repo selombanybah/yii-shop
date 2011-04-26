@@ -56,9 +56,10 @@ class OrderController extends Controller
 
 	public function actionView($id)
 	{
-		$model =Order::model()->with('customer')->findbyPk($id);
+		$model = Order::model()->with('customer')->findbyPk($id);
 
-		if($model->customer->user_id == Yii::app()->user->id)
+		if($model->customer->user_id == Yii::app()->user->id
+				||Yii::app()->user->id == 1)
 			$this->render('view',array(
 						'model'=>$model
 						));

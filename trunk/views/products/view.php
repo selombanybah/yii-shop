@@ -8,9 +8,10 @@ $this->breadcrumbs=array(
 
 <div class="product-header">
     <h2 class="title"><?php echo $model->title; ?></h2>
-    <?php printf('<h2 class="price">%s</h2>',
-            Shop::priceFormat($model->price));
-    ?>
+    <?php printf('<h2 class="price">%s %s</h2>',
+				$model->variationCount > 0 ? Shop::pricePrefix() : '',
+				Shop::priceFormat($model->getPrice()));
+?>
 </div>
 
 <div class="clear"></div>

@@ -7,6 +7,7 @@ Yii::import('zii.widgets.CPortlet');
 class ImageUploadWidget extends CPortlet
 {
 	public $products = null;
+	public $selected = 0;
 	public $view = 'image_upload';
 
 	public function init()
@@ -30,6 +31,7 @@ class ImageUploadWidget extends CPortlet
 		}
 
 		$this->render($this->view, array(
+					'selected' => $this->selected,
 					'products' => $products));
 		return parent::run();
 	}

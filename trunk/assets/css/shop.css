@@ -6,3 +6,4 @@
 .price_information{ cursor: pointer;}
 .buttons a {margin: 5px;}
 div#print-footer {display: block; position: fixed; bottom: 0;}
+.shop_selection {cursor: pointer;}

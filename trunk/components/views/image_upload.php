@@ -1,6 +1,4 @@
-<?php echo CHtml::beginForm( array(
-			'//shop/shoppingCart/create'),
-		'POST', array(
+<?php echo CHtml::beginForm( array('//shop/shoppingCart/create'), 'POST', array(
 			'enctype' => 'multipart/form-data'
 			)); ?>
 
@@ -30,7 +28,7 @@ echo CHtml::textField('amount', 1, array('size' => 3));
 echo '<br />';
 
 echo CHtml::submitButton(
-Shop::t('Add to shopping Cart'), array( 'class' => 'btn-add-cart'));
+		Shop::t('Add to shopping Cart'), array( 'class' => 'btn-add-cart'));
 ?>
 
 <hr />
@@ -38,13 +36,12 @@ Shop::t('Add to shopping Cart'), array( 'class' => 'btn-add-cart'));
 <?php echo CHtml::endForm(); ?>
 
 <?php
-	if(count($products) > 1) {
-Yii::app()->clientScript->registerScript('product_selection', "
-		$('#variations').load('".Yii::app()->controller->createUrl('//shop/products/getVariations')."', {'product': ".$products[0]->product_id."});
-
-	$('#product').change(function() {
-		$('#variations').load('".Yii::app()->controller->createUrl('//shop/products/getVariations')."', $(this));
-});
-");
+if(count($products) > 1) {
+	Yii::app()->clientScript->registerScript('product_selection', "
+			$('#variations').load('".Yii::app()->controller->createUrl('//shop/products/getVariations')."', {'product': ".$products[$selected]->product_id."});
+			$('#product').change(function() {
+				$('#variations').load('".Yii::app()->controller->createUrl('//shop/products/getVariations')."', $(this));
+				});
+			");
 }
 ?>

@@ -11,6 +11,12 @@ class ShoppingCartController extends Controller
 						));
 	}
 
+	public function beforeAction($action) {
+		$this->layout = Shop::module()->layout;
+		return parent::beforeAction($action);
+	}
+
+
 	public function actionGetPriceTotal() {
 		echo Shop::getPriceTotal();
 	}
