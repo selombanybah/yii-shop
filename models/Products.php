@@ -108,13 +108,13 @@ class Products extends CActiveRecord
 				$db->createCommand()->insert('shop_product_variation', array(
 							'product_id' => $this->product_id,
 							'specification_id' => $value['specification_id'],
-							'position' => @$value['position'] ?: 0,
+							'position' => @$value['position'] ? $value['position'] : 0,
 							'title' => $value['title'],
-							'price_adjustion' => @$value['price_adjustion'] ?: 0,
+							'price_adjustion' => @$value['price_adjustion'] ? $value['price_adjustion'] : 0,
 							));	
 			}
-		}
-	}
+		} 
+	} 
 
 		public function getVariations() {
 		$variations = array();

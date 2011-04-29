@@ -4,6 +4,14 @@ class Order extends CActiveRecord
 {
 	public $user_id;
 
+	public function limit($limit=5)
+	{
+		$this->getDbCriteria()->mergeWith(array(
+					'limit'=>$limit,
+					));
+		return $this;
+	}	
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -11,7 +19,7 @@ class Order extends CActiveRecord
 
 	public function tableName()
 	{
-		return Yii::app()->controller->module->orderTable;
+		return Shop::module()->orderTable;
 	}
 
 	public function rules()
