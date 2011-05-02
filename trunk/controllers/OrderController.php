@@ -115,8 +115,7 @@ class OrderController extends Controller
 		if(isset($_POST['PaymentMethod'])) 
 			Yii::app()->user->setState('payment_method', $_POST['PaymentMethod']);
 
-
-		if(isset($_POST['DeliveryAddress']) && $_POST['DeliveryAddress'] === true) {
+		if(isset($_POST['DeliveryAddress']) && @$_POST['toggle_delivery'] == true) {
 			if(Address::isEmpty($_POST['DeliveryAddress'])) {
 				Shop::setFlash(Shop::t('Delivery address is not complete! Please fill in all fields to set the Delivery address'));
 			} else {
@@ -134,7 +133,7 @@ class OrderController extends Controller
 			}
 		}
 
-		if(isset($_POST['BillingAddress']) && $_POST['BillingAddress'] === true) {
+		if(isset($_POST['BillingAddress']) && @$_POST['toggle_billing'] == true) {
 			if(Address::isEmpty($_POST['BillingAddress'])) {
 				Shop::setFlash(Shop::t('Billing address is not complete! Please fill in all fields to set the Billing address'));
 			} else {

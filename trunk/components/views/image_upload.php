@@ -18,6 +18,12 @@ else {
 <hr />
 
 <div id="variations"> </div>
+<div id="image_upload_loading" style="display: none;"> 
+<?php echo CHtml::image(Yii::app()->assetManager->publish(
+			Yii::getPathOfAlias('zii.widgets.assets.gridview').'/loading.gif')); ?>
+&nbsp;
+<?php echo Shop::t('Please wait while your image is being uploaded'); ?>
+</div>
 
 <?php
 echo '<div style="clear: both;"></div>';
@@ -28,7 +34,9 @@ echo CHtml::textField('amount', 1, array('size' => 3));
 echo '<br />';
 
 echo CHtml::submitButton(
-		Shop::t('Add to shopping Cart'), array( 'class' => 'btn-add-cart'));
+		Shop::t('Add to shopping Cart'), array(
+			'onclick' => "$('#image_upload_loading').show();",
+			'class' => 'btn-add-cart'));
 ?>
 
 <hr />

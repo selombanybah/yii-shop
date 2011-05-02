@@ -57,9 +57,7 @@ $form=$this->beginWidget('CActiveForm', array(
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($address,'country'); ?>
-		<?php echo $form->textField($address,'country',array('size'=>45,'maxlength'=>45)); ?>
-		<?php echo $form->error($address,'country'); ?>
+		<?php echo Shop::getCountryChooser($form, $address); ?>	
 	</div>
 
 	<?php if(Shop::module()->useWithYum && $customer->isNewRecord) { ?>

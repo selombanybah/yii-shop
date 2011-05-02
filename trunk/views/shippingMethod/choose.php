@@ -97,9 +97,7 @@ echo CHtml::label(
             </div>
             
             <div class="row">
-                <?php echo $form->labelEx($deliveryAddress,'country'); ?>
-                <?php echo $form->textField($deliveryAddress,'country',array('size'=>45,'maxlength'=>45)); ?>
-                <?php echo $form->error($deliveryAddress,'country'); ?>
+							<?php echo Shop::getCountryChooser($form, $deliveryAddress); ?>	
             </div>
 		</div>
 	</fieldset>

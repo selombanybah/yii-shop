@@ -92,13 +92,12 @@ echo CHtml::label(Shop::t('alternative billing address'),
                 <?php echo $form->error($billingAddress,'city'); ?>
             </div>
         
+				
             <div class="row">
-				<?php echo $form->labelEx($billingAddress,'country'); ?>
-                <?php echo $form->textField($billingAddress,'country',array('size'=>45,'maxlength'=>45)); ?>
-                <?php echo $form->error($billingAddress,'country'); ?>
+							<?php echo Shop::getCountryChooser($form, $billingAddress); ?>	
             </div>
 		</div>
-     </fieldset>
+   </fieldset>
 <br />
 <hr />  
 <h3> <?php echo Shop::t('Payment method'); ?> </h3>
