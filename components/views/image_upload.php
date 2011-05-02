@@ -21,7 +21,7 @@ else {
 <div id="image_upload_loading" style="display: none;"> 
 <?php echo CHtml::image(Yii::app()->assetManager->publish(
 			Yii::getPathOfAlias('zii.widgets.assets.gridview').'/loading.gif')); ?>
-&nbsp;
+<br />
 <?php echo Shop::t('Please wait while your image is being uploaded'); ?>
 </div>
 
