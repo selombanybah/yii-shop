@@ -28,7 +28,7 @@ if($products) {
 			Shop::t('Sum'),
 			Shop::t('Actions')
 );
-
+//var_dump($products);die();
 
 	foreach($products as $position => $product) {
 		if(@$model = Products::model()->findByPk($product['product_id'])) {
@@ -36,25 +36,50 @@ if($products) {
 			if(isset($product['Variations'])) {
 				foreach($product['Variations'] as $specification => $variation) {
 					if($specification = ProductSpecification::model()->findByPk($specification)) {
-
+						if($specification->input_type == 'textfield')
+							$variation = $variation[0];
+						else
+							$variation = ProductVariation::model()->findByPk($variation);
 
 						if(Shop::module()->allowPositionLiveChange) {
-				$variations .= CHtml::radioButtonList('variation_'.$variation['id'], '');
-						} else {
-							if($specification->input_type == 'textfield')
-								$variation = $variation[0];
-							else
-								$variation = ProductVariation::model()->findByPk($variation);
-
+							if($specification->input_type == 'select') {
+								$name = 'variation_'.$position.'_'.$specification->id; 
+								$variations .= CHtml::radioButtonList(
+										$name, $variation->id,
+										ProductVariation::listData($variation->getVariations()));
+								Yii::app()->clientScript->registerScript($name, "
+										$('[name=\"".$name."\"]').click(function(){
+									$.ajax({
+											'url' : '".CController::createUrl('//shop/shoppingCart/updateVariation')."',
+											'type' : 'POST',
+											'data' : $(this),
+											error: function() {
+											$('#amount_".$position."').css('background-color', 'red');
+											},
+											success: function(result) {
+											$('.amount_".$position."').css('background-color', 'lightgreen');
+											$('.widget_amount_".$position."').css('background-color', 'lightgreen');
+											$('.widget_amount_".$position."').html($('.amount_".$position."').val());
+											$('.price_".$position."').html(result);	
+											$('.price_single_".$position."').load('".$this->createUrl(
+										'//shop/shoppingCart/getPriceSingle?position='.$position)."');
+											$('.price_total').load('".$this->createUrl(
+										'//shop/shoppingCart/getPriceTotal')."');
+											},
+											});
+							});
+										");
+		$variations .= '<br />';
+							}
+						} else
 							$variations .= $specification . ': ' . $variation . '<br />';
-						}
 					} else {
 						$variations .= CHtml::image(Yii::app()->baseUrl.'/'.$variation, '', array('width' => Shop::module()->imageWidthThumb));
-					}
 				}
 			}
+		}
 
-			printf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td class="text-right">%s</td><td class="text-right price_'.$position.'">%s</td><td>%s</td></tr>',
+			printf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td class="text-right price_single_'.$position.'">%s</td><td class="text-right price_'.$position.'">%s</td><td>%s</td></tr>',
 					$model->getImage(0, true),
 					CHtml::textField('amount_'.$position,
 						$product['amount'], array(
