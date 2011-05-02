@@ -116,7 +116,6 @@ echo '<div class="buttons">';
 echo CHtml::link(Shop::t('Buy additional Products'), array(
 			'//shop/products'), array('class'=>'btn-previous'));
 
-echo '<br />';
 			
 echo CHtml::link(Shop::t('Buy this products'), array(
 			'//shop/order/create'), array('class'=>'btn-next')); 
