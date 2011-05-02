@@ -46,13 +46,10 @@ class OrderController extends Controller
 			$this->render(Shop::module()->invoiceView, array('model' => $model));
 	}
 
-
-
 	public function beforeAction($action) {
 		$this->layout = Shop::module()->layout;
 		return parent::beforeAction($action);
 	}
-
 
 	public function actionView($id)
 	{
@@ -108,6 +105,10 @@ class OrderController extends Controller
 			$customer = null,
 			$payment_method = null,
 			$shipping_method = null) {
+
+		// Shopping cart is empty, taking a order is not allowed yet
+		if(Shop::getCartContent() == array())
+			$this->redirect(array('//shop/shoppingCart/view'));
 
 		if(isset($_POST['ShippingMethod'])) 
 			Yii::app()->user->setState('shipping_method', $_POST['ShippingMethod']);

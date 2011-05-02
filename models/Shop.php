@@ -113,7 +113,8 @@
 		}
 
 		public static function setCartContent($cart) {
-			return Yii::app()->user->setState('cart', json_encode($cart));
+			Yii::app()->user->setState('cart', json_encode($cart));
+			return true;
 		}
 
 		public static function getPriceTotal() {
@@ -123,7 +124,6 @@
 				$model = Products::model()->findByPk($product['product_id']);
 				$price_total += $model->getPrice(@$product['Variations'], @$product['amount']);
 				$tax_total += $model->getTaxRate(@$product['Variations'], @$product['amount']);
-
 		}
 
 			if($shipping_method = Shop::getShippingMethod())

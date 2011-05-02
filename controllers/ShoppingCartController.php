@@ -16,6 +16,36 @@ class ShoppingCartController extends Controller
 		return parent::beforeAction($action);
 	}
 
+	public function actionUpdateVariation() {
+		if(Yii::app()->request->isAjaxRequest && isset($_POST)) {
+			$cart = Shop::getCartContent();
+			$pieces = explode('_', key($_POST));
+
+			$position = $pieces[1];
+			$variation = $pieces[2];
+			$new_value = $_POST[key($_POST)];
+
+			$cart[$position]['Variations'][$variation] = $new_value;
+
+			if(Shop::setCartContent($cart)) {
+				$product = Products::model()->findByPk($cart[$position]['product_id']);
+				echo Shop::priceFormat(
+						@$product->getPrice($cart[$position]['Variations'], $cart[$position]['amount'] ));
+			} else throw new CHttpException(500);
+		}
+	}
+
+	public function actionGetPriceSingle($position) {
+		$cart = Shop::getCartContent();
+		$product_id = $cart[$position]['product_id'];
+		if($product = Products::model()->findByPk($product_id))
+			if(Yii::app()->request->isAjaxRequest)
+				echo Shop::priceFormat(
+						$product->getPrice($cart[$position]['Variations'], 1));
+			else
+				return Shop::priceFormat(
+						$product->getPrice($cart[$position]['Variations'], 1));
+	}
 
 	public function actionGetPriceTotal() {
 		echo Shop::getPriceTotal();

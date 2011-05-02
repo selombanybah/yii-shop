@@ -11,7 +11,6 @@ class ProductVariation extends CActiveRecord
 		return parent::model($className);
 	}
 
-
 	/**
 	 * If $price_absolute is set to true, display the absolute price in 
 	 * brackets (25 $), otherwise the relative price (+ 5 $)
@@ -36,6 +35,13 @@ class ProductVariation extends CActiveRecord
 		}
 
 		return $var;
+	}
+
+	public function getVariations() {
+		return ProductVariation::model()->findAll('product_id = :pid and specification_id = :sid ', array(
+					':pid' => $this->product_id,
+					':sid' => $this->specification_id,
+					));	
 	}
 
 	public function __toString() {
