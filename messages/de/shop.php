@@ -1,5 +1,8 @@
 <?php
 return array(
+		'zipcode' => 'PLZ',
+		'city' => 'Stadt',
+		'Please wait while your image is being uploaded' => 'Bitte warten, ihr Bild wird hochgeladen',
 		'Tax amount' => 'Steueranteil',
 		'Comment' => 'Bemerkungen',
 		'Select a Product' => 'Wähle ein Produkt',

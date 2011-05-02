@@ -40,6 +40,10 @@ class ShopModule extends CWebModule
 
 	public $logoPath = 'logo.jpg';
 
+	// Set this to an array to only allow various countries, for example
+	// public $validCountries = array('Germany', 'Swiss', 'China'),
+	public $validCountries = null;
+
 	public $slipView = '/order/slip';
 	public $invoiceView = '/order/invoice';
 	public $footerView = '/order/footer';

@@ -2,6 +2,23 @@
 
 	class Shop {
 
+		public static function getCountryChooser($form, $address) {
+			$element = '';
+			$countries = Shop::module()->validCountries;
+			if($countries === null) {
+				$element .= $form->labelEx($address,'country'); 
+				$element .= $form->textField($address,'country',array(
+							'size'=>45,'maxlength'=>45)); 
+				$element .= $form->error($address,'country'); 
+			} else if(is_array($countries)) {
+				$element .= $form->labelEx($address,'country'); 
+				$element .= $form->dropDownList($address, 'country', $countries);
+				$element .= $form->error($address,'country'); 
+			}
+
+			return $element;
+		}
+
 		public static function confirmationMessage($order) {
 			if(!$order instanceof Order)
 				throw new CException(Shop::t('Error while sending confirmation message'));
