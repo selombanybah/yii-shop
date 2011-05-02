@@ -1,5 +1,6 @@
 <?php
 return array(
+'There was an error saving your order. Please contact our System administrators.' => 'Es ist ein Fehler aufgetreten. Bitte wenden Sie sich an unseren System-Administrator.',
 		'zipcode' => 'PLZ',
 		'city' => 'Stadt',
 		'Please wait while your image is being uploaded' => 'Bitte warten, ihr Bild wird hochgeladen',

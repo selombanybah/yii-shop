@@ -71,6 +71,14 @@ class ShopModule extends CWebModule
 
 	public $layout = 'application.modules.shop.views.layouts.shop';
 
+	// Set this to enable Paypal payment. See docs/paypal.txt
+	public $payPalMethod = false;
+
+	// Set $allowPositionLiveChange to false if you have too many Variations in
+	// an article. Changing of variations is not possible in the shopping cart
+	// view anymore then.
+	public $allowPositionLiveChange = true;
+
 	public function init()
 	{
 		$this->setImport(array(

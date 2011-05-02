@@ -4,6 +4,17 @@ class Order extends CActiveRecord
 {
 	public $user_id;
 
+	public function handlePayPal() {
+		if(Shop::module()->payPalMethod !== false 
+				&& $this->payment_method == Shop::module()->payPalMethod) {
+			Yii::import('application.modules.shop.components.Paypal');
+			$paypal = new PayPal;
+
+			die(var_dump($paypal));
+		} 
+		return true;
+	}
+
 	public function limit($limit=5)
 	{
 		$this->getDbCriteria()->mergeWith(array(
