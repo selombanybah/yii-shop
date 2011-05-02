@@ -13,9 +13,16 @@ The global currency of your Webshop is configured under 'currencySymbol'.
 			'successAction' = array('/myprojectspecific_controller/success'),
 			'failureAction' = array('/myprojectspecific_controller/failure'),
 
+
+
 The successAction will be exectuted upon order success, the failure action when
 an error occurs and the terms will be rendered right before the order
 confirmation button for the user to accept.
+
+3. Set the countries that are allowed:
+	'validCountries' => array(
+		'Deutschland' => 'Deutschland',
+		'Schweiz' => 'Schweiz'),
 
 Here is the full example:
 
@@ -28,6 +35,7 @@ Here is the full example:
 			'successView' = array('/myprojectspecific_controller/success'),
 			'failureView' = array('/myprojectspecific_controller/failure'),
 			),
+
 
 
 

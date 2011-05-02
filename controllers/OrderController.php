@@ -238,6 +238,9 @@ class OrderController extends Controller
 					Yii::app()->user->setState('order_comment', null);
 				}
 				Shop::mailNotification($order);
+
+				$order->handlePayPal();
+
 				$this->redirect(Shop::module()->successAction);
 			} else 
 				$this->redirect(Shop::module()->failureAction);
