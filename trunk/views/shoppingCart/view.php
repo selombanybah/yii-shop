@@ -43,7 +43,7 @@ if($products) {
 
 						if(Shop::module()->allowPositionLiveChange) {
 							if($specification->input_type == 'select') {
-								$name = 'variation_'.$position.'_'.$specification->id; 
+								$name = sprintf('variation_%s_%s',$position, $specification->id); 
 								$variations .= CHtml::radioButtonList(
 										$name, $variation->id,
 										ProductVariation::listData($variation->getVariations()));
@@ -74,8 +74,10 @@ if($products) {
 						} else
 							$variations .= $specification . ': ' . $variation . '<br />';
 					} else {
-						$variations .= CHtml::image(Yii::app()->baseUrl.'/'.$variation, '', array('width' => Shop::module()->imageWidthThumb));
-				}
+						$variations .= CHtml::image(
+								Yii::app()->baseUrl.'/'.$variation, '', array(
+									'width' => Shop::module()->imageWidthThumb));
+					}
 			}
 		}
 

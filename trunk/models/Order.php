@@ -7,7 +7,8 @@ class Order extends CActiveRecord
 	public function handlePayPal() {
 		if(Shop::module()->payPalMethod !== false 
 				&& $this->payment_method == Shop::module()->payPalMethod) {
-			Yii::import('application.modules.shop.components.Paypal');
+			require_once(Yii::getPathOfAlias('application.modules.shop.components.Paypal'));
+var_dump(class_exists('PayPal'));die();
 			$paypal = new PayPal;
 
 			die(var_dump($paypal));

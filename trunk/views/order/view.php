@@ -77,9 +77,9 @@ echo CHtml::link(Shop::t('Update order status'), array(
 
 <?php 
 $this->renderPartial('/paymentMethod/view', array(
-	'model' => $model->paymentMethod)); 
+			'model' => $model->paymentMethod)); 
 $this->renderPartial('/shippingMethod/view', array(
-	'model' => $model->shippingMethod)); 
+			'model' => $model->shippingMethod)); 
 ?>
 
 

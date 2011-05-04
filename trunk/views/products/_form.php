@@ -1,4 +1,5 @@
 <?php 
+
 function renderVariation($variation, $i) { 
 	if(!ProductSpecification::model()->findByPk(1))
 		return false;
@@ -34,7 +35,16 @@ return $str;
 } ?>
 <div class="form">
 
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php
+if(Shop::module()->rtepath !== false) {
+	Yii::app()->clientScript->registerScriptFile(Shop::module()->rtepath, CClientScript::POS_HEAD); 
+	Yii::app()->clientScript->registerScript("ckeditor", "$('#Products_description').ckeditor();");
+}
+if(Shop::module()->rteadapter !== false)
+	Yii::app()->clientScript->registerScriptFile(Shop::module()->rteadapter, CClientScript::POS_HEAD); 
+
+
+ $form=$this->beginWidget('CActiveForm', array(
 			'id'=>'products-form',
 			'enableAjaxValidation'=>true,
 			'htmlOptions' => array(
