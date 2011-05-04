@@ -31,6 +31,8 @@ class ShopModule extends CWebModule
 	public $currencySymbol = '$';
 	public $productView = 'view';
 
+	public $enableLogging = true;
+
 	// See docs/tcpdf.txt on how to enable PDF Generation of Invoices
 	public $useTcPdf = false;
 	public $tcPdfPath = 'ext.tcpdf.tcpdf';
@@ -73,6 +75,13 @@ class ShopModule extends CWebModule
 
 	// Set this to enable Paypal payment. See docs/paypal.txt
 	public $payPalMethod = false;
+
+	// Rich text editor for the product description textarea.
+	// for example, set this to the path of your ckeditor installation
+	// to enable it
+	public $rtepath = false; // Don't use an Rich text Editor
+	public $rteadapter = false; // Don't use an Adapter
+
 
 	// Set $allowPositionLiveChange to false if you have too many Variations in
 	// an article. Changing of variations is not possible in the shopping cart

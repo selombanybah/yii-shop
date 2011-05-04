@@ -50,6 +50,16 @@
 			}
 		}
 
+	/* A wrapper for the Yii::log function. If no category is given, we
+	 * use the ShopController as a fallback value.
+	 * In addition to that, the message is being translated by Shop::t() */
+		public static function log($message,
+				$level = 'info',
+				$category = 'application.modules.shop.controllers.ShopController') {
+			if(Shop::module()->enableLogging) 
+				return Yii::log(Shop::t($message), $level, $category);
+		}
+
 		public static function pricingInfo() {
 			Shop::register('js/jquery.tools.min.js');
 			Shop::register('css/shop.css');

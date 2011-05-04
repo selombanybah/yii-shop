@@ -55,6 +55,14 @@ class OrderController extends Controller
 	{
 		$model = Order::model()->with('customer')->findbyPk($id);
 
+		if(!$model->paymentMethod instanceof PaymentMethod)
+			Shop::log(Shop::t('Invalid payment method in order #{order_id}', array(
+							'{order_id}' => $model->order_id)), 'warning');
+
+		if(!$model->shippingMethod instanceof shippingMethod)
+			Shop::log(Shop::t('Invalid shipping method in order #{order_id}', array(
+							'{order_id}' => $model->order_id)), 'warning');
+
 		if($model->customer->user_id == Yii::app()->user->id
 				||Yii::app()->user->id == 1)
 			$this->render('view',array(

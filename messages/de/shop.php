@@ -1,6 +1,13 @@
 <?php
 return array(
-'There was an error saving your order. Please contact our System administrators.' => 'Es ist ein Fehler aufgetreten. Bitte wenden Sie sich an unseren System-Administrator.',
+		'Specification' => 'Spezifikation',
+		'Value' => 'Wert',
+		'Price adjustion' => 'Preisveränderung',
+		'Save specifications' => 'Spezifikationen speichern',
+		'Invalid payment method' => 'Ungültige Zahlungsmethode',
+		'Invalid shipping method in order #{order_id}' => 'Fehlerhafte Liefermethode in der Bestellung #{order_id}',
+		'Invalid payment method in order #{order_id}' => 'Fehlerhafte Zahlungsmethode in der Bestellung #{order_id}',
+		'There was an error saving your order. Please contact our System administrators.' => 'Es ist ein Fehler aufgetreten. Bitte wenden Sie sich an unseren System-Administrator.',
 		'zipcode' => 'PLZ',
 		'city' => 'Stadt',
 		'Please wait while your image is being uploaded' => 'Bitte warten, ihr Bild wird hochgeladen',

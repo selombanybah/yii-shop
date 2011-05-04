@@ -25,12 +25,12 @@ class ProductVariation extends CActiveRecord
 				if($price_absolute)
 					$var[$variation->id] = sprintf('%s (%s)',
 							$variation->title,
-							Shop::priceFormat($variation->product->getPrice() + $variation->price_adjustion));
+							Shop::priceFormat($variation->product->getPrice() + $variation->getPriceAdjustion()));
 				else
 					$var[$variation->id] = sprintf('%s (%s%s)',
 							$variation->title,
 							$variation->price_adjustion > 0 ? '+' : '',
-							Shop::priceFormat($variation->price_adjustion));
+							Shop::priceFormat($variation->getPriceAdjustion()));
 			}
 		}
 
@@ -46,6 +46,13 @@ class ProductVariation extends CActiveRecord
 
 	public function __toString() {
 		return $this->title;
+	}
+
+	public function getPriceAdjustion($gross = true) {
+		if($gross)
+			return $this->price_adjustion *= ($this->product->tax->percent / 100) + 1;
+		else
+			return $this->price_adjustion;
 	}
 
 	/**
