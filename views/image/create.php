@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 
 <div id="shopcontent">
 
-	<h1> <?php Yii::t('ShopModule.shop', 'Upload Image'); ?></h1>
+	<h2> <?php Yii::t('ShopModule.shop', 'Upload Image'); ?></h2>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
 

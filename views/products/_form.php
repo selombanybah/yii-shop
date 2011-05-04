@@ -56,7 +56,6 @@ if(Shop::module()->rteadapter !== false)
 
 <?php echo $form->errorSummary($model); ?>
 
-<div style="float: left;">
 <fieldset>
 <legend> <?php echo Shop::t('Article Information'); ?> </legend>
 <div class="row">
@@ -94,7 +93,7 @@ if(Shop::module()->rteadapter !== false)
 <?php echo $form->error($model,'description'); ?>
 </div>
 </fieldset>
-</div>
+
 
 
 <fieldset>

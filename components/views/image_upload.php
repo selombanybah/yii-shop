@@ -2,33 +2,33 @@
 			'enctype' => 'multipart/form-data'
 			)); ?>
 
-
 <?php
-if(count($products) == 1) {
-	echo Shop::t('Product').':';
-	echo $products[0]->title;
-}
-else {
-	echo Shop::t('Select a Product').':';
-	echo CHtml::dropDownList('product',
-			0,
-			CHtml::listData($products, 'product_id', 'title')); 
-}
+	if(count($products) == 1) {
+		echo Shop::t('Product').': ';
+		echo $products[0]->title;
+	}
+	else {
+		echo '<strong>'.Shop::t('Select a Product').': </strong>';
+		echo CHtml::dropDownList('product',
+				0,
+				CHtml::listData($products, 'product_id', 'title')); 
+	}
 ?>
 <hr />
 
 <div id="variations"> </div>
+
 <div id="image_upload_loading" style="display: none;"> 
-<?php echo CHtml::image(Yii::app()->assetManager->publish(
-			Yii::getPathOfAlias('application.modules.shop.assets').'/loading.gif')); ?>
-<br />
-<?php echo Shop::t('Please wait while your image is being uploaded'); ?>
+	<?php echo CHtml::image(Yii::app()->assetManager->publish(
+                Yii::getPathOfAlias('application.modules.shop.assets').'/loading.gif')); ?>
+    <br />
+    <?php echo Shop::t('Please wait while your image is being uploaded'); ?>
 </div>
 
 <?php
 echo '<div style="clear: both;"></div>';
 echo '<br />';
-echo CHtml::label(Shop::t('Amount'), 'ShoppingCart_amount');
+echo '<strong>'.CHtml::label(Shop::t('Amount'), 'ShoppingCart_amount').'</strong>';
 echo ': ';
 echo CHtml::textField('amount', 1, array('size' => 3));
 echo '<br />';
