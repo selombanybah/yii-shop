@@ -36,6 +36,9 @@ class ProductsController extends Controller
 			if($variations = $product->getVariations()) {
 				foreach($variations as $variation) {
 					$field = "Variations[{$variation[0]->specification_id}][]";
+					
+					echo '<div class="shop-variation-element">';
+					
 					echo CHtml::label($variation[0]->specification->title,
 							$field, array(
 								'class' => 'lbl-header'));
@@ -60,7 +63,7 @@ class ProductsController extends Controller
 					} else if ($variation[0]->specification->input_type == 'image') {
 						echo CHtml::fileField('filename');
 					}
-					echo '<br />';
+					echo '</div>';
 				}
 
 			}

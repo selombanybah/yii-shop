@@ -27,11 +27,11 @@
 
 <?php
 echo '<div style="clear: both;"></div>';
-echo '<br />';
+echo '<div class="shop-variation-amount">';
 echo '<strong>'.CHtml::label(Shop::t('Amount'), 'ShoppingCart_amount').'</strong>';
 echo ': ';
 echo CHtml::textField('amount', 1, array('size' => 3));
-echo '<br />';
+echo '</div>';
 
 echo CHtml::submitButton(
 		Shop::t('Add to shopping Cart'), array(
