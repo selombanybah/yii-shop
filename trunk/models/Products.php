@@ -78,6 +78,10 @@ class Products extends CActiveRecord
 		return $specs === null ? array() : $specs;
 	}
 
+	public function renderSpecifications() {
+		echo $this->getSpecifications();
+	}
+
 	public function setSpecification($spec, $value) {
 		$specs = json_decode($this->specifications, true);
 
