@@ -14,14 +14,18 @@ class OrderController extends Controller
 	public function accessRules() {
 		return array(
 				array('allow',
-					'actions'=>array('view', 'create', 'confirm', 'success', 'failure'),
+					'actions'=>array('create', 'confirm', 'success', 'failure', 'paypal',
+						'ipn',),
 					'users' => array('*'),
 					),
 				array('allow',
 					'actions'=>array('index'),
 					'users' => array('@'),
 					),
-
+				array('allow',
+					'actions'=>array('view'),
+					'expression' =>'Yii::app()->user->id == 1',
+					),
 				array('allow',
 					'actions'=>array('admin','delete', 'view', 'slip', 'invoice', 'update'),
 					'users' => array('admin'),
@@ -63,13 +67,9 @@ class OrderController extends Controller
 			Shop::log(Shop::t('Invalid shipping method in order #{order_id}', array(
 							'{order_id}' => $model->order_id)), 'warning');
 
-		if($model->customer->user_id == Yii::app()->user->id
-				||Yii::app()->user->id == 1)
-			$this->render('view',array(
-						'model'=>$model
-						));
-		else
-			throw new CHttpException(403);
+		$this->render('view',array(
+					'model'=>$model
+					));
 	}
 
 	public function mailConfirmationMessage($order, $message) {
@@ -217,6 +217,7 @@ class OrderController extends Controller
 			else
 				$address->attributes = $customer->address->attributes;
 			$address->save();
+
 			$order->delivery_address_id = $address->id;
 
 			$address = new BillingAddress();
@@ -247,10 +248,13 @@ class OrderController extends Controller
 					Yii::app()->user->setState('order_comment', null);
 				}
 				Shop::mailNotification($order);
+				Shop::flushCart();
 
-				$order->handlePayPal();
-
-				$this->redirect(Shop::module()->successAction);
+				if(Shop::module()->payPalMethod !== false 
+						&& $order->payment_method == Shop::module()->payPalMethod) 
+					$this->redirect(array(Shop::module()->payPalUrl, 'order_id' => $order->order_id));
+				else
+					$this->redirect(Shop::module()->successAction);
 			} else 
 				$this->redirect(Shop::module()->failureAction);
 		} else {
@@ -259,6 +263,61 @@ class OrderController extends Controller
 						'Please accept our Terms and Conditions to continue'));
 			$this->redirect(array('//shop/order/create'));
 		}
+	}
+
+	public function actionPaypal($order_id = null) {
+		$model = new PayPalForm();
+
+		if($order_id !== null)
+			$model->order_id = $order_id;
+
+		$order = Order::model()->findByPk($model->order_id);
+
+		if($order->customer->user_id != Yii::app()->user->id)
+			throw new CHttpException(403);
+
+		if($order->status != 'new') {
+			Shop::setFlash('The order is already paid');
+			$this->redirect('//shop/products/index');
+		}
+
+		
+		if(isset($_POST['PayPalForm'])) {
+			$model->attributes = $_POST['PayPalForm'];
+
+			if($model->validate()) {
+				echo $model->handlePayPal($order);
+			}
+		}
+	
+		$this->render('/order/paypal_form', array(
+					'model' => $model));
+	}
+
+	public function actionIpn() {
+		Yii::import('application.modules.shop.components.payment.Paypal');
+
+		$paypal = new Paypal();
+		Shop::log('Paypal payment attempt');
+
+		// Log the IPN results
+		$paypal->ipnLog = TRUE;
+
+		if(Shop::module()->payPalTestMode)
+			$paypal->enableTestMode();
+
+		// Check validity and write down it
+		if ($paypal->validateIpn())
+		{
+			if ($paypal->ipnData['payment_status'] == 'Completed')
+			{
+				Shop::log('Paypal payment arrived :'.var_dump($paypal));
+			}
+			else
+			{
+				Shop::log('Paypal payment raised an error :'.var_dump($paypal));
+			}
+		} 
 	}
 
 	public function actionSuccess()

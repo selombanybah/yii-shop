@@ -113,10 +113,6 @@ class InstallController extends Controller
 
 						$db->createCommand($sql)->execute();
 
-
-
-
-
 						// Create Category Table
 						$sql = "CREATE TABLE IF NOT EXISTS `".$categoryTable."` (
 							`category_id` INT NOT NULL AUTO_INCREMENT ,
@@ -130,9 +126,10 @@ class InstallController extends Controller
 						$db->createCommand($sql)->execute();
 
 						// Create Products Table
-						$sql = "CREATE  TABLE IF NOT EXISTS `".$productsTable."` (
+						$sql = "CREATE TABLE IF NOT EXISTS `".$productsTable."` (
 							`product_id` INT NOT NULL AUTO_INCREMENT ,
 							`category_id` INT NOT NULL ,
+							`status` int(10) NOT NULL ,
 							`tax_id` INT NOT NULL ,
 							`title` VARCHAR(45) NOT NULL ,
 							`description` TEXT NULL ,

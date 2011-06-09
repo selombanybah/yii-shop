@@ -69,6 +69,7 @@ class Address extends CActiveRecord
 			'lastname' => Yii::t('ShopModule.shop', 'Lastname'),
 			'street' => Shop::t('Street'),
 			'zipcode' =>Shop::t('Zipcode'),
+			'zip_city' =>Shop::t('Zipcode / City'),
 			'city' => Shop::t('City'),
 			'country' => Shop::t('Country'),
 		);

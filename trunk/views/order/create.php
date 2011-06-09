@@ -63,7 +63,8 @@ $this->renderPartial(Shop::module()->termsView);
 ?>
 
 <div class="row buttons">
-	<?php echo CHtml::submitButton(Shop::t('Confirm Order'),array ('id'=>'next'), array(
-                '//shop/order/confirm')); ?>
+<?php echo CHtml::submitButton(
+		Shop::t('Confirm Order'),array (
+			'id'=>'next'), array('//shop/order/confirm')); ?>
 </div>
 <?php echo CHtml::endForm(); ?>

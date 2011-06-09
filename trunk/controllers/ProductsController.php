@@ -80,14 +80,23 @@ class ProductsController extends Controller
 
 	public function actionView()
 	{
+		$model = $this->loadModel();
+
+		if($model && $model->status != 1)
+			throw new CHttpException(404);
+
 		$this->render(Shop::module()->productView,array(
-					'model'=>$this->loadModel(),
+					'model'=>$model,
 					));
 	}
 
 	public function actionCreate()
 	{
-		$model=new Products;
+		$model = new Products;
+
+		// We assume we want to create a _active_ product
+		if(!isset($model->status))
+			$model->status = 1;
 
 		$this->performAjaxValidation($model);
 
@@ -97,9 +106,8 @@ class ProductsController extends Controller
 			if(isset($_POST['Specifications']))
 				$model->setSpecifications($_POST['Specifications']);
 
-
 			if($model->save())
-				$this->redirect(array('shop/admin'));
+				$this->redirect(array('//shop/producs/view', 'id' => $model->id));
 		}
 
 		$this->render('create',array(
@@ -158,7 +166,9 @@ class ProductsController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider = new CActiveDataProvider('Products');
+		$dataProvider = new CActiveDataProvider('Products', array(
+					'criteria' => array(
+						'condition' => 'status = 1')));
 
 		$this->render('index',array(
 					'dataProvider'=>$dataProvider,
@@ -195,6 +205,8 @@ class ProductsController extends Controller
 			if($this->_model===null)
 				throw new CHttpException(404,'The requested page does not exist.');
 		}
+
+
 		return $this->_model;
 	}
 

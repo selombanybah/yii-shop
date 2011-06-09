@@ -37,16 +37,28 @@
 		}
 
 		public static function mailNotification ($order) {
-			$email = Shop::module()->notifyAdminEmail;
-			if($email !== null) {
-				$appTitle = Yii::app()->name;
-				$headers="From: {$title}\r\nReply-To: {do@not-reply.org}";
+			$email = Shop::module()->orderNotificationEmail;
+			$from = Shop::module()->orderNotificationFromEmail;
+			$reply = Shop::module()->orderNotificationReplyEmail;
+
+			if($email !== null && $email !== false) {
+				$header = ("From: " . $from . "\n");
+				$header .= ("Reply-To: " . $reply . "\n");
+				$header .= ("Return-Path: " . $reply . "\n");
+				$header .= ("X-Mailer: PHP/" . phpversion() . "\n");
+				$header .= ("X-Sender-IP: " . $_SERVER['REMOTE_ADDR'] . "\n");
+				$header .= ("Content-type: text/html\n");
 
 				mail($email,
 						Shop::t('Order #{order_id} has been made in your Webshop', array(
-								'{order_id}' => $order->id)),
-						CHtml::link(Shop::t('direct link'), array(
-								'//shop/order/view', 'id' => $order->id)));
+								'{order_id}' => $order->order_id)), 
+						Yii::app()->controller->renderPartial(
+							'application.modules.shop.views.order.view_email', array(
+								'model' => $order), true, false) 
+						. '<br />' .
+						Yii::app()->controller->createAbsoluteUrl(
+							'//shop/order/view', array(
+						'id' => $order->order_id)), $header);
 			}
 		}
 
@@ -125,6 +137,10 @@
 		public static function setCartContent($cart) {
 			Yii::app()->user->setState('cart', json_encode($cart));
 			return true;
+		}
+
+		public static function flushCart() {
+			return Shop::setCartContent(array());	
 		}
 
 		public static function getPriceTotal() {

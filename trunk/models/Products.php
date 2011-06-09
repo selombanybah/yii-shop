@@ -35,9 +35,10 @@ class Products extends CActiveRecord
 	public function rules()
 	{
 		return array(
-			array('title, category_id', 'required'),
-			array('product_id, category_id', 'numerical', 'integerOnly'=>true),
+			array('title, category_id, status', 'required'),
+			array('product_id, category_id, status', 'numerical', 'integerOnly'=>true),
 			array('title, price, language', 'length', 'max'=>45),
+			array('title', 'unique'),
 			array('description, specifications', 'safe'),
 			array('product_id, title, description, price, category_id', 'safe', 'on'=>'search'),
 		);
@@ -101,9 +102,11 @@ class Products extends CActiveRecord
 					&& isset($value['title']) 
 					&& $value['title'] != '') {
 
+				$value['price_adjustion'] = strtr(
+						$value['price_adjustion'], array(',' => '.'));
+
 				if(isset($value['sign']) && $value['sign'] == '-')
 					$value['price_adjustion'] -= 2 * $value['price_adjustion'];
-
 
 				$db->createCommand()->insert('shop_product_variation', array(
 							'product_id' => $this->product_id,
@@ -128,14 +131,18 @@ class Products extends CActiveRecord
 
 	public function attributeLabels()
 	{
-		return array(
-			'tax_id' => Shop::t('Tax'),
-			'product_id' => Yii::t('ShopModule.shop', 'Product'),
-			'title' => Yii::t('ShopModule.shop', 'Title'),
-			'description' => Yii::t('ShopModule.shop', 'Description'),
-			'price' => Yii::t('ShopModule.shop', 'Price'),
-			'category_id' => Yii::t('ShopModule.shop', 'Category'),
-		);
+		$labels = array(
+				'tax_id' => Shop::t('Tax'),
+				'product_id' => Shop::t('Product'),
+				'title' => Shop::t('Title'),
+				'description' => Shop::t('Description'),
+				'price' => Shop::t('Price'),
+				'category_id' => Shop::t('Category'),
+				);
+		if(Shop::module()->useWithYum && Yii::app()->user->isAdmin())
+			$labels['price'] = Shop::t('Price (net)');
+
+		return $labels;
 	}
 
 	public function getTaxRate($variations = null, $amount = 1) { 
@@ -157,7 +164,10 @@ class Products extends CActiveRecord
 	}
 
 	public function getPrice($variations = null, $amount = 1) {
-		$price = (float) $this->price;
+		if($this->price === null)
+			$price = (float) Shop::module()->defaultPrice;
+		else
+			$price = (float) $this->price;
 
 		if($this->tax)
 			$price *= ($this->tax->percent / 100) + 1;

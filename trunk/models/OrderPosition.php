@@ -50,22 +50,6 @@ class OrderPosition extends CActiveRecord
 		return $specifications;
 	}
 
-	public function renderSpecifications() {
-		$string = '<table>';
-		foreach($this->getSpecifications() as $key =>$specification) {
-			if($model = ProductSpecification::model()->findByPk($key))
-				if($model->input_type == 'textfield')
-					$value = $specification[0];
-				else
-					$value = @ProductVariation::model()->findByPk($specification[0])->title;
-			$string .= sprintf('<tr><td>%s</td><td>%s</td></tr>',
-				@$model->title,
-				@$value	
-				);
-		}
-		$string .= '</table>';
-		return $string;
-	}
 
 	public function listSpecifications() {
 		if(!$specs = $this->getSpecifications())

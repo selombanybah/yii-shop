@@ -19,7 +19,7 @@ $form=$this->beginWidget('CActiveForm', array(
 
 	<div class="row">
 		<?php echo $form->labelEx($address,'title'); ?>
-		<?php echo $form->textField($address,'title',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->dropDownList($address,'title',Shop::module()->titleOptions); ?>
 		<?php echo $form->error($address,'title'); ?>
 	</div>
 
@@ -48,7 +48,7 @@ $form=$this->beginWidget('CActiveForm', array(
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($address,'city'); ?>
+		<?php echo $form->labelEx($address,'zip_city'); ?> 
 		<?php echo $form->textField($address,'zipcode',array('size'=>10,'maxlength'=>45)); ?>
 		<?php echo $form->error($address,'zipcode'); ?>
 
