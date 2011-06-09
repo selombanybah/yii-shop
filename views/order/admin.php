@@ -19,16 +19,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'value' => 'date("M j, Y", $data->ordering_date)',
 			'filter' => false
 			),
-	array('name' => 'status',
-			'value' => '$data->status',
-			'filter' => array(
-				'new' => Shop::t('New'),
-				'in_progress' => Shop::t('In progress'),
-				'done' => Shop::t('Done'),
-				'cancelled' => Shop::t('Cancelled'),
-				),
-		),
-	array(
+		array('name' => 'status',
+			'value' => 'Shop::t($data->status)',
+			'filter' => Order::statusOptions(),
+			),
+		array(
 			'class'=>'CButtonColumn', 
 			'template' => '{view}',
 		),

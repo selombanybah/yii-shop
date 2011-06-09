@@ -31,7 +31,15 @@ class ShopModule extends CWebModule
 	public $currencySymbol = '$';
 	public $productView = 'view';
 
+	// Set this to a valid email address to send a message once a order
+	// comes in.
+	public $orderNotificationEmail = false;
+	public $orderNotificationFromEmail = 'do@not-reply.org';
+	public $orderNotificationReplyEmail = 'do@not-reply.org';
+
 	public $enableLogging = true;
+
+	public $titleOptions = array('mr' => 'Mr.', 'ms' => 'Mrs.');
 
 	// See docs/tcpdf.txt on how to enable PDF Generation of Invoices
 	public $useTcPdf = false;
@@ -57,6 +65,9 @@ class ShopModule extends CWebModule
 
 	public $notifyAdminEmail = null;
 
+	// If a price is NULL in the database, which price should be used instead?
+	public $defaultPrice = 0.00;
+
 	public $termsView = '/order/terms';
 	public $successAction = array('//shop/order/success');
 	public $failureAction = array('//shop/order/failure');
@@ -75,6 +86,9 @@ class ShopModule extends CWebModule
 
 	// Set this to enable Paypal payment. See docs/paypal.txt
 	public $payPalMethod = false;
+	public $payPalTestMode = true;
+	public $payPalUrl = '//shop/order/paypal';
+	public $payPalBusinessEmail = 'webmaster@example.com';
 
 	// Rich text editor for the product description textarea.
 	// for example, set this to the path of your ckeditor installation

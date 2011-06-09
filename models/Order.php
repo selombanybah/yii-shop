@@ -4,17 +4,6 @@ class Order extends CActiveRecord
 {
 	public $user_id;
 
-	public function handlePayPal() {
-		if(Shop::module()->payPalMethod !== false 
-				&& $this->payment_method == Shop::module()->payPalMethod) {
-			require_once(Yii::getPathOfAlias('application.modules.shop.components.Paypal'));
-var_dump(class_exists('PayPal'));die();
-			$paypal = new PayPal;
-
-			die(var_dump($paypal));
-		} 
-		return true;
-	}
 
 	public function limit($limit=5)
 	{
@@ -39,9 +28,9 @@ var_dump(class_exists('PayPal'));die();
 		return array(
 				array('customer_id, ordering_date, delivery_address_id, billing_address_id, payment_method', 'required'),
 				array('status', 'in', 'range' => array('new', 'in_progress', 'done', 'cancelled')),
-					array('customer_id', 'numerical', 'integerOnly'=>true),
-			array('order_id, customer_id, ordering_date, status, comment', 'safe'),
-		);
+				array('customer_id', 'numerical', 'integerOnly'=>true),
+				array('order_id, customer_id, ordering_date, status, comment', 'safe'),
+				);
 	}
 
 	public static function statusOptions() {
@@ -53,17 +42,21 @@ var_dump(class_exists('PayPal'));die();
 
 	}
 
+	public function getStatus() {
+		return Shop::t($this->status);
+	}
+
 	public function relations()
 	{
 		$relations = array(
-			'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
-			'products' => array(self::HAS_MANY, 'OrderPosition', 'order_id'),
-			'address' => array(self::BELONGS_TO, 'Address', 'address_id'),
-			'billingAddress' => array(self::BELONGS_TO, 'BillingAddress', 'billing_address_id'),
-			'deliveryAddress' => array(self::BELONGS_TO, 'DeliveryAddress', 'delivery_address_id'),
-			'paymentMethod' => array(self::BELONGS_TO, 'PaymentMethod', 'payment_method'),
-			'shippingMethod' => array(self::BELONGS_TO, 'ShippingMethod', 'shipping_method'),
-		);
+				'customer' => array(self::BELONGS_TO, 'Customer', 'customer_id'),
+				'positions' => array(self::HAS_MANY, 'OrderPosition', 'order_id'),
+				'address' => array(self::BELONGS_TO, 'Address', 'address_id'),
+				'billingAddress' => array(self::BELONGS_TO, 'BillingAddress', 'billing_address_id'),
+				'deliveryAddress' => array(self::BELONGS_TO, 'DeliveryAddress', 'delivery_address_id'),
+				'paymentMethod' => array(self::BELONGS_TO, 'PaymentMethod', 'payment_method'),
+				'shippingMethod' => array(self::BELONGS_TO, 'ShippingMethod', 'shipping_method'),
+				);
 
 		if(Shop::module()->useWithYum)
 			$relations['user'] = array(self::HAS_ONE, 'YumUser', 'user_id', 'through' => 'customer');
@@ -74,12 +67,12 @@ var_dump(class_exists('PayPal'));die();
 	public function attributeLabels()
 	{
 		return array(
-			'order_id' => Shop::t('Order number'),
-			'customer_id' => Shop::t('Customer number'),
-			'ordering_date' => Shop::t('Ordering Date'),
-			'status' => Shop::t('Status'),
-			'comment' => Shop::t('Comment'),
-		);
+				'order_id' => Shop::t('Order number'),
+				'customer_id' => Shop::t('Customer number'),
+				'ordering_date' => Shop::t('Ordering Date'),
+				'status' => Shop::t('Status'),
+				'comment' => Shop::t('Comment'),
+				);
 	}
 
 	public function getTaxAmount() {

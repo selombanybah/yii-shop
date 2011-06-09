@@ -58,6 +58,21 @@ if(Shop::module()->rteadapter !== false)
 
 <fieldset>
 <legend> <?php echo Shop::t('Article Information'); ?> </legend>
+
+<div class="row">
+<?php echo $form->labelEx($model,'title'); ?>
+<?php echo $form->textField($model,'title',array('size'=>45,'maxlength'=>45)); ?>
+<?php echo $form->error($model,'title'); ?>
+</div>
+
+<div class="row">
+<?php echo $form->labelEx($model,'status'); ?>
+<?php echo $form->dropDownList($model, 'status', array(
+			0 => Shop::t('Inactive'),
+			1 => Shop::t('Active'))); ?>
+<?php echo $form->error($model,'status'); ?>
+</div>
+
 <div class="row">
 <?php echo $form->labelEx($model,'category_id'); ?>
 <?php $this->widget('application.modules.shop.components.Relation', array(
@@ -81,11 +96,6 @@ if(Shop::module()->rteadapter !== false)
 </div>
 
 
-<div class="row">
-<?php echo $form->labelEx($model,'title'); ?>
-<?php echo $form->textField($model,'title',array('size'=>45,'maxlength'=>45)); ?>
-<?php echo $form->error($model,'title'); ?>
-</div>
 
 <div class="row">
 <?php echo $form->labelEx($model,'description'); ?>
@@ -135,6 +145,8 @@ if(Shop::module()->rteadapter !== false)
 			$i++;
 		}
 
+		$max = $i+5;
+		for(;$i < $max;$i++) 
 			echo renderVariation(null, $i); 
  ?>
 	</table>	
@@ -147,7 +159,10 @@ if(Shop::module()->rteadapter !== false)
 
 				</fieldset>
 
-<?php } ?>
+				<?php } else
+				printf('<div class="hint">%s</div>', Shop::t(
+							'You can set product variations after you created the product')); 
+						?>
 
 
 				<div class="row buttons">

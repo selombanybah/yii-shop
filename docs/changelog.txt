@@ -1,3 +1,5 @@
+ENH: added status (active, inactive) for products
+
 changes since yii-shop 0.8rc1
 
 ENH: When 'useWithYum' is enabled, a user can choose if he wants to create

@@ -19,19 +19,15 @@ class ProductVariation extends CActiveRecord
 		$var = array();
 
 		foreach($variations as $id => $variation)  {
-			if($variation->price_adjustion == 0) 
-				$var[$variation->id] = sprintf('%s', $variation->title);
-			else {
-				if($price_absolute)
-					$var[$variation->id] = sprintf('%s (%s)',
-							$variation->title,
-							Shop::priceFormat($variation->product->getPrice() + $variation->getPriceAdjustion()));
-				else
-					$var[$variation->id] = sprintf('%s (%s%s)',
-							$variation->title,
-							$variation->price_adjustion > 0 ? '+' : '',
-							Shop::priceFormat($variation->getPriceAdjustion()));
-			}
+			if($price_absolute)
+				$var[$variation->id] = sprintf('%s (%s)',
+						$variation->title,
+						Shop::priceFormat($variation->product->getPrice() + $variation->getPriceAdjustion()));
+			else
+				$var[$variation->id] = sprintf('%s (%s%s)',
+						$variation->title,
+						$variation->price_adjustion > 0 ? '+' : '',
+						Shop::priceFormat($variation->getPriceAdjustion()));
 		}
 
 		return $var;

@@ -20,13 +20,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'filter' => false
 			),
 	array('name' => 'status',
-			'value' => '$data->status',
-			'filter' => array(
-				'new' => Shop::t('New'),
-				'in_progress' => Shop::t('In progress'),
-				'done' => Shop::t('Done'),
-				'cancelled' => Shop::t('Cancelled'),
-				),
+			'value' => 'Shop::t($data->status)',
+			'filter' => Order::statusOptions(),
 		),
 	array(
 			'class'=>'CButtonColumn', 

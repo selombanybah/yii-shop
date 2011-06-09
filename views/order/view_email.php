@@ -1,12 +1,4 @@
-<?php
-Shop::register('css/shop.css');
-$this->breadcrumbs=array(
-		Shop::t('Orders')=>array('index'),
-		$model->order_id,
-		);
-Shop::renderFlash();
-
-?>
+<?php Shop::register('css/shop.css'); ?>
 
 <h2> <?php echo Shop::t('Order') ?> #<?php echo $model->order_id; ?></h2>
 
@@ -30,8 +22,6 @@ Shop::renderFlash();
 			)
 		); 
 
-echo CHtml::link(Shop::t('Update order status'), array(
-			'//shop/order/update', 'id' => $model->order_id )); 
 ?>
 
 <h3> <?php echo Shop::t('Customer Info'); ?> </h3>
@@ -85,29 +75,23 @@ $this->renderPartial('/shippingMethod/view', array(
 
 <h3> <?php echo Shop::t('Ordered Products'); ?> </h3>
 
-<?php foreach($model->positions as $position) {
-	$this->renderPartial('position', array(
-				'position' => $position));
+<?php foreach($model->products as $product) {
+	$this->widget('zii.widgets.CDetailView', array(
+				'data'=>$product,
+				'attributes'=> array(
+					'product.title',
+					'amount',
+					array(
+						'label' => Shop::t('Specifications'),
+						'type' => 'raw',
+						'value' => $product->renderSpecifications())
+					)
+				)
+			); 
+	echo '<br />';
+	echo '<hr />';
 }
 
 ?>
 
 <div style="clear:both;"> </div>
-
-<div class="buttons"> 
-<?php
-
-echo CHtml::link(Shop::t('Update order status'), array(
-			'//shop/order/update', 'id' => $model->order_id )); 
-
-echo CHtml::link(Shop::t('Delivery slip'), array(
-			'//shop/order/slip', 'id' => $model->order_id )); 
-
-echo CHtml::link(Shop::t('Invoice'), array(
-			'//shop/order/invoice', 'id' => $model->order_id)); 
-
-echo CHtml::link(Shop::t('Back to Orders'), array(
-			'//shop/order/admin')); 
-
-?>
-</div>
