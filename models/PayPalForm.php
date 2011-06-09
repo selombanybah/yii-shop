@@ -55,10 +55,10 @@ class PayPalForm extends CModel
 
 				// Specify the product information
 				$paypal->addField('order_id', $order->order_id);
-				$paypal->addField('item_name', Shop::t('Order number #{order_id}', array(
+				$paypal->addField('item_name', Shop::t(
+							'Order number #{order_id}', array(
 								'{order_id}' => $order->order_id)));
 				$paypal->addField('amount', $order->getTotalPrice());
-
 
 				if(Shop::module()->payPalTestMode)
 					$paypal->enableTestMode();

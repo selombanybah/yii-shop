@@ -86,8 +86,8 @@ class Order extends CActiveRecord
 
 	public function getTotalPrice() {
 		$price = 0;
-		if($this->products)
-			foreach($this->products as $position)
+		if($this->positions)
+			foreach($this->positions as $position)
 				$price += $position->getPrice();
 
 		if($this->shippingMethod)

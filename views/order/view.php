@@ -85,7 +85,9 @@ $this->renderPartial('/shippingMethod/view', array(
 
 <h3> <?php echo Shop::t('Ordered Products'); ?> </h3>
 
-<?php foreach($model->positions as $position) {
+<?php 
+if($model->positions)
+foreach($model->positions as $position) {
 	$this->renderPartial('position', array(
 				'position' => $position));
 }

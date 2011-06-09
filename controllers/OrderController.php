@@ -169,11 +169,13 @@ class OrderController extends Controller
 		if(!$shipping_method)
 			$shipping_method = Yii::app()->user->getState('shipping_method');
 
+
 		if(!$customer) {
 			$this->render('/customer/create', array(
 						'action' => array('//shop/customer/create')));
 			Yii::app()->end();
 		}
+
 		if(!$shipping_method) {
 			$this->render('/shippingMethod/choose', array(
 						'customer' => Shop::getCustomer()));
@@ -186,7 +188,7 @@ class OrderController extends Controller
 		}
 
 
-		if($customer && $payment_method && $shipping_method)   {
+		if($customer && $payment_method && $shipping_method) {
 			if(is_numeric($customer))
 				$customer = Customer::model()->findByPk($customer);
 			if(is_numeric($shipping_method))
@@ -199,6 +201,7 @@ class OrderController extends Controller
 						'shippingMethod' => $shipping_method,
 						'paymentMethod' => $payment_method,
 						));
+
 		}
 	}
 

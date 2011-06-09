@@ -46,7 +46,7 @@ class ProductVariation extends CActiveRecord
 
 	public function getPriceAdjustion($gross = true) {
 		if($gross)
-			return $this->price_adjustion *= ($this->product->tax->percent / 100) + 1;
+			return $this->price_adjustion *= (@$this->product->tax->percent / 100) + 1;
 		else
 			return $this->price_adjustion;
 	}

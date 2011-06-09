@@ -1,6 +1,7 @@
 <?php
 $this->renderPartial('/order/waypoint', array('point' => 4));
 
+
 $this->breadcrumbs=array(
 		Shop::t('Order')=>array('index'),
 		Shop::t('New Order'),
@@ -29,6 +30,7 @@ echo '<hr />';
 				
 				
 echo '<p>';
+
 	$shipping = ShippingMethod::model()->findByPk(Yii::app()->user->getState('shipping_method'));
 	echo '<strong>'.Shop::t('Shipping Method').': </strong>'.' '.$shipping->title.' ('.$shipping->description.')';
 	echo '<br />';
@@ -58,6 +60,7 @@ echo CHtml::textArea('Order[Comment]',
 echo '<br /><br />';
 
 echo '<hr />';
+
 $this->renderPartial(Shop::module()->termsView);
 
 ?>

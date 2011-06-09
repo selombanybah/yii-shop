@@ -75,22 +75,13 @@ $this->renderPartial('/shippingMethod/view', array(
 
 <h3> <?php echo Shop::t('Ordered Products'); ?> </h3>
 
-<?php foreach($model->products as $product) {
-	$this->widget('zii.widgets.CDetailView', array(
-				'data'=>$product,
-				'attributes'=> array(
-					'product.title',
-					'amount',
-					array(
-						'label' => Shop::t('Specifications'),
-						'type' => 'raw',
-						'value' => $product->renderSpecifications())
-					)
-				)
-			); 
-	echo '<br />';
-	echo '<hr />';
+<?php
+if($model->positions)
+foreach($model->positions as $position) {
+	$this->renderPartial('position', array(
+				'position' => $position));
 }
+	echo '<hr />';
 
 ?>
 
