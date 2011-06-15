@@ -24,6 +24,7 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'input_type'); ?>
 		<?php echo $form->dropDownList($model,'input_type', array(
+					'none' => Shop::t('None'),
 					'select' => Shop::t('Selection'),
 					'textfield' => Shop::t('Text field'),
 					'image' => Shop::t('Image upload'),

@@ -126,7 +126,6 @@
 				return ShippingMethod::model()->findByPk($shipping_method);
 		}
 
-
 		public static function getCartContent() {
 			if(is_string(Yii::app()->user->getState('cart')))
 				return json_decode(Yii::app()->user->getState('cart'), true);
@@ -141,6 +140,18 @@
 
 		public static function flushCart() {
 			return Shop::setCartContent(array());	
+		}
+
+		public static function getWeightTotal() {
+			$weight_total = 0;
+			$tax_total = 0;
+			foreach(Shop::getCartContent() as $product)  {
+				$model = Products::model()->findByPk($product['product_id']);
+				$weight_total += $model->getWeight(@$product['Variations'], @$product['amount']);
+				$tax_total += $model->getWeightTaxRate(@$product['Variations'], @$product['amount']);
+		}
+
+			return $weight_total;
 		}
 
 		public static function getPriceTotal() {

@@ -55,6 +55,8 @@ class ShippingMethodController extends Controller
 		if(isset($_POST['ShippingMethod']))
 		{
 			$model->attributes=$_POST['ShippingMethod'];
+			if(isset($_POST['ShippingMethod']['id']))
+				$model->id = $_POST['ShippingMethod']['id'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -64,14 +66,11 @@ class ShippingMethodController extends Controller
 		));
 	}
 
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
-	public function actionUpdate($id)
+	public function actionUpdate()
 	{
-		$model=$this->loadModel($id);
+		$id = $_GET['id'];
+
+		$model=$this->loadModel($id['id'], $id['weight_range']);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -79,6 +78,9 @@ class ShippingMethodController extends Controller
 		if(isset($_POST['ShippingMethod']))
 		{
 			$model->attributes=$_POST['ShippingMethod'];
+			if(isset($_POST['ShippingMethod']['id']))
+				$model->id = $_POST['ShippingMethod']['id'];
+
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -131,16 +133,20 @@ class ShippingMethodController extends Controller
 		));
 	}
 
-	/**
-	 * Returns the data model based on the primary key given in the GET variable.
-	 * If the data model is not found, an HTTP exception will be raised.
-	 * @param integer the ID of the model to be loaded
-	 */
-	public function loadModel($id)
+	public function loadModel($id, $weight_range = null)
 	{
-		$model=ShippingMethod::model()->findByPk((int)$id);
+		if($weight_range)
+			$model=ShippingMethod::model()->find(
+					'id = :id and weight_range = :weight_range', array(
+						':id' => $id,
+						':weight_range' => $weight_range));
+		else
+			$model=ShippingMethod::model()->find(
+					'id = :id', array(
+						':id' => $id));
+
 		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
+			throw new CHttpException(404,'The requested shipping Method does not exist.');
 		return $model;
 	}
 
