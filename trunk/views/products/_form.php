@@ -17,19 +17,34 @@ function renderVariation($variation, $i) {
 	$str .= '</td> <td>';
 	$str .= CHtml::textField("Variations[{$i}][title]", $variation->title); 
 	$str .= '</td> <td>';
-	$str .= CHtml::dropDownList("Variations[{$i}][sign]",
+
+	// Price adjustion
+	$str .= CHtml::dropDownList("Variations[{$i}][sign_price]",
 			$variation->price_adjustion >= 0 ? '+' : '-', array(
 				'+' => '+',
 				'-' => '-'));
 	$str .= '</td> <td>';
-	$str .= CHtml::textField("Variations[{$i}][price_adjustion]", abs($variation->price_adjustion));  
+	$str .= CHtml::textField("Variations[{$i}][price_adjustion]",
+			abs($variation->price_adjustion),
+			array('size' => 5));  
+
+	// Weight adjustion
+	$str .= '</td> <td>';
+	$str .= CHtml::dropDownList("Variations[{$i}][sign_weight]",
+			$variation->weight_adjustion >= 0 ? '+' : '-', array(
+				'+' => '+',
+				'-' => '-'));
+	$str .= '</td> <td>';
+	$str .= CHtml::textField(
+			"Variations[{$i}][weight_adjustion]", abs($variation->weight_adjustion),
+			array('size' => 5));  
 	$str .= '</td> <td>';
 	for($j = -10; $j <= 10; $j++)
 		$positions[$j] = $j;
 	$str .= CHtml::dropDownList("Variations[{$i}][position]",
 			$variation->position,
 			$positions);
-	$str .= '</td> </tr>';
+	$str .= '</td></tr>';
 
 return $str;
 } ?>
@@ -132,10 +147,11 @@ if(Shop::module()->rteadapter !== false)
 
 <table>
 		<?php 
-		printf('<tr><th>%s</th><th>%s</th><th colspan = 2>%s</th><th>%s</th></tr>',
+		printf('<tr><th>%s</th><th>%s</th><th colspan = 2>%s</th><th colspan = 2>%s</th><th>%s</th></tr>',
 				Shop::t('Specification'), 
 				Shop::t('Value'), 
 				Shop::t('Price adjustion'),
+				Shop::t('Weight adjustion'),
 				Shop::t('Position'));
 
 

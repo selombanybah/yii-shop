@@ -59,6 +59,11 @@ class ShopModule extends CWebModule
 	public $footerView = '/order/footer';
 
 	public $dateFormat = 'd/m/Y';
+
+	// Set this to the id of the weight specification to enable weight
+	// calculation in the delivery slip and invoice. 1 is for the demo
+	// data. Set to NULL to disable weight calculation.
+	public $weightSpecificationId = 1;
 	
 	public $imageWidthThumb = 100;
 	public $imageWidth = 200;

@@ -1,5 +1,9 @@
 <?php
 return array(
+		'Create new shipping method' => 'Neue Versandart anlegen',
+		'Shipping methods' => 'Versandarten',
+		'Weight range' => 'Gewichtseingrenzung',
+		'None' => 'Keine',
 		'Zipcode / City'=> 'PLZ / Stadt',
 		'Your order has been taken. Thanks for buying at our Webshop.' => 'Ihr Auftrag wurde entgegen genommen. Vielen Dank für ihre Bestellung.',
 		'Order number #{order_id}' => 'Bestellnummer #{order_id}',
@@ -10,6 +14,7 @@ return array(
 		'Specification' => 'Spezifikation',
 		'Value' => 'Wert',
 		'Price adjustion' => 'Preisveränderung',
+		'Weight adjustion' => 'Gewichtsveränderung',
 		'Save specifications' => 'Spezifikationen speichern',
 		'Invalid payment method' => 'Ungültige Zahlungsmethode',
 		'Invalid shipping method in order #{order_id}' => 'Fehlerhafte Liefermethode in der Bestellung #{order_id}',

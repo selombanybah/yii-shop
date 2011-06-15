@@ -109,8 +109,14 @@ class Products extends CActiveRecord
 				$value['price_adjustion'] = strtr(
 						$value['price_adjustion'], array(',' => '.'));
 
-				if(isset($value['sign']) && $value['sign'] == '-')
+				if(isset($value['sign_price']) && $value['sign_price'] == '-')
 					$value['price_adjustion'] -= 2 * $value['price_adjustion'];
+
+				$value['weight_adjustion'] = strtr(
+						$value['weight_adjustion'], array(',' => '.'));
+
+				if(isset($value['sign_weight']) && $value['sign_weight'] == '-')
+					$value['weight_adjustion'] -= 2 * $value['weight_adjustion'];
 
 				$db->createCommand()->insert('shop_product_variation', array(
 							'product_id' => $this->product_id,
@@ -118,6 +124,7 @@ class Products extends CActiveRecord
 							'position' => @$value['position'] ? $value['position'] : 0,
 							'title' => $value['title'],
 							'price_adjustion' => @$value['price_adjustion'] ? $value['price_adjustion'] : 0,
+							'weight_adjustion' => @$value['weight_adjustion'] ? $value['weight_adjustion'] : 0,
 							));	
 			}
 		} 
@@ -149,6 +156,24 @@ class Products extends CActiveRecord
 		return $labels;
 	}
 
+	public function getWeightTaxRate($variations = null, $amount = 1) { 
+		if($this->tax) {
+			$taxrate = $this->tax->percent;	
+
+			$price = $this->price;
+
+			if($variations)
+				foreach($variations as $key => $variation) 
+					if($obj = ProductVariation::model()->findByPk($variation))
+						$price += $obj->price_adjustion;
+
+			$tax = $price * ($this->tax->percent / 100);
+
+			$tax *= $amount;
+			return $tax;
+		}
+	}
+
 	public function getTaxRate($variations = null, $amount = 1) { 
 		if($this->tax) {
 			$taxrate = $this->tax->percent;	
@@ -165,6 +190,26 @@ class Products extends CActiveRecord
 			$tax *= $amount;
 			return $tax;
 		}
+	}
+
+	public function getWeight($variations = null, $amount = 1) {
+		$spec = ProductSpecification::model()->findByPk(
+				Shop::module()->weightSpecificationId);
+
+		$weight = 0;
+		if($spec) {
+			$specs = json_decode($this->specifications, true);
+			if(isset($specs[$spec->title]))
+				$weight += $specs[$spec->title];
+		}
+
+		if($variations)
+			foreach($variations as $key => $variation) {
+				if(is_numeric($variation))
+					$weight += @ProductVariation::model()->findByPk($variation)->getWeightAdjustion();
+			}
+
+		return (float) $weight *= $amount;
 	}
 
 	public function getPrice($variations = null, $amount = 1) {

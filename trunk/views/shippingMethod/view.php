@@ -22,6 +22,8 @@ if($model)
 	$this->widget('zii.widgets.CDetailView', array(
 				'data'=>$model,
 				'attributes'=>array(
+					'id',
+					'weight_range',
 					'title',
 					'description',
 					'price',

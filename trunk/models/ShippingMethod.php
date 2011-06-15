@@ -39,7 +39,7 @@ class ShippingMethod extends CActiveRecord
 			array('title, tax_id, price', 'required'),
 			array('tax_id', 'numerical', 'integerOnly'=>true),
 			array('price', 'numerical'),
-			array('description', 'safe'),
+			array('description, weight_range', 'safe'),
 			array('title', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -55,6 +55,7 @@ class ShippingMethod extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'tax' => array(self::BELONGS_TO, 'Tax', 'tax_id'),
 		);
 	}
 
@@ -65,6 +66,7 @@ class ShippingMethod extends CActiveRecord
 	{
 		return array(
 			'id' => Shop::t('ID'),
+			'weight_range' => Shop::t('Weight range'),
 			'title' => Shop::t('Title'),
 			'description' => Shop::t('Description'),
 			'tax_id' => Shop::t('Tax'),
