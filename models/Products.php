@@ -35,12 +35,13 @@ class Products extends CActiveRecord
 	public function rules()
 	{
 		return array(
-			array('title, category_id, status', 'required'),
+			array('title, category_id, status, tax_id', 'required'),
 			array('product_id, category_id, status', 'numerical', 'integerOnly'=>true),
 			array('title, price, language', 'length', 'max'=>45),
+			array('keywords', 'length', 'max'=>255),
 			array('title', 'unique'),
 			array('description, specifications', 'safe'),
-			array('product_id, title, description, price, category_id', 'safe', 'on'=>'search'),
+			array('product_id, title, description, price, category_id, keywords', 'safe', 'on'=>'search'),
 		);
 	}
 

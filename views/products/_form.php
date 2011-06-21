@@ -76,7 +76,8 @@ if(Shop::module()->rteadapter !== false)
 
 <div class="row">
 <?php echo $form->labelEx($model,'title'); ?>
-<?php echo $form->textField($model,'title',array('size'=>45,'maxlength'=>45)); ?>
+<?php echo $form->textField($model,'title',array(
+			'size'=>45,'maxlength'=>45)); ?>
 <?php echo $form->error($model,'title'); ?>
 </div>
 
@@ -117,6 +118,14 @@ if(Shop::module()->rteadapter !== false)
 <?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
 <?php echo $form->error($model,'description'); ?>
 </div>
+
+<div class="row">
+<?php echo $form->labelEx($model,'keywords'); ?>
+<?php echo $form->textField($model,'keywords',array(
+			'size'=>45,'maxlength'=>255)); ?>
+<?php echo $form->error($model,'keywords'); ?>
+</div>
+
 </fieldset>
 
 

@@ -38,6 +38,7 @@ class ProductsController extends Controller
 					$field = "Variations[{$variation[0]->specification_id}][]";
 					
 					echo '<div class="shop-variation-element">';
+					echo '<table class="shop-variation-table"';
 					
 					echo CHtml::label($variation[0]->specification->title,
 							$field, array(
@@ -59,12 +60,16 @@ class ProductsController extends Controller
 								: null,
 								ProductVariation::listData($variation, 
 									$product->variationCount > 1 ? true : false
-									));
+									), array(
+										'template' => '<tr> <td class="option">{input}</td> <td class="label">{label}</td></tr>'
+										));
 					} else if ($variation[0]->specification->input_type == 'image') {
 						echo CHtml::fileField('filename');
 					}
 					echo '</div>';
+					echo '</table>';
 				}
+				
 
 			}
 
@@ -94,6 +99,8 @@ class ProductsController extends Controller
 	{
 		$model = new Products;
 
+		$this->layout = Shop::module()->adminLayout;
+
 		// We assume we want to create a _active_ product
 		if(!isset($model->status))
 			$model->status = 1;
@@ -102,12 +109,13 @@ class ProductsController extends Controller
 
 		if(isset($_POST['Products']))
 		{
-			$model->attributes=$_POST['Products'];
+			$model->attributes = $_POST['Products'];
 			if(isset($_POST['Specifications']))
 				$model->setSpecifications($_POST['Specifications']);
 
 			if($model->save())
-				$this->redirect(array('//shop/producs/view', 'id' => $model->id));
+				$this->redirect(array(
+							'//shop/producs/view', 'id' => $model->product_id));
 		}
 
 		$this->render('create',array(
@@ -117,6 +125,7 @@ class ProductsController extends Controller
 
 	public function actionUpdate($id, $return = null)
 	{
+		$this->layout = Shop::module()->adminLayout;
 		$model=$this->loadModel();
 
 		$this->performAjaxValidation($model);
@@ -180,6 +189,7 @@ class ProductsController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		$this->layout = Shop::module()->adminLayout;
 		$model=new Products('search');
 		if(isset($_GET['Products']))
 			$model->attributes=$_GET['Products'];

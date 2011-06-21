@@ -136,6 +136,7 @@ class InstallController extends Controller
 							`tax_id` INT NOT NULL ,
 							`title` VARCHAR(45) NOT NULL ,
 							`description` TEXT NULL ,
+							`keywords` varchar(255) NULL ,
 							`price` VARCHAR(45) NULL ,
 							`language` VARCHAR(45) NULL ,
 							`specifications` TEXT NULL ,

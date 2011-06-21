@@ -1,4 +1,14 @@
 <?php
+$this->pageTitle = $model->title;
+
+Yii::app()->clientScript->registerMetaTag(
+		substr(strip_tags($model->description), 0, 255), 'description');
+
+if($model->keywords)
+	Yii::app()->clientScript->registerMetaTag(
+			substr(strip_tags($model->keywords), 0, 255), 'keywords');
+
+
 $this->breadcrumbs=array(
 	Shop::t('Products')=>array('index'),
 	$model->title,
