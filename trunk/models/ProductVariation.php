@@ -20,11 +20,14 @@ class ProductVariation extends CActiveRecord
 
 		foreach($variations as $id => $variation)  {
 			if($price_absolute)
-				$var[$variation->id] = sprintf('%s (%s)',
+				$var[$variation->id] = sprintf(
+						'<div class="variation">%s</div> <div class="price">%s</div>',
 						$variation->title,
-						Shop::priceFormat($variation->product->getPrice() + $variation->getPriceAdjustion()));
+						Shop::priceFormat(
+							$variation->product->getPrice() + $variation->getPriceAdjustion()));
 			else
-				$var[$variation->id] = sprintf('%s (%s%s)',
+				$var[$variation->id] = sprintf(
+						'<div class="variation">%s</div> <div class="price">%s%s</div>',
 						$variation->title,
 						$variation->price_adjustion > 0 ? '+' : '',
 						Shop::priceFormat($variation->getPriceAdjustion()));

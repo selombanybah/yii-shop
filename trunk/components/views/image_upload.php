@@ -46,7 +46,9 @@ echo CHtml::submitButton(
 <?php
 if(count($products) > 1) {
 	Yii::app()->clientScript->registerScript('product_selection', "
-			$('#variations').load('".Yii::app()->controller->createUrl('//shop/products/getVariations')."', {'product': ".$products[$selected]->product_id."});
+			$('#variations').load('".Yii::app()->controller->createUrl(
+		'//shop/products/getVariations')."',
+				{'product': ".@$products[$selected]->product_id."});
 			$('#product').change(function() {
 				$('#variations').load('".Yii::app()->controller->createUrl('//shop/products/getVariations')."', $(this));
 				});

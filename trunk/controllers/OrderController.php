@@ -335,6 +335,7 @@ class OrderController extends Controller
 
 	public function actionIndex()
 	{
+
 		$model = new Order('search');
 
 		if(isset($_GET['Order']))
@@ -349,6 +350,7 @@ class OrderController extends Controller
 
 	public function actionAdmin()
 	{
+		$this->layout = Shop::module()->adminLayout;
 		$model=new Order('search');
 
 		if(isset($_GET['Order']))

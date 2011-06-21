@@ -87,6 +87,7 @@ class ShopModule extends CWebModule
 	// Images uploaded by the customer (for example, for Poster Shops)
 	public $uploadedImagesFolder = 'uploadedimages'; 
 
+	public $adminLayout = 'application.modules.shop.views.layouts.shop';
 	public $layout = 'application.modules.shop.views.layouts.shop';
 
 	// Set this to enable Paypal payment. See docs/paypal.txt

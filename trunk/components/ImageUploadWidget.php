@@ -27,6 +27,8 @@ class ImageUploadWidget extends CPortlet
 		if(!is_array($this->products))
 			$this->products = array($products);
 
+		$this->selected = $this->products[0]->product_id;
+
 		$products = array();
 		foreach($this->products as $product) {
 			if(is_numeric($product))

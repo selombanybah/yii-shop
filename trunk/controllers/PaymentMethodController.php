@@ -128,6 +128,7 @@ class PaymentMethodController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		$this->layout = Shop::module()->adminLayout;
 		$model=new PaymentMethod('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['PaymentMethod']))

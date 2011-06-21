@@ -123,6 +123,7 @@ class ShippingMethodController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		$this->layout = Shop::module()->adminLayout;
 		$model=new ShippingMethod('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['ShippingMethod']))
