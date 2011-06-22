@@ -25,8 +25,6 @@
 		return $string;
 	}
 
-
-
 	$this->widget('zii.widgets.CDetailView', array(
 				'data'=>$position,
 				'attributes'=> array(

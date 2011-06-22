@@ -77,7 +77,8 @@ class ShopModule extends CWebModule
 	public $successAction = array('//shop/order/success');
 	public $failureAction = array('//shop/order/failure');
 
-	public $loginUrl = array('/site/login');
+	public $loginUrl = array(
+			'/site/login', 'action' => '%2525F%2525Fshop%2525Forder%2525Fcreate');
 
 	public $orderConfirmTemplate = "Dear {title} {firstname} {lastname}, \n your order #{order_id} has been taken";
 

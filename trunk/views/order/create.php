@@ -13,7 +13,6 @@ Shop::renderFlash();
 echo CHtml::beginForm(array('//shop/order/confirm'));
 echo '<h2>'.Shop::t('Confirmation').'</h2>';
 
-
 if(Shop::getCartContent() == array())
 	return false;
 
@@ -31,7 +30,9 @@ echo '<hr />';
 				
 echo '<p>';
 
-	$shipping = ShippingMethod::model()->findByPk(Yii::app()->user->getState('shipping_method'));
+$shipping = ShippingMethod::model()->find('id = :id', array(
+			':id' => Yii::app()->user->getState('shipping_method')));
+
 	echo '<strong>'.Shop::t('Shipping Method').': </strong>'.' '.$shipping->title.' ('.$shipping->description.')';
 	echo '<br />';
 	echo CHtml::link(Shop::t('Edit shipping method'), array(
@@ -51,12 +52,11 @@ echo '<hr />';
 
 $this->renderPartial('application.modules.shop.views.shoppingCart.view'); 
 
-
 echo '<h3>'.Shop::t('Please add additional comments to the order here').'</h3>'; 
-
 echo CHtml::textArea('Order[Comment]',
-		@Yii::app()->user->getState('order_comment'), array('style'=>'width:600px; height:100px;padding:10px;'));
-		
+	@Yii::app()->user->getState('order_comment'), array(
+		'style'=>'width:600px; height:100px;padding:10px;'));
+
 echo '<br /><br />';
 
 echo '<hr />';

@@ -74,6 +74,10 @@ class ShippingMethod extends CActiveRecord
 		);
 	}
 
+	public function getPrice() {
+		return (float) $this->price * ($this->tax->percent / 100 + 1);
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

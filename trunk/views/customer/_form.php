@@ -42,6 +42,13 @@ $form=$this->beginWidget('CActiveForm', array(
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($customer,'phone'); ?>
+		<?php echo $form->textField($customer,'phone',array('size'=>45,'maxlength'=>45)); ?>
+		<?php echo $form->error($customer,'phone'); ?>
+	</div>
+
+
+	<div class="row">
 		<?php echo $form->labelEx($address,'street'); ?>
 		<?php echo $form->textField($address,'street',array('size'=>45,'maxlength'=>45)); ?>
 		<?php echo $form->error($address,'street'); ?>

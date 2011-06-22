@@ -1,5 +1,9 @@
 <?php
 return array(
+		'Phone' => 'Telefonnummer',
+		'Update customer data' => 'Kundendaten bearbeiten',
+		'The requested Order could not be found' => 'Die angeforderte Bestellung wurde im System nicht gefunden',
+		'You are not allowed to view this order' => 'Sie haben nicht die erforderliche Berechtigung, um diese Bestellung anzusehen',
 		'Create new shipping method' => 'Neue Versandart anlegen',
 		'Shipping methods' => 'Versandarten',
 		'Weight range' => 'Gewichtseingrenzung',
@@ -100,9 +104,9 @@ return array(
 		'Registration information'=>'Durch Ihre Anmeldung bei uns sind Sie in der Lage schneller zu bestellen, kennen jederzeit den Status Ihrer Bestellungen und haben immer eine aktuelle Übersicht über Ihre bisher getätigten Bestellungen.',
 		'show product' => 'Anzeigen',
 		'Product Specifications' => 'Produktspezifikationen',
-'You can set product variations after you created the product' => 'Nach dem Erstellen des Produkts können Sie Variationen anlegen',
-	'Active' => 'Aktiv',
-	'Inactive' => 'Inaktiv',
+		'You can set product variations after you created the product' => 'Nach dem Erstellen des Produkts können Sie Variationen anlegen',
+		'Active' => 'Aktiv',
+		'Inactive' => 'Inaktiv',
 		'Price: ' => 'Preis: ',
 		'Confirm' => 'Bestätigung',
 		'Customer information' => 'Kundendaten',

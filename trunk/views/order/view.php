@@ -30,9 +30,11 @@ Shop::renderFlash();
 			)
 		); 
 
-echo CHtml::link(Shop::t('Update order status'), array(
-			'//shop/order/update', 'id' => $model->order_id )); 
-?>
+	if( (Shop::module()->useWithYum && Yii::app()->user->isAdmin()) 
+			|| Yii::app()->user->id == 1)
+	echo CHtml::link(Shop::t('Update order status'), array(
+				'//shop/order/update', 'id' => $model->order_id )); 
+	?>
 
 <h3> <?php echo Shop::t('Customer Info'); ?> </h3>
 
@@ -87,10 +89,10 @@ $this->renderPartial('/shippingMethod/view', array(
 
 <?php 
 if($model->positions)
-foreach($model->positions as $position) {
-	$this->renderPartial('position', array(
-				'position' => $position));
-}
+	foreach($model->positions as $position) {
+		$this->renderPartial('position', array(
+					'position' => $position));
+	}
 
 ?>
 

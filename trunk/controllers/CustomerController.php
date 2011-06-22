@@ -9,10 +9,19 @@ class CustomerController extends Controller
 		return parent::beforeAction($action);
 	}
 
-	public function actionView()
+	public function actionView($id = null)
 	{
+		if($id === null) 
+			$id = Yii::app()->user->id;
+
+		$model = Customer::model()->find('user_id = :uid', array(
+					':uid' => $id));
+
+		if(!$model)
+			throw new CHttpException(403);
+
 		$this->render('view',array(
-					'model'=>$this->loadModel(),
+					'model'=>$model,
 					));
 	}
 
@@ -103,11 +112,10 @@ class CustomerController extends Controller
 			}
 			if($model->save()) {
 				if($order !== null)
-					$this->redirect(
-							array(
+					$this->redirect( array(
 								'//shop/order/create', 'customer'=>$model->customer_id));
 				else
-					$this->redirect(array('view','id'=>$model->customer_id));
+					$this->redirect(array('view'));
 			}
 		} 
 		$address = $model->address;
@@ -155,14 +163,17 @@ class CustomerController extends Controller
 					));
 	}
 
-	public function loadModel()
+	public function loadModel($id = null)
 	{
+		if($id === null)
+			$id = $_GET['id'];
+
 		if($this->_model===null)
 		{
-			if(isset($_GET['id']))
-				$this->_model=Customer::model()->findbyPk($_GET['id']);
+			if(isset($id))
+				$this->_model=Customer::model()->findbyPk($id);
 			if($this->_model===null)
-				throw new CHttpException(404,'The requested page does not exist.');
+				throw new CHttpException(404,'The requested customer does not exist.');
 		}
 		return $this->_model;
 	}

@@ -132,8 +132,8 @@ if($products) {
 				<td class="text-right">%s</td>
 				<td>%s</td></tr>',
 				Shop::t('Shipping costs'),
-				Shop::priceFormat($shippingMethod->price),
-				Shop::priceFormat($shippingMethod->price),
+				Shop::priceFormat($shippingMethod->getPrice()),
+				Shop::priceFormat($shippingMethod->getPrice()),
 				CHtml::link(Shop::t('edit'), array('//shop/shippingMethod/choose'))
 				);
 	}

@@ -116,8 +116,7 @@ class ProductsController extends Controller
 				$model->setSpecifications($_POST['Specifications']);
 
 			if($model->save())
-				$this->redirect(array(
-							'//shop/producs/view', 'id' => $model->product_id));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('create',array(

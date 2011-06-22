@@ -16,6 +16,8 @@ $this->breadcrumbs=array(
 
 <h2> <?php echo Shop::t('Please enter your Customer information'); ?> </h2>
 
+
+<?php if(Yii::app()->user->isGuest) { ?>
 <h3> <?php echo Shop::t('I am a registered customer'); ?></h3>
 
 <p> <?php echo Shop::t('Click {link} if you are already registered', array(
@@ -23,6 +25,8 @@ $this->breadcrumbs=array(
 </p>
 <hr />
 <h3><?php echo Shop::t('I am a new customer'); ?></h3>
+
+<?php } ?>
 <p><?php echo Shop::t('Registration information'); ?></p>
 <p><strong> <?php echo Shop::t('Please enter your Customer information'); ?></strong> </p>
 	<?php

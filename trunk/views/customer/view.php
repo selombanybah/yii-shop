@@ -6,6 +6,7 @@ if(!isset($hideEmail)) {
 	'data'=>$model,
 	'attributes'=>array(
 		'email',
+		'phone',
 	),
 )); 
 }
@@ -26,6 +27,9 @@ if($model->address && !isset($hideAddress)) {
 )); 
 
 }
+if(Yii::app()->controller->id == 'customer')
+echo CHtml::link(Shop::t('Update customer data'), array(
+			'//shop/customer/update'));
 
 echo '<div class="box-delivery-address">';
 echo '<h3>'.Shop::t('Delivery address').'</h3>';
@@ -41,6 +45,8 @@ echo '<h3>'.Shop::t('Delivery address').'</h3>';
 		'country',
 	),
 ));
+
+if(Yii::app()->controller->id == 'order')
 echo CHtml::link(Shop::t('Delivery address').' '.Shop::t('Edit'), array(
 			'//shop/shippingMethod/choose', 'order' => true)); 
 echo '</div>';
@@ -59,6 +65,8 @@ echo '<h3>'.Shop::t('Billing address').'</h3>';
 		'country',
 	),
 )); 
+
+if(Yii::app()->controller->id == 'order')
 echo CHtml::link(Shop::t('Billing address').' '.Shop::t('Edit'), array(
 			'//shop/paymentMethod/choose', 'order' => true)); 
 echo '</div>';
