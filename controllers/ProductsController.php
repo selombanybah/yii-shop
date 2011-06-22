@@ -38,9 +38,9 @@ class ProductsController extends Controller
 					$field = "Variations[{$variation[0]->specification_id}][]";
 					
 					echo '<div class="shop-variation-element">';
-					echo '<table class="shop-variation-table"';
 					
-					echo CHtml::label($variation[0]->specification->title,
+					
+					echo '<strong>'.CHtml::label($variation[0]->specification->title.'</strong>',
 							$field, array(
 								'class' => 'lbl-header'));
 
@@ -48,12 +48,14 @@ class ProductsController extends Controller
 						echo ' <span class="required">*</span>';
 
 					echo '<br />';
+					
 
 					if($variation[0]->specification->input_type == 'textfield') {
 						echo CHtml::textField($field);
 					} else if ($variation[0]->specification->input_type == 'select'){
 						// If the specification is required, preselect the first field.
 						// Otherwise  let the customer choose which one to pick
+				
 						echo CHtml::radioButtonList($field,
 								$variation[0]->specification->required 
 								? $variation[0]->id 
@@ -61,13 +63,13 @@ class ProductsController extends Controller
 								ProductVariation::listData($variation, 
 									$product->variationCount > 1 ? true : false
 									), array(
-										'template' => '<tr> <td class="option">{input}</td> <td class="label">{label}</td></tr>'
+										'template' => '{input} {label} <div class="clear"></div>'
 										));
 					} else if ($variation[0]->specification->input_type == 'image') {
 						echo CHtml::fileField('filename');
 					}
 					echo '</div>';
-					echo '</table>';
+					
 				}
 				
 

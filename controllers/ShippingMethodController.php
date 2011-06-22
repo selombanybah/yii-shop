@@ -82,7 +82,7 @@ class ShippingMethodController extends Controller
 				$model->id = $_POST['ShippingMethod']['id'];
 
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('admin'));
 		}
 
 		$this->render('update',array(
