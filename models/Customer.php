@@ -19,7 +19,7 @@ class Customer extends CActiveRecord
 	public function rules()
 	{
 		return array(
-			array('email', 'required'),
+			array('email, phone', 'required'),
 			array('address_id, customer_id', 'numerical', 'integerOnly'=>true),
 			array('email', 'CEmailValidator'),
 			array('customer_id, user_id, email', 'safe', 'on'=>'search'),
@@ -44,6 +44,7 @@ class Customer extends CActiveRecord
 			'passwordRepeat' => Shop::t('repeat Password'),
 			'customer_id' => Yii::t('ShopModule.shop', 'Customer'),
 			'user_id' => Yii::t('ShopModule.shop', 'Userid'),
+			'phone' => Yii::t('ShopModule.shop', 'Phone'),
 			'address_id' => Yii::t('ShopModule.shop', 'Address'),
 			'billing_address_id' => Yii::t('ShopModule.shop', 'Billing Address'),
 			'delivery_address_id' => Yii::t('ShopModule.shop', 'Delivery Address'),

@@ -123,7 +123,8 @@
 
 		public static function getShippingMethod() {
 			if($shipping_method = Yii::app()->user->getState('shipping_method'))
-				return ShippingMethod::model()->findByPk($shipping_method);
+				return ShippingMethod::model()->find('id = :id', array(
+							':id' => $shipping_method));
 		}
 
 		public static function getCartContent() {
@@ -145,11 +146,12 @@
 		public static function getWeightTotal() {
 			$weight_total = 0;
 			$tax_total = 0;
-			foreach(Shop::getCartContent() as $product)  {
-				$model = Products::model()->findByPk($product['product_id']);
-				$weight_total += $model->getWeight(@$product['Variations'], @$product['amount']);
-				$tax_total += $model->getWeightTaxRate(@$product['Variations'], @$product['amount']);
-		}
+			if($content = Shop::getCartContent())
+				foreach($content as $product)  {
+					$model = Products::model()->findByPk($product['product_id']);
+					$weight_total += $model->getWeight(@$product['Variations'], @$product['amount']);
+					$tax_total += $model->getWeightTaxRate(@$product['Variations'], @$product['amount']);
+				}
 
 			return $weight_total;
 		}

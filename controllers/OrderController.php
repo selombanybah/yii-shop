@@ -7,8 +7,8 @@ class OrderController extends Controller
 	public function filters()
 	{
 		return array(
-			'accessControl',
-		);
+				'accessControl',
+				);
 	}	
 
 	public function accessRules() {
@@ -19,20 +19,16 @@ class OrderController extends Controller
 					'users' => array('*'),
 					),
 				array('allow',
-					'actions'=>array('index'),
+					'actions'=>array('index', 'view'),
 					'users' => array('@'),
 					),
 				array('allow',
-					'actions'=>array('view'),
-					'expression' =>'Yii::app()->user->id == 1',
-					),
-				array('allow',
-					'actions'=>array('admin','delete', 'view', 'slip', 'invoice', 'update'),
+					'actions'=>array('admin','delete', 'slip', 'invoice', 'update'),
 					'users' => array('admin'),
 					),
 				array('deny',  // deny all other users
-						'users'=>array('*'),
-						),
+					'users'=>array('*'),
+					),
 				);
 	}
 
@@ -59,25 +55,37 @@ class OrderController extends Controller
 	{
 		$model = Order::model()->with('customer')->findbyPk($id);
 
-		if(!$model->paymentMethod instanceof PaymentMethod)
-			Shop::log(Shop::t('Invalid payment method in order #{order_id}', array(
-							'{order_id}' => $model->order_id)), 'warning');
+		if($model) {
+			if($model->customer->user_id == Yii::app()->user->id
+					|| (Shop::module()->useWithYum && Yii::app()->user->isAdmin()) 
+					|| Yii::app()->user->id == 1)
+			{
 
-		if(!$model->shippingMethod instanceof shippingMethod)
-			Shop::log(Shop::t('Invalid shipping method in order #{order_id}', array(
-							'{order_id}' => $model->order_id)), 'warning');
+				if(!$model->paymentMethod instanceof PaymentMethod)
+					Shop::log(Shop::t('Invalid payment method in order #{order_id}', array(
+									'{order_id}' => $model->order_id)), 'warning');
 
-		$this->render('view',array(
-					'model'=>$model
-					));
+				if(!$model->shippingMethod instanceof shippingMethod)
+					Shop::log(Shop::t('Invalid shipping method in order #{order_id}', array(
+									'{order_id}' => $model->order_id)), 'warning');
+
+				$this->render('view',array(
+							'model'=>$model
+							));
+			} else
+				throw new CHttpException(403, Shop::t(
+							'You are not allowed to view this order'));
+
+		} else throw new CHttpException(404, Shop::t(
+					'The requested Order could not be found'));
 	}
 
 	public function mailConfirmationMessage($order, $message) {
 		$email = $order->customer->email;
 		$title = Shop::t('Order confirmation');
 
-		
-	  if(mail($email, $title, $message))
+
+		if(mail($email, $title, $message))
 			Shop::setFlash(Shop::t('A order confirmation has been sent'));
 		else
 			Shop::setFlash(Shop::t('Error while sending confirmation message'));
@@ -86,6 +94,8 @@ class OrderController extends Controller
 
 	public function actionUpdate($id) {
 		$order = $this->loadModel();
+		if( (Shop::module()->useWithYum && Yii::app()->user->isAdmin()) 
+			|| Yii::app()->user->id == 1) {
 
 		if(isset($_POST['Order'])) {
 			if(
@@ -99,6 +109,8 @@ class OrderController extends Controller
 			$this->redirect(array('//shop/order/view', 'id' => $order->order_id));
 		}
 		$this->render('update', array('model' => $order));	
+		} else
+			throw new CHttpException(403);
 	}
 
 	/** Creation of a new Order 
@@ -163,7 +175,7 @@ class OrderController extends Controller
 			$customer = Yii::app()->user->getState('customer_id');
 		if(!Yii::app()->user->isGuest && !$customer)
 			$customer = Customer::model()->find('user_id = :user_id ', array(
-				':user_id' => Yii::app()->user->id));
+						':user_id' => Yii::app()->user->id));
 		if(!$payment_method)
 			$payment_method = Yii::app()->user->getState('payment_method');
 		if(!$shipping_method)
@@ -192,7 +204,8 @@ class OrderController extends Controller
 			if(is_numeric($customer))
 				$customer = Customer::model()->findByPk($customer);
 			if(is_numeric($shipping_method))
-				$shipping_method = ShippingMethod::model()->findByPk($shipping_method);
+				$shipping_method = ShippingMethod::model()->find('id = :id', array(
+							':id' => $shipping_method));
 			if(is_numeric($payment_method))
 				$payment_method = PaymentMethod::model()->findByPk($payment_method);
 
@@ -284,7 +297,7 @@ class OrderController extends Controller
 			$this->redirect('//shop/products/index');
 		}
 
-		
+
 		if(isset($_POST['PayPalForm'])) {
 			$model->attributes = $_POST['PayPalForm'];
 
@@ -292,7 +305,7 @@ class OrderController extends Controller
 				echo $model->handlePayPal($order);
 			}
 		}
-	
+
 		$this->render('/order/paypal_form', array(
 					'model' => $model));
 	}
