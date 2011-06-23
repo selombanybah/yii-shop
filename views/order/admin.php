@@ -1,3 +1,4 @@
+
 <?php
 $this->breadcrumbs=array(
 	Shop::t('Orders')=>array('admin'),
@@ -5,6 +6,8 @@ $this->breadcrumbs=array(
 );
 
 ?>
+
+<h2> <?php echo Shop::t('Orders'); ?> </h2>
 <?php 
 
 $this->widget('zii.widgets.grid.CGridView', array(

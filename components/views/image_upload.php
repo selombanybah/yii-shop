@@ -16,6 +16,10 @@
 ?>
 <hr />
 
+<div id="please_select_a_image" style="display: none;"> 
+    <?php echo Shop::t('Please select a image from your hard drive'); ?>
+</div>
+
 <div id="variations"> </div>
 
 <div id="image_upload_loading" style="display: none;"> 
@@ -24,6 +28,7 @@
     <br />
     <?php echo Shop::t('Please wait while your image is being uploaded'); ?>
 </div>
+
 
 <?php
 echo '<div style="clear: both;"></div>';
@@ -35,7 +40,7 @@ echo '</div>';
 
 echo CHtml::submitButton(
 		Shop::t('Add to shopping Cart'), array(
-			'onclick' => "$('#image_upload_loading').show();",
+			'id' => 'btn-add-to-cart',
 			'class' => 'btn-add-cart'));
 ?>
 
@@ -44,6 +49,18 @@ echo CHtml::submitButton(
 <?php echo CHtml::endForm(); ?>
 
 <?php
+	Yii::app()->clientScript->registerScript('btn-add-to-cart', "
+$('#btn-add-to-cart').click(function() {
+if($('input[type=file]').val()) {
+$('#image_upload_loading').show();
+} else {
+$('#please_select_a_image').show();
+
+event.preventDefault();
+}
+});
+");
+
 if(count($products) > 1) {
 	Yii::app()->clientScript->registerScript('product_selection', "
 			$('#variations').load('".Yii::app()->controller->createUrl(
