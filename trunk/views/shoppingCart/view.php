@@ -46,7 +46,7 @@ if($products) {
 								$name = sprintf('variation_%s_%s',$position, $specification->id); 
 								$variations .= CHtml::radioButtonList(
 										$name, $variation->id,
-										ProductVariation::listData($variation->getVariations()));
+										ProductVariation::listData($variation->getVariations(), true));
 								Yii::app()->clientScript->registerScript($name, "
 										$('[name=\"".$name."\"]').click(function(){
 									$.ajax({

@@ -1,3 +1,4 @@
+<h2> <?php echo Shop::t('Products'); ?> </h2>
 <?php 
 
 $model = new Products();
