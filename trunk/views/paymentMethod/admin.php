@@ -4,10 +4,6 @@ $this->breadcrumbs=array(
 	Shop::t('Manage'),
 );
 
-$this->menu=array(
-	array('label'=>Shop::t('Create PaymentMethod'), 'url'=>array('create')),
-);
-
 ?>
 
 <h2><?php echo Shop::t('Manage Payment Methods'); ?></h2>

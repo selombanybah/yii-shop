@@ -133,7 +133,8 @@ foreach(ShippingMethod::model()->findAll() as $method) {
 				echo '<div class="float-left">';
 				echo CHtml::label($method->title, 'ShippingMethod');
 				echo CHtml::tag('p', array(), $method->description);
-				echo CHtml::tag('p', array(), Shop::t('Price: ') . Shop::priceFormat($method->price));
+				echo CHtml::tag('p', array(),
+						Shop::t('Price: ') . Shop::priceFormat($method->getPrice()));
 				echo '</div>';
 				echo '</div>';
 				echo '<div class="clear"></div>';
