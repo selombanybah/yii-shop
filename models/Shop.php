@@ -121,10 +121,25 @@
 			return Yii::app()->user->getState('payment_method');
 		}
 
-		public static function getShippingMethod() {
-			if($shipping_method = Yii::app()->user->getState('shipping_method'))
-				return ShippingMethod::model()->find('id = :id', array(
+		public static function getShippingMethod($costs = false) {
+			if($shipping_method = Yii::app()->user->getState('shipping_method')) {
+				$weight_total = Shop::getWeightTotal();
+				$methods = ShippingMethod::model()->findAll('id = :id', array(
 							':id' => $shipping_method));
+				foreach($methods as $method) {
+					$range = explode('-', $method->weight_range);
+					if(isset($range[0]) 
+							&& isset($range[1]) 
+							&& is_numeric($range[0]) 
+							&& is_numeric($range[1])) {
+						if($range[0] <= $weight_total && $range[1] >= $weight_total)
+							if($costs)
+							return Shop::priceFormat($method->getPrice());
+							else
+							return $method;
+					}
+				}
+			}
 		}
 
 		public static function getCartContent() {
@@ -145,14 +160,11 @@
 
 		public static function getWeightTotal() {
 			$weight_total = 0;
-			$tax_total = 0;
 			if($content = Shop::getCartContent())
 				foreach($content as $product)  {
 					$model = Products::model()->findByPk($product['product_id']);
 					$weight_total += $model->getWeight(@$product['Variations'], @$product['amount']);
-					$tax_total += $model->getWeightTaxRate(@$product['Variations'], @$product['amount']);
 				}
-
 			return $weight_total;
 		}
 
@@ -161,12 +173,16 @@
 			$tax_total = 0;
 			foreach(Shop::getCartContent() as $product)  {
 				$model = Products::model()->findByPk($product['product_id']);
-				$price_total += $model->getPrice(@$product['Variations'], @$product['amount']);
-				$tax_total += $model->getTaxRate(@$product['Variations'], @$product['amount']);
-		}
+				$price_total += $model->getPrice(@$product['Variations'],
+						@$product['amount']);
+				$tax_total += $model->getTaxRate(@$product['Variations'],
+						@$product['amount']);
+			}
 
-			if($shipping_method = Shop::getShippingMethod())
+			if($shipping_method = Shop::getShippingMethod()) {
 				$price_total += $shipping_method->getPrice();
+				$tax_total += ($shipping_method->getPrice() - $shipping_method->getAttribute('price')); 
+			}
 
 			$price_total = Shop::t('Price total: {total}', array(
 						'{total}' => Shop::priceFormat($price_total),

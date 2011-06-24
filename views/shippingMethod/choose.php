@@ -112,7 +112,7 @@ $i = 0;
 $methods = array();
 foreach(ShippingMethod::model()->findAll() as $method) {
 	$weight = Shop::getWeightTotal();
-	if($method->weight_range === null) 
+	if($method->weight_range === null || $method->weight_range == '') 
 		$methods[$method->id] = $method;
 	else {
 		$range = explode('-', $method->weight_range);
@@ -126,38 +126,38 @@ foreach(ShippingMethod::model()->findAll() as $method) {
 	}
 }
 
-	foreach($methods as $method) {
-				echo '<div class="row">';
-				echo CHtml::radioButton("ShippingMethod", $i == 0, array(
-						'value' => $method->id));
-				echo '<div class="float-left">';
-				echo CHtml::label($method->title, 'ShippingMethod');
-				echo CHtml::tag('p', array(), $method->description);
-				echo CHtml::tag('p', array(),
-						Shop::t('Price: ') . Shop::priceFormat($method->getPrice()));
-				echo '</div>';
-				echo '</div>';
-				echo '<div class="clear"></div>';
-				$i++;
-				}
-				?>
+foreach($methods as $method) {
+	echo '<div class="row">';
+	echo CHtml::radioButton("ShippingMethod", $i == 0, array(
+				'value' => $method->id));
+	echo '<div class="float-left">';
+	echo CHtml::label($method->title, 'ShippingMethod');
+	echo CHtml::tag('p', array(), $method->description);
+	echo CHtml::tag('p', array(),
+			Shop::t('Price: ') . Shop::priceFormat($method->getPrice()));
+	echo '</div>';
+	echo '</div>';
+	echo '<div class="clear"></div>';
+	$i++;
+}
+?>
 
 
 
-					<?php
-					Yii::app()->clientScript->registerScript('toggle', "
-							if($('#toggle_delivery').attr('checked'))
-							$('#delivery_information').show();
-							$('#toggle_delivery').click(function() { 
-								$('#delivery_information').toggle(500);
-								});
-							");
-							?>
+<?php
+Yii::app()->clientScript->registerScript('toggle', "
+		if($('#toggle_delivery').attr('checked'))
+		$('#delivery_information').show();
+		$('#toggle_delivery').click(function() { 
+			$('#delivery_information').toggle(500);
+			});
+		");
+?>
 
-								<div class="row buttons">
-								<?php
-								echo CHtml::submitButton(Shop::t('Continue'),array('id'=>'next'));
-							?>
-								</div>
-								</div>
-								<?php $this->endWidget(); ?>
+<div class="row buttons">
+<?php
+echo CHtml::submitButton(Shop::t('Continue'),array('id'=>'next'));
+?>
+</div>
+</div>
+<?php $this->endWidget(); ?>
