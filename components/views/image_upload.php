@@ -42,6 +42,8 @@ echo CHtml::submitButton(
 		Shop::t('Add to shopping Cart'), array(
 			'id' => 'btn-add-to-cart',
 			'class' => 'btn-add-cart'));
+			
+echo '<div style="clear: both;"></div>';
 ?>
 
 <hr />
