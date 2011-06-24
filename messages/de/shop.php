@@ -1,5 +1,6 @@
 <?php
 return array(
+		'Manage Payment Methods' => 'Zahlungsmethoden verwalten',
 		'Phone' => 'Telefonnummer',
 		'Update customer data' => 'Kundendaten bearbeiten',
 		'The requested Order could not be found' => 'Die angeforderte Bestellung wurde im System nicht gefunden',

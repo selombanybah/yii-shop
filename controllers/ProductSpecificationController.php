@@ -130,6 +130,7 @@ class ProductSpecificationController extends Controller
 	 */
 	public function actionAdmin()
 	{
+		$this->layout = Shop::module()->adminLayout;
 		$model=new ProductSpecification('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['ProductSpecification']))

@@ -48,14 +48,16 @@ class ProductsController extends Controller
 						echo ' <span class="required">*</span>';
 
 					echo '<br />';
-					
 
 					if($variation[0]->specification->input_type == 'textfield') {
 						echo CHtml::textField($field);
 					} else if ($variation[0]->specification->input_type == 'select'){
+
 						// If the specification is required, preselect the first field.
 						// Otherwise  let the customer choose which one to pick
-				
+						// 	$product->variationCount > 1 ? true : false means, that the
+						// widget should display the _absolute_ price if only 1 variation
+						// is available, otherwise the relative (+ X $)
 						echo CHtml::radioButtonList($field,
 								$variation[0]->specification->required 
 								? $variation[0]->id 
@@ -63,16 +65,14 @@ class ProductsController extends Controller
 								ProductVariation::listData($variation, 
 									$product->variationCount > 1 ? true : false
 									), array(
-										'template' => '{input} {label} <div class="clear"></div>'
+										'template' => '{input} {label}',
+										'separator' =>'<div class="clear"></div>',
 										));
 					} else if ($variation[0]->specification->input_type == 'image') {
 						echo CHtml::fileField('filename');
 					}
 					echo '</div>';
-					
 				}
-				
-
 			}
 
 		} else

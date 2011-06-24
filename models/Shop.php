@@ -166,7 +166,7 @@
 		}
 
 			if($shipping_method = Shop::getShippingMethod())
-				$price_total += $shipping_method->price;
+				$price_total += $shipping_method->getPrice();
 
 			$price_total = Shop::t('Price total: {total}', array(
 						'{total}' => Shop::priceFormat($price_total),
