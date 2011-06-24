@@ -65,6 +65,9 @@ if($products) {
 										'//shop/shoppingCart/getPriceSingle?position='.$position)."');
 											$('.price_total').load('".$this->createUrl(
 										'//shop/shoppingCart/getPriceTotal')."');
+											$('.shipping_costs').load('".$this->createUrl(
+										'//shop/shoppingCart/getShippingCosts')."');
+
 											},
 											});
 							});
@@ -111,6 +114,9 @@ if($products) {
 							$('.price_".$position."').html(result);	
 							$('.price_total').load('".$this->createUrl(
 							'//shop/shoppingCart/getPriceTotal')."');
+							$('.shipping_costs').load('".$this->createUrl(
+							'//shop/shoppingCart/getShippingCosts')."');
+
 							},
 							error: function() {
 							$('#amount_".$position."').css('background-color', 'red');
@@ -128,8 +134,8 @@ if($products) {
 				<td>1</td>
 				<td>%s</td>
 				<td></td>
-				<td class="text-right">%s</td>
-				<td class="text-right">%s</td>
+				<td class="text-right shipping_costs">%s</td>
+				<td class="text-right shipping_costs">%s</td>
 				<td>%s</td></tr>',
 				Shop::t('Shipping costs'),
 				Shop::priceFormat($shippingMethod->getPrice()),

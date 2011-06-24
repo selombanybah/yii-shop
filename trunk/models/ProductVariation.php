@@ -48,10 +48,7 @@ class ProductVariation extends CActiveRecord
 	}
 
 	public function getWeightAdjustion($gross = true) {
-		if($gross)
-			return $this->weight_adjustion *= (@$this->product->tax->percent / 100) + 1;
-		else
-			return $this->weight_adjustion;
+			return $this->getAttribute('weight_adjustion');
 	}
 
 	public function getPriceAdjustion($gross = true) {

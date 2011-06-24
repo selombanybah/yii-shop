@@ -204,8 +204,11 @@ class Products extends CActiveRecord
 				$weight += $specs[$spec->title];
 		}
 
+
 		if($variations)
 			foreach($variations as $key => $variation) {
+				if(is_array($variation))
+					$variation = $variation[0];
 				if(is_numeric($variation))
 					$weight += @ProductVariation::model()->findByPk($variation)->getWeightAdjustion();
 			}

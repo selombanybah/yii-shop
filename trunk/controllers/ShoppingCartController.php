@@ -51,6 +51,11 @@ class ShoppingCartController extends Controller
 		echo Shop::getPriceTotal();
 	}
 
+	public function actionGetShippingCosts() {
+		echo Shop::getShippingMethod(true);
+	}
+
+
 	public function actionUpdateAmount() {
 		$cart = Shop::getCartContent();
 
