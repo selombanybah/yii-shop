@@ -60,15 +60,21 @@ class CustomerController extends Controller
 						$model->addError('password', Shop::t('Password is empty'));
 					} else {
 						$user = new YumUser;
+						$profile = new YumProfile;
+						$profile->attributes = $_POST['Customer'];
+						$profile->attributes = $_POST['Address'];
 						if($user->register(
 									strtr($model->email, array('@' => '_', '.' => '_')),
 									$_POST['Customer']['password'],
-									$model->email)) {
-							$user->status = YumUser::STATUS_ACTIVATED;
+									$profile)) {
+							$user->status = YumUser::STATUS_ACTIVE;
 							$user->save(false, array('status'));
 							$model->user_id = $user->id;
+							Shop::setFlash(Shop::t('Successfully registered user'));
 						} else {
 							$model->addErrors($user->getErrors());
+							$model->addErrors($profile->getErrors());
+							Shop::setFlash(Shop::t('Error while registering user'));
 						}
 					} 
 				}

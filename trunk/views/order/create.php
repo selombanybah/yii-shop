@@ -55,7 +55,7 @@ $this->renderPartial('application.modules.shop.views.shoppingCart.view');
 echo '<h3>'.Shop::t('Please add additional comments to the order here').'</h3>'; 
 echo CHtml::textArea('Order[Comment]',
 	@Yii::app()->user->getState('order_comment'), array(
-		'style'=>'width:600px; height:100px;padding:10px;'));
+		'class' => 'order_comment'));
 
 echo '<br /><br />';
 

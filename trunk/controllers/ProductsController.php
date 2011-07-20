@@ -3,7 +3,7 @@
 class ProductsController extends Controller
 {
 	public $_model;
-
+	public $pageTitle;
 
 	public function filters()
 	{
@@ -28,6 +28,9 @@ class ProductsController extends Controller
 				);
 	}
 
+	// This method returns a set of variations that is possible for a given
+	// product. This is used in the Image Upload Widget as a ajax response,
+	// for example.
 	public function actionGetVariations() {
 		if(Yii::app()->request->isAjaxRequest && isset($_POST['product'])) {
 			$product = Products::model()->findByPk($_POST['product']); 
