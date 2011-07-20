@@ -130,7 +130,7 @@ foreach($methods as $method) {
 	echo '<div class="row">';
 	echo CHtml::radioButton("ShippingMethod", $i == 0, array(
 				'value' => $method->id));
-	echo '<div class="float-left">';
+	echo '<div class="float-left shipping_method">';
 	echo CHtml::label($method->title, 'ShippingMethod');
 	echo CHtml::tag('p', array(), $method->description);
 	echo CHtml::tag('p', array(),

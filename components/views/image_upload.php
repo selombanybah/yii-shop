@@ -68,9 +68,10 @@ if(count($products) > 1) {
 			$('#variations').load('".Yii::app()->controller->createUrl(
 		'//shop/products/getVariations')."',
 				{'product': ".@$products[$selected]->product_id."});
+
 			$('#product').change(function() {
 				$('#variations').load('".Yii::app()->controller->createUrl('//shop/products/getVariations')."', $(this));
 				});
-			");
+			", CClientScript::POS_READY);
 }
 ?>

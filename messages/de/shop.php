@@ -1,5 +1,8 @@
 <?php
 return array(
+		'Successfully registered user' => 'Benutzerregistrierung erfolgreich',
+		'Error while registering user' => 'Fehler bei der Benutzerregistrierung',
+		'Tax percent' => 'Steuersatz',
 		'Manage Payment Methods' => 'Zahlungsmethoden verwalten',
 		'Phone' => 'Telefonnummer',
 		'Update customer data' => 'Kundendaten bearbeiten',

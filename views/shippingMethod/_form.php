@@ -34,7 +34,8 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'tax_id'); ?>
-		<?php echo $form->textField($model,'tax_id'); ?>
+		<?php echo $form->dropDownList($model,'tax_id', 
+				CHtml::listData(Tax::model()->findAll(), 'id', 'title')); ?>
 		<?php echo $form->error($model,'tax_id'); ?>
 	</div>
 

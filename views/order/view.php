@@ -98,20 +98,17 @@ if($model->positions)
 
 <div style="clear:both;"> </div>
 
-<div class="buttons"> 
-<?php
+<ul class="buttons">
+<li> <?php echo CHtml::link(Shop::t('Update order status'), array(
+			'//shop/order/update', 'id' => $model->order_id ));  ?> </li>
 
-echo CHtml::link(Shop::t('Update order status'), array(
-			'//shop/order/update', 'id' => $model->order_id )); 
+<li> <?php echo CHtml::link(Shop::t('Delivery slip'), array(
+			'//shop/order/slip', 'id' => $model->order_id )); ?>  </li>
 
-echo CHtml::link(Shop::t('Delivery slip'), array(
-			'//shop/order/slip', 'id' => $model->order_id )); 
+<li> <?php echo CHtml::link(Shop::t('Invoice'), array(
+			'//shop/order/invoice', 'id' => $model->order_id)); ?>  </li>
 
-echo CHtml::link(Shop::t('Invoice'), array(
-			'//shop/order/invoice', 'id' => $model->order_id)); 
+<li> <?php echo CHtml::link(Shop::t('Back to Orders'), array(
+			'//shop/order/admin')); ?>  </li>
 
-echo CHtml::link(Shop::t('Back to Orders'), array(
-			'//shop/order/admin')); 
-
-?>
-</div>
+</ul>

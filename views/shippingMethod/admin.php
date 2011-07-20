@@ -16,7 +16,7 @@ $this->breadcrumbs=array(
 		'id',
 		'weight_range',
 		'title',
-		'tax.title',
+		'tax.percent',
 		'price',
 		array(
 			'class'=>'CButtonColumn',

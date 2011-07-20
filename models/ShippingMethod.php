@@ -69,6 +69,7 @@ class ShippingMethod extends CActiveRecord
 			'weight_range' => Shop::t('Weight range'),
 			'title' => Shop::t('Title'),
 			'description' => Shop::t('Description'),
+			'percent' => Shop::t('Tax percent'),
 			'tax_id' => Shop::t('Tax'),
 			'price' => Shop::t('Price'),
 		);
