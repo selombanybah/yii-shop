@@ -13,8 +13,7 @@ class ImageUploadWidget extends CPortlet
 	public function init()
 	{
 		if($this->products === null)
-			throw new CException(
-					Shop::t(
+			throw new CException( Shop::t(
 						'Please provide a product that can be bought with the ImageUploadWidget'));
 
 		return parent::init();
