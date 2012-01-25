@@ -21,7 +21,9 @@ else {
 <?php echo Shop::t('Please select a image from your hard drive'); ?>
 </div>
 
-<div id="variations"> </div>
+<strong> <?php	echo CHtml::label( Shop::t('Filename'), 'filename' ); ?> </strong>
+<?php	echo CHtml::fileField( 'filename'); ?>
+<div id="variations"></div>
 
 <div id="image_upload_loading" style="display: none;"> 
 <?php echo CHtml::image(Yii::app()->assetManager->publish(
@@ -67,10 +69,11 @@ if(count($products) > 1) {
 	Yii::app()->clientScript->registerScript('product_selection', "
 			$('#variations').load('".Yii::app()->controller->createUrl(
 		'//shop/products/getVariations')."',
-				{'product': ".@$products[$selected]->product_id."});
+				{'product': $('#product').val() });
 
 			$('#product').change(function() {
-				$('#variations').load('".Yii::app()->controller->createUrl('//shop/products/getVariations')."', $(this));
+				$('#variations').load('".Yii::app()->controller->createUrl(
+				'//shop/products/getVariations')."', $(this));
 				});
 			", CClientScript::POS_READY);
 }

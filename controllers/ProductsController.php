@@ -42,7 +42,6 @@ class ProductsController extends Controller
 					
 					echo '<div class="shop-variation-element">';
 					
-					
 					echo '<strong>'.CHtml::label($variation[0]->specification->title.'</strong>',
 							$field, array(
 								'class' => 'lbl-header'));
@@ -71,9 +70,7 @@ class ProductsController extends Controller
 										'template' => '{input} {label}',
 										'separator' =>'<div class="clear"></div>',
 										));
-					} else if ($variation[0]->specification->input_type == 'image') {
-						echo CHtml::fileField('filename');
-					}
+					} 
 					echo '</div>';
 				}
 			}
