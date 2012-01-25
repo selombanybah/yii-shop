@@ -4,7 +4,6 @@ class Order extends CActiveRecord
 {
 	public $user_id;
 
-
 	public function limit($limit=5)
 	{
 		$this->getDbCriteria()->mergeWith(array(
