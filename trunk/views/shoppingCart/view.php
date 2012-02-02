@@ -76,16 +76,16 @@ if($products) {
 							}
 						} else
 							$variations .= $specification . ': ' . $variation . '<br />';
-					} else {
-						$variations .= CHtml::image(
+					} 
+
+						$img = CHtml::image(
 								Yii::app()->baseUrl.'/'.$variation, '', array(
 									'width' => Shop::module()->imageWidthThumb));
-					}
 			}
 		}
 
 			printf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td class="text-right price_single_'.$position.'">%s</td><td class="text-right price_'.$position.'">%s</td><td>%s</td></tr>',
-					$model->getImage(0, true),
+					$img,
 					CHtml::textField('amount_'.$position,
 						$product['amount'], array(
 							'size' => 4,

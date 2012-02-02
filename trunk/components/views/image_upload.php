@@ -34,11 +34,13 @@ else {
 
 <?php
 echo '<div style="clear: both;"></div>';
+if($ask_for_amount) {
 echo '<div class="shop-variation-amount">';
 echo '<strong>'.CHtml::label(Shop::t('Amount'), 'ShoppingCart_amount').'</strong>';
 echo ': ';
 echo CHtml::textField('amount', 1, array('size' => 3));
 echo '</div>';
+} else echo CHtml::hiddenField('amount', 1);
 
 echo CHtml::submitButton(
 		Shop::t('Add to shopping Cart'), array(

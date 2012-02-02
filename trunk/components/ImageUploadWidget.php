@@ -8,6 +8,7 @@ class ImageUploadWidget extends CPortlet
 {
 	public $products = null;
 	public $selected = null;
+	public $ask_for_amount = true;
 	public $view = 'image_upload';
 
 	public function init()
@@ -39,6 +40,7 @@ class ImageUploadWidget extends CPortlet
 
 		$this->render($this->view, array(
 					'selected' => $this->selected,
+					'ask_for_amount' => $this->ask_for_amount,
 					'products' => $products));
 		return parent::run();
 	}
