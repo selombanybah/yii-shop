@@ -9,7 +9,7 @@ if(count($products) == 1) {
 	echo $products[0]->title;
 }
 else {
-	echo '<strong>'.Shop::t('Select a Product').': </strong>';
+	echo '<span class="step-1">1. </span><strong>'.Shop::t('Select a Product').': </strong>';
 	echo CHtml::dropDownList('product',
 			0,
 			CHtml::listData($products, 'product_id', 'title')); 
@@ -18,12 +18,15 @@ else {
 <hr />
 
 <div id="please_select_a_image" style="display: none;"> 
-<?php echo Shop::t('Please select a image from your hard drive'); ?>
+<?php echo Shop::t( 'Please select a image from your hard drive'); ?>
 </div>
 
-<strong> <?php	echo CHtml::label( Shop::t('Filename'), 'filename' ); ?> </strong>
+<strong> <?php	echo '<span class="step-2">2. </span> ' . CHtml::label( Shop::t(
+			'Filename'), 'filename' ); ?> </strong>
 <?php	echo CHtml::fileField( 'filename'); ?>
-<div id="variations"></div>
+<br />
+<span class="step-3" style="float: left;">3.&nbsp;</span><div id="variations"></div>
+<div style="clear:both;"></div>
 
 <div id="image_upload_loading" style="display: none;"> 
 <?php echo CHtml::image(Yii::app()->assetManager->publish(
