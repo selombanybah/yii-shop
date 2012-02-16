@@ -154,7 +154,14 @@
 			return true;
 		}
 
-		public static function flushCart() {
+		public static function flushCart($full = false) {
+			if($full) {
+				Yii::app()->user->setState('cart', array());
+				Yii::app()->user->setState('shipping_method', null);
+				Yii::app()->user->setState('payment_method', null);
+				Yii::app()->user->setState('order_comment', null);
+			}
+
 			return Shop::setCartContent(array());	
 		}
 

@@ -31,7 +31,7 @@ if($products) {
 //var_dump($products);die();
 
 	foreach($products as $position => $product) {
-		if(@$model = Products::model()->findByPk($product['product_id'])) {
+		if($model = Products::model()->findByPk($product['product_id'])) {
 			$variations = '';
 			if(isset($product['Variations'])) {
 				foreach($product['Variations'] as $specification => $variation) {
@@ -71,6 +71,8 @@ if($products) {
 											},
 											});
 							});
+
+										$('input:checked').trigger('click');
 										");
 		$variations .= '<br />';
 							}
@@ -94,8 +96,8 @@ if($products) {
 						),
 					$model->title,
 					$variations,
-					Shop::priceFormat($model->getPrice(@$product['Variations'])),
-					Shop::priceFormat($model->getPrice(@$product['Variations'], @$product['amount'])),
+					Shop::priceFormat($model->getPrice($product['Variations'])),
+					Shop::priceFormat($model->getPrice($product['Variations'], $product['amount'])),
 					CHtml::link(Shop::t('Remove'), array(
 							'//shop/shoppingCart/delete',
 							'id' => $position), array(

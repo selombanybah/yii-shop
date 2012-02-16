@@ -181,7 +181,6 @@ class OrderController extends Controller
 		if(!$shipping_method)
 			$shipping_method = Yii::app()->user->getState('shipping_method');
 
-
 		if(!$customer) {
 			$this->render('/customer/create', array(
 						'action' => array('//shop/customer/create')));
@@ -256,22 +255,20 @@ class OrderController extends Controller
 					$position->order_id = $order->order_id;
 					$position->product_id = $product['product_id'];
 					$position->amount = $product['amount'];
-					$position->specifications = @json_encode($product['Variations']);
+					$position->specifications = json_encode($product['Variations']);
 					$position->save();
-					Yii::app()->user->setState('cart', array());
-					Yii::app()->user->setState('shipping_method', null);
-					Yii::app()->user->setState('payment_method', null);
-					Yii::app()->user->setState('order_comment', null);
 				}
+				
 				Shop::mailNotification($order);
-				Shop::flushCart();
+				Shop::flushCart(true);
 
 				if(Shop::module()->payPalMethod !== false 
 						&& $order->payment_method == Shop::module()->payPalMethod) 
-					$this->redirect(array(Shop::module()->payPalUrl, 'order_id' => $order->order_id));
+					$this->redirect(array(Shop::module()->payPalUrl,
+								'order_id' => $order->order_id));
 				else
 					$this->redirect(Shop::module()->successAction);
-			} else 
+			} 
 				$this->redirect(Shop::module()->failureAction);
 		} else {
 			Shop::setFlash(
