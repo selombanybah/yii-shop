@@ -7,9 +7,13 @@
 					$title = $model->title;				
 					$value = $specification[0];
 				}
-				else {
+				else  {
 					$title = $model->title;				
-					$value = @ProductVariation::model()->findByPk($specification[0])->title;
+					$productvariation = ProductVariation::model()->findByPk($specification[0]);
+					if($productvariation)
+						$value = $productvariation->title;
+					else
+						$value = '';
 				}
 			} else if($key == 'image')  {
 				$title = Shop::t('Filename');
